@@ -1,0 +1,72 @@
+
+//nestable
+@import '~nestable2/jquery.nestable';
+
+
+//menu builder
+// .menu-builder .dd {
+//     position: relative;
+//     display: block;
+//     margin: 0;
+//     padding: 0;
+//     max-width: inherit;
+//     list-style: none;
+//     font-size: 13px;
+//     line-height: 20px;
+// }
+.menu-builder .dd {
+    margin-left: 40%;
+}
+.menu-builder .dd .item_actions {
+    z-index: 9;
+    position: relative;
+    top: 5px;
+    right: 10px;
+}
+.menu-builder .dd .item_actions .edit {
+    margin-right: 5px;
+}
+.menu-builder .dd-handle {
+    display: block;
+    height: 50px;
+    margin: 5px 0;
+    padding: 14px 25px;
+    color: #333;
+    text-decoration: none;
+    font-weight: 700;
+    border: 1px solid #ccc;
+    background: #fafafa;
+    border-radius: 3px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+@media screen and (max-width: 400px) and (min-width: 300px) {
+    .menu-builder .dd {
+        max-width: inherit;
+    }
+}
+
+@media screen and (max-width: 767px) and (min-width: 350px) {
+    .menu-builder .dd {
+        max-width: 300px;
+    }
+}
+
+@media screen and (max-width: 959px) and (min-width: 768px) {
+    .menu-builder .dd {
+        max-width: 300px;
+    }
+}
+
+@media screen and (min-width: 480px) and (max-width: 767px) {
+    .menu-builder .dd {
+        max-width: 300px;
+    }
+}
+
+@media screen and (max-width: 959px) {
+    .menu-builder .dd {
+        max-width: 300px;
+    }
+}
