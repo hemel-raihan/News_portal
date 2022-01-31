@@ -92,7 +92,10 @@
 @endphp
 @if($to_day >= $from_datee && $to_day <= $to_datee)
 @if ($start >= $from_time && $start <= $to_time)
-<iframe height="400" width="400" src="{{asset('uploads/video/'.$program->video)}}"></iframe>
+<iframe id="hem" height="400" width="400" src="{{asset('uploads/video/'.$program->video.'#t=10')}}"></iframe>
+{{-- <video>
+    <source src="{{asset('uploads/video/'.$program->video.'#t=10,20')}}" type="video/mp4">
+</video> --}}
 @endif
 @endif
 @endforeach
@@ -151,14 +154,11 @@
 @section('single_scripts')
 
 <script>
-    var test = '17:59';
-     var today = new Date();
-     var time = today.getHours() + ":" + today.getMinutes();
-     if(test == time)
-     {
-         alert('asd');
-     }
+    $(document).ready(function(){
+        $("#hem")[0].src += "?autoplay=1";
+    });
 </script>
+
 <script>
     $(document).ready(function(){
         $.post('{{ route('home.section.category') }}', {_token:'{{ csrf_token() }}'}, function(data){
