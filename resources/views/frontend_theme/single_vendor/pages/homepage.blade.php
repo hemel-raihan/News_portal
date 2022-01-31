@@ -77,6 +77,26 @@
         </div>
     </div>
 </section> --}}
+@foreach (\App\Models\Program\Program::all() as $program)
+@php
+    //$program = \App\Models\Program\Program::find(5);
+    $today = date("Y/m/d");
+    $to_day=date("Y-m-d",strtotime($today));
+    $mytime = Carbon\Carbon::now();
+    $start = Carbon\Carbon::parse($mytime)->format('h:i a');
+
+    $from_datee=date("Y-m-d",strtotime($program->start_date));
+    $from_time=date("h:i a",strtotime($program->start_time));
+    $to_datee=date("Y-m-d",strtotime($program->end_date));
+    $to_time=date("h:i a",strtotime($program->end_time));
+@endphp
+@if($to_day >= $from_datee && $to_day <= $to_datee)
+@if ($start >= $from_time && $start <= $to_time)
+<iframe height="400" width="400" src="{{asset('uploads/video/'.$program->video)}}"></iframe>
+@endif
+@endif
+@endforeach
+
 
 {{--Home Flashdeal section --}}
 <div id="home_flashdeal_section">
@@ -129,6 +149,16 @@
 @endsection
 
 @section('single_scripts')
+
+<script>
+    var test = '17:59';
+     var today = new Date();
+     var time = today.getHours() + ":" + today.getMinutes();
+     if(test == time)
+     {
+         alert('asd');
+     }
+</script>
 <script>
     $(document).ready(function(){
         $.post('{{ route('home.section.category') }}', {_token:'{{ csrf_token() }}'}, function(data){

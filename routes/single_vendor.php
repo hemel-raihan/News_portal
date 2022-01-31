@@ -17,6 +17,7 @@ Route::get('/user/register','SingleVendor\LoginController@register')->name('user
 Route::post('change-password', 'SingleVendor\ChangePasswordController@store')->name('change.password');
 
 
+
 Route::get('/', 'SingleVendor\HomepageController@index')->name('home');
 Route::post('/home/section/category', 'SingleVendor\HomepageController@load_category_section')->name('home.section.category');
 Route::post('/home/section/flashdeal', 'SingleVendor\HomepageController@load_flashdeal_section')->name('home.section.flashdeal');

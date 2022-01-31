@@ -41,50 +41,8 @@ Route::get('/user', function () {
 //     return view('frontend_theme.corporate.homepage');
 // })->name('home');
 
-//Route::get('/', 'Corporate\HomepageController@index')->name('home');
-// Route::get('/content/details/{id}', 'HomepageController@contentdetails')->name('content.details');
-
-// Route::get('/team/details/{id}', 'HomepageController@teamdetails')->name('team.details');
-
-// Route::get('/blog/posts/{id}', 'HomepageController@blogposts')->name('blog.posts');
-// Route::get('/post/details/{id}', 'HomepageController@postdetails')->name('posts.details');
-
-// Route::get('/general/posts/{id}', 'HomepageController@generalposts')->name('general.posts');
-// Route::get('/general/details/{id}', 'HomepageController@generaldetails')->name('general.details');
-
-// Route::get('/notice/details/{id}', 'HomepageController@noticedetails')->name('notice.details');
-
-// Route::get('/hotlinks/details/{id}', 'HomepageController@hhotlinksdetails')->name('hotlinks.details');
-
-// Route::get('/widget/details/{id}', 'Admin\sidebar\WidgetbuilderController@widgetdetails')->name('widget.details');
-
-// Route::get('/single', 'HomepageController@single')->name('single');
-// Route::get('/single-page', 'HomepageController@singlepage')->name('single.page');
-
-// Route::get('notices/all','Admin\Notice\NoticeController@noticeList')->name('notice.all');
-
-//Route::get('links/{details}','Admin\Link\LinkController@details')->name('link.details');
-
-
-
-//for corporate theme
-Route::get('/portfolio/posts/{id}', 'Corporate\HomepageController@portfolios')->name('portfolio.posts');
-Route::get('/portfolio/details/{id}', 'Corporate\HomepageController@portfoliodetails')->name('portfolio.details');
-
-Route::get('/service/posts/{id}', 'Corporate\HomepageController@services')->name('service.posts');
-Route::get('/service/details/{id}', 'Corporate\HomepageController@servicedetails')->name('service.details');
-
-Route::get('/price/posts/{id}', 'Corporate\HomepageController@prices')->name('price.posts');
-Route::get('/price/details/{id}', 'Corporate\HomepageController@pricedetails')->name('price.details');
-
-Route::get('/blog/posts/{id}', 'Corporate\HomepageController@blogs')->name('blog.posts');
-Route::get('/blog/details/{id}', 'Corporate\HomepageController@blogdetails')->name('blog.details');
-
-Route::get('/general/posts/{id}', 'Corporate\HomepageController@generals')->name('general.posts');
-Route::get('/general/details/{id}', 'Corporate\HomepageController@generaldetails')->name('general.details');
-
-Route::get('/contact', 'Corporate\HomepageController@contact')->name('contact');
-Route::post('/contact/store', 'Admin\ContactController@store')->name('contact.store');
+Route::get('/test/video', 'HomeController@video')->name('video');
+Route::post('/video/upload', 'HomeController@video_upload')->name('video.upload');
 
 
 //for admin authentication
@@ -256,7 +214,16 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
 
     Route::post('/orders/update_delivery_status', 'Sales\OrderController@update_delivery_status')->name('orders.update_delivery_status');
     Route::post('/orders/update_payment_status', 'Sales\OrderController@update_payment_status')->name('orders.update_payment_status');
-    Route::get('invoice/{order_id}', 'InvoiceController@invoice_download')->name('invoice.download');
+    //Route::get('invoice/{order_id}', 'InvoiceController@invoice_download')->name('invoice.download');
+
+
+    Route::resource('programs/programcategories','Program\CategoryController');
+    //Route::get('programcategories/{id}/edit', 'Program\CategoryController@fetchcategory')->name('programcategories.edit');
+    Route::get('fetch/programcategories', 'Program\CategoryController@fetchcategory')->name('programcategories.fetch');
+    Route::get('programcategories/{id}/status', 'Program\CategoryController@status')->name('programcategory.status');
+
+    Route::resource('programs','Program\ProgramController');
+
 });
 
 

@@ -36,6 +36,14 @@
 						</li>
 
                         <li class="slide">
+							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-layers"></i><span class="side-menu__label">Program Management</span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li><a href="{{route('admin.programs.index')}}" class="slide-item">All Programs</a></li>
+								<li><a href="{{route('admin.programcategories.index')}}" class="slide-item">All Categories</a></li>
+							</ul>
+						</li>
+
+                        <li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-shopping-cart"></i><span class="side-menu__label">Product Management</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
 								<li><a href="{{route('admin.products.create')}}" class="slide-item">Create New Product </a></li>

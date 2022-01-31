@@ -664,9 +664,8 @@
 					<select class="form-control form-select select2" data-bs-placeholder="Select Type" name="flash_deal_id" id="">
 						@foreach(\App\Models\Product\Flashdeal::where("status", 1)->get() as $flash_deal)
                         @foreach ($product->flashdeals as $flashproduct)
-
+                        <option value="{{$flash_deal->id}}" {{($flashproduct->id == $flash_deal->id) ? 'selected' : ''}}>{{$flash_deal->title}}</option>
                         @endforeach
-						<option value="{{$flash_deal->id}}" {{($flashproduct->id == $flash_deal->id) ? 'selected' : ''}}>{{$flash_deal->title}}</option>
                         @endforeach
 					</select>
                     @else
