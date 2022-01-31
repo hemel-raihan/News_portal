@@ -58,19 +58,20 @@
 						</li>
 
                         <li class="slide">
-							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-globe"></i><span class="side-menu__label">Blog Management</span><i class="angle fa fa-angle-right"></i></a>
+							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-globe"></i><span class="side-menu__label">News Management</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
-								<li><a href="{{route('admin.posts.create')}}" class="slide-item">Create New Post </a></li>
-								<li><a href="{{route('admin.posts.index')}}" class="slide-item">All Posts</a></li>
+								<li><a href="{{route('admin.posts.create')}}" class="slide-item">Create New News </a></li>
+								<li><a href="{{route('admin.posts.index')}}" class="slide-item">All News</a></li>
 								<li><a href="{{route('admin.categories.create')}}" class="slide-item">Add Category</a></li>
                                 <li><a href="{{route('admin.categories.index')}}" class="slide-item">All Categories</a></li>
 							</ul>
 						</li>
 
                         <li class="slide">
-							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-globe"></i><span class="side-menu__label">Sales Management</span><i class="angle fa fa-angle-right"></i></a>
+							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-globe"></i><span class="side-menu__label">Add Management</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
-								<li><a href="{{route('admin.all_orders.index')}}" class="slide-item">Order List</a></li>
+                                <li><a href="{{route('admin.advertisements.create')}}" class="slide-item">New Advertisement</a></li>
+								<li><a href="{{route('admin.advertisements.index')}}" class="slide-item">Advertisement List</a></li>
 							</ul>
 						</li>
 

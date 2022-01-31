@@ -106,8 +106,8 @@
     <source src="{{asset('uploads/video/VID-20220130-WA0000.mp4')}}" type="video/mp4" /><!-- Firefox / Opera / Chrome10 -->
 </video> --}}
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/SzOJ6RaXEtE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-</iframe>
+{{-- <iframe width="560" height="315" src="https://www.youtube.com/embed/SzOJ6RaXEtE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe> --}}
 
 <div id="elvideo"></div>
 
@@ -187,37 +187,37 @@ function fetchcategory()
                             $.each(response.programs, function(key, item){
                                 document.getElementById('elvideo').innerHTML ="<video id='videoElement' width=640 height=360 controls controlsList='nodownload' autoplay playsinline><p>Tu navegador no funciona, actualizalo</p></video>";
                                 var videoPlayer = document.getElementById('videoElement');
-                                videoPlayer.src = "http://localhost:8080/News_portal/public/uploads/video/"+item;
+                                videoPlayer.src = "http://localhost/News_portal/public/uploads/video/"+item;
                             });
                         }
                         else
                         {
                             var coma = response.programs.join(",");
-                            //console.log(coma);
+                            console.log(coma);
                             var str = coma;
-                            var n = str.includes(","); 
+                            var n = str.includes(",");
                             if (n) {
                             var nArr = str.split(',');
                                 document.getElementById('elvideo').innerHTML ="<video id='videoElement' width=640 height=360 controls controlsList='nodownload' autoplay playsinline><p>Tu navegador no funciona, actualizalo</p></video>";
                             var videoPlayer = document.getElementById('videoElement');
-                            videoPlayer.src = "http://localhost:8080/News_portal/public/uploads/video/"+nArr[0];
+                            videoPlayer.src = "http://localhost/News_portal/public/uploads/video/"+nArr[0];
                             i = 1;
                             videoPlayer.onended = function(){
                                 if (i < nArr.length) {
-                                    videoPlayer.src = "http://localhost:8080/News_portal/public/uploads/video/"+nArr[i]
+                                    videoPlayer.src = "http://localhost/News_portal/public/uploads/video/"+nArr[i]
                                 i++
                                 }
                               }
                             }
                         }
-               
+
         }
     });
 }
 
 });
 
-    
+
     </script>
 
 <script>

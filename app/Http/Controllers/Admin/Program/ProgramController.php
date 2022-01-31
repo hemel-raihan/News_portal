@@ -63,6 +63,19 @@ class ProgramController extends Controller
             $start = Carbon::parse($request->input('start_time'))->format('h:i a');
             $end = Carbon::parse($request->input('end_time'))->format('h:i a');
 
+
+            // $program_date = Program::all();
+            // foreach($program_date as $date)
+            // {
+            //     if($request->start_date == $date->start_date && $request->end_date == $date->end_date &&  $start > $date->start_time && $start < $date->end_time && $end > $date->end_time && $end < $date->end_time)
+            //     {
+            //         notify()->success("Already have a video in this date & time");
+            //         return back();
+            //     }
+            // }
+
+            // if($request->start_date != $date->start_date && $request->end_date != $date->end_date && $start != $date->start_time && $end != $date->end_time)
+            // {
             $program = Program::create([
                 'programcategory_id' => $request->categories,
                 'title' => $request->title,
@@ -75,6 +88,7 @@ class ProgramController extends Controller
             ]);
             notify()->success("Program Successfully created","Added");
             return redirect()->route('admin.programs.index');
+        //}
     }
 
     /**

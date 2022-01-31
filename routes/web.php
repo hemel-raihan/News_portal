@@ -223,6 +223,8 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
     Route::get('programcategories/{id}/status', 'Program\CategoryController@status')->name('programcategory.status');
 
     Route::resource('programs','Program\ProgramController');
+    Route::resource('advertisements','Advertisement\AddController');
+
 
 });
 
