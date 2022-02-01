@@ -92,14 +92,24 @@
 @endphp
 @if($to_day >= $from_datee && $to_day <= $to_datee)
 @if ($start >= $from_time && $start <= $to_time)
-<iframe id="hem" height="400" width="400" src="{{asset('uploads/video/'.$program->video.'#t=10')}}"></iframe>
-{{-- <video>
-    <source src="{{asset('uploads/video/'.$program->video.'#t=10,20')}}" type="video/mp4">
+{{-- <iframe id="hem" height="400" width="400" src="{{asset('uploads/video/'.$program->video.'#t=10')}}" autoplay loop></iframe> --}}
+
+{{-- <video class="video-slide" src="{{asset('uploads/video/'.$program->video)}}" autoplay loop>
 </video> --}}
 @endif
 @endif
 @endforeach
 
+{{-- <video width="640" height="360" autoplay controls>
+    <!-- MP4 must be first for iPad! -->
+    <source src="{{asset('uploads/video/VID-20220127-WA0010.mp4')}}" type="video/mp4" /><!-- Firefox / Opera / Chrome10 -->
+    <source src="{{asset('uploads/video/VID-20220130-WA0000.mp4')}}" type="video/mp4" /><!-- Firefox / Opera / Chrome10 -->
+</video> --}}
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/SzOJ6RaXEtE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+
+<div id="elvideo"></div>
 
 {{--Home Flashdeal section --}}
 <div id="home_flashdeal_section">
@@ -154,10 +164,61 @@
 @section('single_scripts')
 
 <script>
-    $(document).ready(function(){
-        $("#hem")[0].src += "?autoplay=1";
+
+$(document).ready(function(){
+
+fetchcategory();
+
+function fetchcategory()
+{
+    $.ajax({
+        type: "GET",
+        url: "{{route('home.video')}}",
+        dtaType: "json",
+        success: function(response)
+        {
+            //$.each(response.programs, function(key, item){
+
+                        // var str = "VID-20220127-WA0010.mp4,VID-20220130-WA0000.mp4";
+                        var len= response.programs.length;
+                        console.log(len);
+                        if(len == 1)
+                        {
+                            $.each(response.programs, function(key, item){
+                                document.getElementById('elvideo').innerHTML ="<video id='videoElement' width=640 height=360 controls controlsList='nodownload' autoplay playsinline><p>Tu navegador no funciona, actualizalo</p></video>";
+                                var videoPlayer = document.getElementById('videoElement');
+                                videoPlayer.src = "http://localhost:8080/News_portal/public/uploads/video/"+item;
+                            });
+                        }
+                        else
+                        {
+                            var coma = response.programs.join(",");
+                            //console.log(coma);
+                            var str = coma;
+                            var n = str.includes(","); 
+                            if (n) {
+                            var nArr = str.split(',');
+                                document.getElementById('elvideo').innerHTML ="<video id='videoElement' width=640 height=360 controls controlsList='nodownload' autoplay playsinline><p>Tu navegador no funciona, actualizalo</p></video>";
+                            var videoPlayer = document.getElementById('videoElement');
+                            videoPlayer.src = "http://localhost:8080/News_portal/public/uploads/video/"+nArr[0];
+                            i = 1;
+                            videoPlayer.onended = function(){
+                                if (i < nArr.length) {
+                                    videoPlayer.src = "http://localhost:8080/News_portal/public/uploads/video/"+nArr[i]
+                                i++
+                                }
+                              }
+                            }
+                        }
+               
+        }
     });
-</script>
+}
+
+});
+
+    
+    </script>
 
 <script>
     $(document).ready(function(){
