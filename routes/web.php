@@ -218,12 +218,16 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
 
 
     Route::resource('programs/programcategories','Program\CategoryController');
-    //Route::get('programcategories/{id}/edit', 'Program\CategoryController@fetchcategory')->name('programcategories.edit');
     Route::get('fetch/programcategories', 'Program\CategoryController@fetchcategory')->name('programcategories.fetch');
     Route::get('programcategories/{id}/status', 'Program\CategoryController@status')->name('programcategory.status');
 
     Route::resource('programs','Program\ProgramController');
+    Route::get('programs/{id}/status', 'Program\ProgramController@status')->name('program.status');
+
     Route::resource('advertisements','Advertisement\AddController');
+    Route::get('fetch/advertisements', 'Advertisement\AddController@fetchadd')->name('advertisements.fetch');
+    Route::get('advertisements/{id}/status', 'Advertisement\AddController@status')->name('advertisement.status');
+
 
 
 });

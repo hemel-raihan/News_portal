@@ -247,16 +247,16 @@ function fetchcategory()
 
 
                 var id = item.id;
-                var urll = '{{ route("admin.programcategory.status", ":id") }}';
-                urll = urll.replace(':id', id);
+                // var urll = '{{ route("admin.programcategory.status", ":id") }}';
+                // urll = urll.replace(':id', id);
 
                 if (item.status == true)
-                    {
-                    html = '<a  href='+urll+' class="btn btn-green">Active</a>';
-                    }
+                {
+                    html = '<button  value='+item.id+' class="active_status btn btn-green">Active</button>';
+                }
                 else
                 {
-                    html = '<a  href='+urll+' class="btn btn-danger">InActive</a>';
+                    html = '<button  value='+item.id+' class="inactive_status btn btn-danger">InActive</button>';
                 }
 
                 var delete_url = '{{ route("admin.programcategories.destroy", ":category") }}';
@@ -286,6 +286,65 @@ function fetchcategory()
         }
     });
 }
+
+$(document).on('click', '.active_status', function(e){
+    e.preventDefault();
+    var program_id = $(this).val();
+    var urll = '{{ route("admin.programcategory.status", ":id") }}';
+    urll = urll.replace(':id', program_id);
+    $.ajax({
+        type: 'GET',
+        url: urll,
+        success: function(response)
+        {
+            if(response.status == 404)
+            {
+                iziToast.success({
+                title: 'Error',
+                message: response.message,
+                 });
+            }
+            else
+            {
+                fetchcategory();
+                    iziToast.success({
+                    title: 'Changed',
+                    message: 'Successfully In Active Status',
+                 });
+            }
+        }
+    });
+});
+
+
+$(document).on('click', '.inactive_status', function(e){
+    e.preventDefault();
+    var program_id = $(this).val();
+    var urll = '{{ route("admin.programcategory.status", ":id") }}';
+    urll = urll.replace(':id', program_id);
+    $.ajax({
+        type: 'GET',
+        url: urll,
+        success: function(response)
+        {
+            if(response.status == 404)
+            {
+                iziToast.success({
+                title: 'Error',
+                message: response.message,
+                 });
+            }
+            else
+            {
+                fetchcategory();
+                    iziToast.success({
+                    title: 'Changed',
+                    message: 'Successfully Activated Status',
+                 });
+            }
+        }
+    });
+});
 
 
 $(document).on('click', '.edit_category', function(e){

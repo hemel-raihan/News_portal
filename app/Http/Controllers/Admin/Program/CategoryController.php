@@ -76,17 +76,25 @@ class CategoryController extends Controller
             $category->status = false;
             $category->save();
 
-            notify()->success('Successfully Deactiveated Post');
+            return response()->json(
+                [
+                    'status' => 200,
+                ]
+            );
         }
         elseif($category->status == false)
         {
             $category->status = true;
             $category->save();
 
-            notify()->success('Removed the Activeated Approval');
+            return response()->json(
+                [
+                    'status' => 200,
+                ]
+            );
         }
 
-        return redirect()->back();
+        //return redirect()->back();
     }
 
     /**

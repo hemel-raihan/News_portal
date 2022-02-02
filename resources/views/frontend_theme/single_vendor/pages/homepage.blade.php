@@ -200,11 +200,11 @@ function fetchcategory()
                             var nArr = str.split(',');
                                 document.getElementById('elvideo').innerHTML ="<video id='videoElement' width=640 height=360 controls controlsList='nodownload' autoplay playsinline><p>Tu navegador no funciona, actualizalo</p></video>";
                             var videoPlayer = document.getElementById('videoElement');
-                            videoPlayer.src = "http://localhost/News_portal/public/uploads/video/"+nArr[0];
+                            videoPlayer.src = "http://localhost/News_portal/public/uploads/video/"+nArr[0]+"#t=0,10";
                             i = 1;
                             videoPlayer.onended = function(){
                                 if (i < nArr.length) {
-                                    videoPlayer.src = "http://localhost/News_portal/public/uploads/video/"+nArr[i]
+                                    videoPlayer.src = "http://localhost/News_portal/public/uploads/video/"+nArr[i]+"#t=0,10";
                                 i++
                                 }
                               }

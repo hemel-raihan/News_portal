@@ -22,6 +22,14 @@ class Addcontroller extends Controller
         return view('backend.admin.advertisement.index',compact('advertisements'));
     }
 
+    public function fetchadd()
+    {
+        $advertisements = Advertisement::all();
+        return response()->json([
+            'advertisements' => $advertisements,
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -92,6 +100,37 @@ class Addcontroller extends Controller
         return redirect()->route('admin.advertisements.index');
     }
 
+    public function status($id)
+    {
+        $advertisement = Advertisement::find($id);
+        if($advertisement->status == true)
+        {
+            $advertisement->status = false;
+            $advertisement->save();
+
+            return response()->json(
+                [
+                    'status' => 200,
+                    'advertisement' => $advertisement,
+                ]
+            );
+        }
+        elseif($advertisement->status == false)
+        {
+            $advertisement->status = true;
+            $advertisement->save();
+
+            return response()->json(
+                [
+                    'status' => 200,
+                    'advertisement' => $advertisement,
+                ]
+            );
+        }
+
+        //return redirect()->back();
+    }
+
     /**
      * Display the specified resource.
      *
@@ -111,7 +150,7 @@ class Addcontroller extends Controller
      */
     public function edit(Advertisement $advertisement)
     {
-        //
+        return view('backend.admin.advertisement.form',compact('advertisement'));
     }
 
     /**
@@ -123,7 +162,63 @@ class Addcontroller extends Controller
      */
     public function update(Request $request, Advertisement $advertisement)
     {
-        //
+        $this->validate($request,[
+            'title' => 'required',
+            'banner' => 'mimes:png,jpg,jpeg,bmp|max:1024',
+            'position' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+        ]);
+
+        //get form image
+        $image = $request->file('banner');
+        $slug = Str::slug($request->name);
+
+        if(isset($image))
+        {
+            $currentDate = Carbon::now()->toDateString();
+            $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
+
+            $addphotoPath = public_path('uploads/advertisement');
+
+            $addphoto_path = public_path('uploads/advertisement/'.$advertisement->banner);  // Value is not URL but directory file path
+            if (file_exists($addphoto_path)) {
+
+                @unlink($addphoto_path);
+
+            }
+            $img                     =       Image::make($image->path());
+            $img->resize(900, 600)->save($addphotoPath.'/'.$imagename);
+
+        }
+        else
+        {
+            $imagename = $advertisement->banner;
+        }
+
+        if(!$request->status)
+        {
+            $status = 0;
+        }
+        else
+        {
+            $status = 1;
+        }
+
+        $advertisement->update([
+            'title' => $request->title,
+            'url' => $request->url,
+            'banner' => $imagename,
+            'text_add' => $request->test_add,
+            'position' => $request->position,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'status' => $status,
+
+        ]);
+
+        notify()->success("Advertisement Successfully Updated","Update");
+        return redirect()->route('admin.advertisements.index');
     }
 
     /**
@@ -134,6 +229,8 @@ class Addcontroller extends Controller
      */
     public function destroy(Advertisement $advertisement)
     {
-        //
+        $advertisement->delete();
+        notify()->success('advertisement Deleted Successfully','Delete');
+        return back();
     }
 }

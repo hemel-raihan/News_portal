@@ -60,17 +60,17 @@
 									</tr>
 								</thead>
 								<tbody>
-                                @foreach($advertisements as $advertisement)
+                                {{-- @foreach($advertisements as $advertisement)
 									<tr>
 										<td>{{Str::limit($advertisement->title,'10')}}</td>
                                         <td> <img class="" width="70px" src="{{ asset('uploads/advertisement/'.$advertisement->banner)}}"></td>
                                         <td>{{$advertisement->position}}</td>
 										<td>
-                                            {{-- @if($sidebar->status == true)
-                                            <a href="{{route('admin.sidebar.status',$sidebar->id)}}" class="btn btn-info">Active</a>
+                                            @if($advertisement->status == true)
+                                            <a href="{{route('admin.advertisement.status',$advertisement->id)}}" class="btn btn-info">Active</a>
                                             @else
-                                            <a href="{{route('admin.sidebar.status',$sidebar->id)}}" class="btn btn-primary">InActive</a>
-                                            @endif --}}
+                                            <a href="{{route('admin.advertisement.status',$advertisement->id)}}" class="btn btn-primary">InActive</a>
+                                            @endif
                                         </td>
 
 										<td>
@@ -90,7 +90,7 @@
                                             </td>
 
 									</tr>
-                                @endforeach
+                                @endforeach --}}
 
 								</tbody>
 							</table>
@@ -127,6 +127,130 @@
     </script>
 
 @section('scripts')
+
+<script>
+    $(document).ready(function(){
+
+fetchadd();
+
+function fetchadd()
+{
+$.ajax({
+    type: "GET",
+    url: "{{route('admin.advertisements.fetch')}}",
+    dtaType: "json",
+    success: function(response)
+    {
+        $('tbody').html('');
+        $.each(response.advertisements, function(key, item){
+
+
+            var id = item.id;
+            // var urll = '{{ route("admin.programcategory.status", ":id") }}';
+            // urll = urll.replace(':id', id);
+
+            if (item.status == true)
+                {
+                html = '<button  value='+item.id+' class="active_status btn btn-green">Active</button>';
+                }
+            else
+            {
+                html = '<button  value='+item.id+' class="inactive_status btn btn-danger">InActive</button>';
+            }
+
+            var edit_url = '{{ route("admin.advertisements.edit", ":advertisement") }}';
+            edit_url = edit_url.replace(':advertisement', id);
+
+            var delete_url = '{{ route("admin.advertisements.destroy", ":advertisement") }}';
+            delete_url = delete_url.replace(':advertisement', id);
+
+            $('tbody').append(`<tr>
+                    <td>`+item.title+`</td>
+                    <td><img class="" width="70px" src="{{ asset('uploads/advertisement/`+item.banner+`')}}"></td>
+                    <td>`+item.position+`</td>
+                    <td>
+                        `+html+`
+                    </td>
+                    <td>
+                        <a href="`+edit_url+`" class="btn btn-success">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <button class="btn btn-danger waves effect" type="button"
+                        onclick="deletepost$advertisement(`+item.id+`)" >
+                        <i class="fa fa-trash"></i>
+                        </button>
+                        <form id="deleteform-`+item.id+`" action="`+delete_url+`" method="POST" style="display: none;">
+                        @csrf
+                        @method('DELETE')
+                        </form>
+                    </td>
+                    </tr>`);
+        });
+    }
+});
+}
+
+$(document).on('click', '.active_status', function(e){
+    e.preventDefault();
+    var add_id = $(this).val();
+    var urll = '{{ route("admin.advertisement.status", ":id") }}';
+    urll = urll.replace(':id', add_id);
+    $.ajax({
+        type: 'GET',
+        url: urll,
+        success: function(response)
+        {
+            if(response.status == 404)
+            {
+                iziToast.success({
+                title: 'Error',
+                message: response.message,
+                 });
+            }
+            else
+            {
+                 fetchadd();
+                    iziToast.success({
+                    title: 'Changed',
+                    message: 'Successfully In Active Status',
+                 });
+            }
+        }
+    });
+});
+
+
+$(document).on('click', '.inactive_status', function(e){
+    e.preventDefault();
+    var add_id = $(this).val();
+    var urll = '{{ route("admin.advertisement.status", ":id") }}';
+    urll = urll.replace(':id', add_id);
+    $.ajax({
+        type: 'GET',
+        url: urll,
+        success: function(response)
+        {
+            if(response.status == 404)
+            {
+                iziToast.success({
+                title: 'Error',
+                message: response.message,
+                 });
+            }
+            else
+            {
+                fetchadd();
+                    iziToast.success({
+                    title: 'Changed',
+                    message: 'Successfully Activated Status',
+                 });
+            }
+        }
+    });
+});
+
+});
+</script>
 
 <!-- DATA TABLE JS-->
         <script src="{{ asset('assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
