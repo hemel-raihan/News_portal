@@ -48,27 +48,42 @@ class Addcontroller extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate($request,[
             'title' => 'required|unique:advertisements',
-            'banner' => 'mimes:png,jpg,jpeg,bmp|max:1024',
+            'banner' => 'max:1024',
             'position' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
         ]);
-
         //get form image
         $image = $request->file('banner');
         $slug = Str::slug($request->name);
 
         if(isset($image))
         {
-            $currentDate = Carbon::now()->toDateString();
-            $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
+            if($image->getClientOriginalExtension() == 'gif')
+            {
+                $image->move('public/uploads/advertisement',$image->getClientOriginalName());
+                $imagename = $image->getClientOriginalName();
+            }
+            else
+            {
+                $currentDate = Carbon::now()->toDateString();
+                $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
-             $addphotoPath = public_path('uploads/advertisement');
-            $img                     =       Image::make($image->path());
-            $img->resize(900, 600)->save($addphotoPath.'/'.$imagename);
+                $addphotoPath = public_path('uploads/advertisement');
+                $img                     =       Image::make($image->path());
+                // if($request->position == 'Top-Middle')
+                // {
+                    $img->resize(720, 90)->save($addphotoPath.'/'.$imagename);
+                // }
+                // else
+                // {
+                //     $img->resize(900, 600)->save($addphotoPath.'/'.$imagename);
+                // }
 
+            }
         }
         else
         {
@@ -164,7 +179,7 @@ class Addcontroller extends Controller
     {
         $this->validate($request,[
             'title' => 'required',
-            'banner' => 'mimes:png,jpg,jpeg,bmp|max:1024',
+            'banner' => 'max:1024',
             'position' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
@@ -176,6 +191,13 @@ class Addcontroller extends Controller
 
         if(isset($image))
         {
+            if($image->getClientOriginalExtension() == 'gif')
+            {
+                $image->move('public/uploads/advertisement',$image->getClientOriginalName());
+                $imagename = $image->getClientOriginalName();
+            }
+            else
+            {
             $currentDate = Carbon::now()->toDateString();
             $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
@@ -188,7 +210,8 @@ class Addcontroller extends Controller
 
             }
             $img                     =       Image::make($image->path());
-            $img->resize(900, 600)->save($addphotoPath.'/'.$imagename);
+            $img->resize(720, 90)->save($addphotoPath.'/'.$imagename);
+        }
 
         }
         else

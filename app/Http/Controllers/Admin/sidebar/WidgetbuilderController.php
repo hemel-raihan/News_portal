@@ -40,12 +40,19 @@ class WidgetbuilderController extends Controller
 
         if(isset($image))
         {
-            $currentDate = Carbon::now()->toDateString();
-            $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
+            if($image->getClientOriginalExtension() == 'gif')
+            {
+                $image->move('public/uploads/sidebarphoto',$image->getClientOriginalName());
+                $imagename = $image->getClientOriginalName();
+            }
+            else
+            {
+                $currentDate = Carbon::now()->toDateString();
+                $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
-            $sidebarphotoPath = public_path('uploads/sidebarphoto');
-            $image->move($sidebarphotoPath,$imagename);
-
+                $sidebarphotoPath = public_path('uploads/sidebarphoto');
+                $image->move($sidebarphotoPath,$imagename);
+            }
         }
         else
         {
@@ -135,7 +142,7 @@ class WidgetbuilderController extends Controller
         notify()->success('Widget Item Updated','Update');
         return redirect()->route('admin.widget.builder',$id);
     }
-    
+
     public function widgetdetails($id)
     {
         $widget = Widget::find($id);

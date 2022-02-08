@@ -11,9 +11,21 @@
 
             <div class="header-misc mb-4 mb-lg-0 d-none d-lg-flex">
 
+
+                @foreach (\App\Models\Advertisement\Advertisement::where([['position','=','Top-Middle'],['status','=',1]])->get() as $advertisement)
+                @php
+                    $today = date("Y/m/d");
+                    $to_day=date("Y-m-d",strtotime($today));
+                    $from_datee=date("Y-m-d",strtotime($advertisement->start_date));
+                    $to_datee=date("Y-m-d",strtotime($advertisement->end_date));
+                @endphp
+                @if ($to_day >= $from_datee && $to_day <= $to_datee)
                 <div class="top-advert">
-                    <img height="90" width="720" src="{{asset('assets/frontend/images/banner2.jpg')}}" alt="Ad">
+                    <img height="90" width="720" src="{{asset('uploads/advertisement/'.$advertisement->banner)}}" alt="Ad">
                 </div>
+                @else
+                @endif
+                @endforeach
 
             </div>
 

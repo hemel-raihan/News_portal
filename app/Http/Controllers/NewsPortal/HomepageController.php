@@ -40,7 +40,7 @@ class HomepageController extends Controller
         $catpost = $category->childrenRecursive()->get();
         foreach($catpost as $cat)
         {
-            $news = $cat->posts()->orderBy('id', 'desc')->take(2)->get();
+            $news = $cat->posts;
             $data[] = $news;
             // $decode = json_encode($data);
         }

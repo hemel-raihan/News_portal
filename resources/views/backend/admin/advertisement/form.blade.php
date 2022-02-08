@@ -150,16 +150,18 @@
                         <select class="form-control form-select select2" data-bs-placeholder="Select Type" name="position" id="type" required onChange="setWidget()">
                             <option value="">Select Postion</option>
                             <option value="Top-Middle" {{($advertisement->position == 'Top-Middle') ? 'selected' : ''}} >Top-Middle</option>
-                            <option value="Top-Left" {{($advertisement->position == 'Top-Left') ? 'selected' : ''}}>Top-Left</option>
-                            <option value="Top-Right" {{($advertisement->position == 'Top-Right') ? 'selected' : ''}} >Top-Right</option>
+                            <option value="Body-Position-1" {{($advertisement->position == 'Body-Position-1') ? 'selected' : ''}}>Body-Position-1</option>
+                            <option value="Body-Position-2" {{($advertisement->position == 'Body-Position-2') ? 'selected' : ''}} >Body-Position-2</option>
+                            <option value="Body-Position-3" {{($advertisement->position == 'Body-Position-3') ? 'selected' : ''}} >Body-Position-3</option>
                         </select>
                         @else
                         <label class="form-label" for="type">Select Position</label>
                         <select class="form-control form-select select2" data-bs-placeholder="Select Type" name="position" id="type" required onChange="setWidget()">
                             <option value="">Select Postion</option>
                             <option value="Top-Middle">Top-Middle</option>
-                            <option value="Top-Left">Top-Left</option>
-                            <option value="Top-Right">Top-Right</option>
+                            <option value="Body-Position-1">Body-Position-1</option>
+                            <option value="Body-Position-2">Body-Position-2</option>
+                            <option value="Body-Position-3">Body-Position-3</option>
                         </select>
                         @endisset
                     </div>
@@ -171,11 +173,7 @@
 						</div>
 					</div>
 
-					<div class="form-group featur">
-						<label class="form-label">Banner</label>
-						<!-- <input id="demo" type="file" name="image" accept=".jpg, .png, image/jpeg, image/png" multiple="" class="ff_fileupload_hidden"> -->
-                        <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($advertisement) ? asset('uploads/advertisement/'.$advertisement->banner) : '' }}" name="banner">
-					</div>
+
 
 				</div>
 				<div class="card-footer text-end">
@@ -241,6 +239,12 @@
 						<label for="exampleInputname">End Time</label>
 						<input type="time" class="form-control" value="{{$advertisement->end_time ?? old('end_time') }}" name="end_time" id="">
 					</div> --}}
+
+                    <div class="form-group featur">
+						<label class="form-label">Banner</label>
+						<!-- <input id="demo" type="file" name="image" accept=".jpg, .png, image/jpeg, image/png" multiple="" class="ff_fileupload_hidden"> -->
+                        <input type="file"  class="dropify form-control" data-default-file="{{ isset($advertisement) ? asset('uploads/advertisement/'.$advertisement->banner) : '' }}" name="banner">
+					</div>
 
 				</div>
 
