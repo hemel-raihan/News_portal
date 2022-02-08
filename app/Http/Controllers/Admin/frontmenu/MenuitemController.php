@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Frontmenu\Frontmenuitem;
 use App\Models\general_content\Contentcategory;
+use Arr;
+use PhpParser\Node\Expr\Cast\Array_;
 
 class MenuitemController extends Controller
 {
@@ -53,55 +55,56 @@ class MenuitemController extends Controller
 
         $contentcategory_id = null;
         $blogcategory_id = null;
-        $page_id = null;
-        foreach($request->input('slug') as $key => $value) {
-            $slug = $request->input('slug')[$key];
-        }
-        foreach($request->input('id') as $key => $value) {
-            $content_id = $request->input('id')[$key];
-        }
+         $page_id = null;
+        // foreach($request->input('slug') as $key => $value) {
+        //     $slug = $request->input('slug')[$key];
 
-        $contentcategory = Contentcategory::all();
-        foreach($contentcategory  as $cat)
-        {
-            if($cat->slug == $slug)
-            {
-                $contentcategory_id = $content_id;
-            }
-            else
-            {
-                $contentcategory_id = null;
-            }
+        // }
+        // foreach($request->input('id') as $key => $value) {
+        //     $content_id = $request->input('id')[$key];
+        // }
 
-        }
+        // $contentcategory = Contentcategory::all();
+        // foreach($contentcategory  as $cat)
+        // {
+        //     if($cat->slug == $slug)
+        //     {
+        //         $contentcategory_id = $content_id;
+        //     }
+        //     else
+        //     {
+        //         $contentcategory_id = null;
+        //     }
 
-        $blogcategory = category::all();
-        foreach($blogcategory  as $blogcat)
-        {
-            if($blogcat->slug == $slug)
-            {
-                $blogcategory_id = $content_id;
-            }
-            else
-            {
-                $blogcategory_id = null;
-            }
+        // }
 
-        }
+        // $blogcategory = category::all();
+        // foreach($blogcategory  as $blogcat)
+        // {
+        //     if($blogcat->slug == $slug)
+        //     {
+        //         $blogcategory_id = $content_id;
+        //     }
+        //     else
+        //     {
+        //         $blogcategory_id = null;
+        //     }
 
-        $page = Page::all();
-        foreach($page  as $page)
-        {
-            if($page->slug == $slug)
-            {
-                $page_id = $content_id;
-            }
-            else
-            {
-                $page_id = null;
-            }
+        // }
 
-        }
+        // $page = Page::all();
+        // foreach($page  as $page)
+        // {
+        //     if($page->slug == $slug)
+        //     {
+        //         $page_id = $content_id;
+        //     }
+        //     else
+        //     {
+        //         $page_id = null;
+        //     }
+
+        // }
 
 
 
@@ -121,19 +124,98 @@ class MenuitemController extends Controller
         //     //'target' => $request->target,
         // ]);
 
+        // $contentcategory = Contentcategory::all();
+        //$data = array();
         foreach($request->input('title') as $key => $value) {
             $title = $request->input('title')[$key];
+            $slugg = $request->input('slug')[$key];
+            $content_id = $request->input('id')[$key];
+
+            if(category::where('slug','=',$slugg)->count() > 0)
+            {
+                $blogcategory = category::where('slug','=',$slugg)->first();
+
+                $blogcategory_id = $blogcategory->id;
+            }
+            else{
+                $blogcategory_id = null;
+            }
 
 
+            if(Contentcategory::where('slug','=',$slugg)->count() > 0)
+            {
+                $contentcategory = Contentcategory::where('slug','=',$slugg)->first();
+
+                $contentcategory_id = $contentcategory->id;
+            }
+            else{
+                $contentcategory_id = null;
+            }
+
+            if(Page::where('slug','=',$slugg)->count() > 0)
+            {
+                $page = Page::where('slug','=',$slugg)->first();
+                $page_id = $page->id;
+            }
+            else
+            {
+                $page_id = null;
+            }
+
+
+
+        // foreach($blogcategory  as $blogcat)
+        // {
+        //     if($blogcat->slug == $slugg)
+        //     {
+        //         $blogcategory_id = $content_id;
+        //     }
+        //     else
+        //     {
+        //         $blogcategory_id = null;
+        //     }
+        // }
+
+        // foreach($contentcategory  as $cat)
+        // {
+        //     if($cat->slug == $slugg)
+        //     {
+        //         $contentcategory_id = $cat->id;
+        //     }
+        //     else
+        //     {
+        //         $contentcategory_id = null;
+        //     }
+
+        // }
+
+        // array_push($data,$item);
         $menu->menuItems()->create([
             'title' => $title,
-            'slug' => $slug,
+            'slug' => $slugg,
             'contentcategory_id' => $contentcategory_id,
             'blogcategory_id' => $blogcategory_id,
             'page_id' => $page_id,
         ]);
-
         }
+
+        // dd($data);
+
+        // $result = explode(",",$data);
+
+        // dd($result);
+        // return $result;
+        // $result = [];
+        // foreach($data as $key=>$menu){
+        //     $result[]=$menu;
+
+        //     $menu->menuItems()->create($menu[$key]);
+
+        // }
+
+        // dd($result);
+
+
 
         notify()->success('Menu Item Added','Added');
         return redirect()->route('admin.menuitem.builder',$menu->id);

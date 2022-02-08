@@ -37,9 +37,8 @@ class CategoryController extends Controller
     {
         Gate::authorize('app.blog.categories.create');
         $categories = category::where('parent_id', '=', 0)->get();
-        $subcat = category::all();
-        $sidebars = Sidebar::all();
-        return view('backend.admin.blog.category.form',compact('categories','subcat','sidebars'));
+
+        return view('backend.admin.blog.category.form',compact('categories'));
     }
 
     /**
@@ -53,10 +52,7 @@ class CategoryController extends Controller
         Gate::authorize('app.blog.categories.create');
         $this->validate($request,[
             'name' => 'required|unique:categories',
-            'image' => 'required|mimes:png,jpg,jpeg,bmp|max:1024',
-            'leftsidebar_id' => 'required',
-            'rightsidebar_id' => 'required',
-
+            'image' => 'mimes:png,jpg,jpeg,bmp|max:1024',
         ]);
 
         //get form image
@@ -72,6 +68,10 @@ class CategoryController extends Controller
             $img                     =       Image::make($image->path());
             $img->resize(900, 600)->save($categoryphotoPath.'/'.$imagename);
 
+        }
+        else
+        {
+            $imagename = null;
         }
 
         if(!$request->parent_id)
@@ -98,8 +98,7 @@ class CategoryController extends Controller
             'parent_id' => $parent_id,
             'image' => $imagename,
             'desc' => $request->desc,
-            'leftsidebar_id' => $request->leftsidebar_id,
-            'rightsidebar_id' => $request->rightsidebar_id,
+            'position' => $request->position,
             'status' => $status,
 
         ]);
@@ -151,9 +150,7 @@ class CategoryController extends Controller
     {
         Gate::authorize('app.blog.categories.edit');
         $categories = category::where('parent_id', '=', 0)->get();
-        $subcat = category::all();
-        $editsidebars = Sidebar::all();
-        return view('backend.admin.blog.category.form',compact('category','categories','subcat','editsidebars'));
+        return view('backend.admin.blog.category.form',compact('category','categories'));
     }
 
     /**
@@ -169,9 +166,6 @@ class CategoryController extends Controller
         $this->validate($request,[
             'name' => 'required',
             'image' => 'mimes:png,jpg,jpeg,bmp|max:1024',
-            'leftsidebar_id' => 'required',
-            'rightsidebar_id' => 'required',
-
         ]);
 
         //get form image
@@ -225,8 +219,7 @@ class CategoryController extends Controller
             'parent_id' => $parent_id,
             'image' => $imagename,
             'desc' => $request->desc,
-            'leftsidebar_id' => $request->leftsidebar_id,
-            'rightsidebar_id' => $request->rightsidebar_id,
+            'position' => $request->position,
             'status' => $status,
 
         ]);

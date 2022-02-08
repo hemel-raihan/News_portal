@@ -150,6 +150,26 @@
                         @enderror
 					</div>
 
+                    <div class="form-group">
+                        @isset($category)
+                        <label class="form-label" for="type">Select Widget Type</label>
+                        <select class="form-control form-select select2" data-bs-placeholder="Select Type" name="position" id="type"  onChange="setWidget()">
+                            <option value="">Select Postion</option>
+                            <option value="Body-Position-1" {{($category->position == 'Body-Position-1') ? 'selected' : ''}} >Body-Position-1</option>
+                            <option value="Body-Position-2" {{($category->position == 'Body-Position-2') ? 'selected' : ''}}>Body-Position-2</option>
+                            <option value="Body-Position-3" {{($category->position == 'Body-Position-3') ? 'selected' : ''}} >Body-Position-3</option>
+                        </select>
+                        @else
+                        <label class="form-label" for="type">Select Position</label>
+                        <select class="form-control form-select select2" data-bs-placeholder="Select Type" name="position" id="type"  onChange="setWidget()">
+                            <option value="">Select Postion</option>
+                            <option value="Body-Position-1">Body-Position-1</option>
+                            <option value="Body-Position-2">Body-Position-2</option>
+                            <option value="Body-Position-3">Body-Position-3</option>
+                        </select>
+                        @endisset
+                    </div>
+
 					<div class="form-group">
 						<label for="exampleInputContent">Category Description</label>
 						<div class="ql-wrapper ql-wrapper-demo bg-light">
@@ -160,16 +180,7 @@
 						</div>
 					</div>
 
-					<div class="form-group">
-						<label class="form-label">Category Image</label>
-						<!-- <input id="demo" type="file" name="image" accept=".jpg, .png, image/jpeg, image/png" multiple="" class="ff_fileupload_hidden"> -->
-                        <input type="file" data-height="100" class="dropify form-control @error('image') is-invalid @enderror" data-default-file="{{ isset($category) ? asset($category->image) : '' }}" name="image">
-                        @error('image')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{$message}}</strong>
-                        </span>
-                        @enderror
-					</div>
+
 
                     {{-- <label><span><i class="icon-check"></i></span> Click on a room to select it</label>
                     <select name="rooms[]" multiple="multiple" class="image-picker">
@@ -313,77 +324,16 @@
 
                     @endisset
 
-
-
-                    @isset($editsidebars)
-
                     <div class="form-group">
-						<label class="form-label">Left Sidebar</label>
-						<select name="leftsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Sidebar">
-							<option value="">Select Left Sidebar</option>
-                            <option value="0" {{($category->leftsidebar_id == 0) ? 'selected' : ''}}>None</option>
-                            @foreach ($editsidebars as $editsidebar)
-                            @if($editsidebar->type == 'Left Side Bar')
-                            <option value="{{$editsidebar->id}}" {{($category->leftsidebar_id == $editsidebar->id) ? 'selected' : ''}}>{{$editsidebar->title}}</option>
-                            @endif
-                            @endforeach
-						</select>
-					</div>
-
-
-					<div class="form-group">
-						<label class="form-label">Right Sidebar</label>
-						<select name="rightsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Sidebar">
-							<option value="">Select Right Sidebar</option>
-                            <option value="0" {{($category->rightsidebar_id == 0) ? 'selected' : ''}} >None</option>
-                            @foreach ($editsidebars as $editsidebar)
-                            @if($editsidebar->type == 'Right Side Bar')
-							<option value="{{$editsidebar->id}}" {{($category->rightsidebar_id == $editsidebar->id) ? 'selected' : ''}} >{{$editsidebar->title}}</option>
-                            @endif
-                            @endforeach
-						</select>
-					</div>
-
-                    @else
-
-                    <div class="form-group">
-						<label class="form-label">Left Sidebar</label>
-						<select name="leftsidebar_id" class="form-control @error('leftsidebar_id') is-invalid @enderror form-select select2" data-bs-placeholder="Select Sidebar">
-							<option value="">Select Left Sidebar</option>
-                            <option value="0">None</option>
-                            @foreach ($sidebars as $sidebar)
-                            @if($sidebar->type == 'Left Side Bar')
-                            <option value="{{$sidebar->id}}">{{$sidebar->title}}</option>
-                            @endif
-                            @endforeach
-						</select>
-                        @error('leftsidebar_id')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
+						<label class="form-label">Category Image</label>
+						<!-- <input id="demo" type="file" name="image" accept=".jpg, .png, image/jpeg, image/png" multiple="" class="ff_fileupload_hidden"> -->
+                        <input type="file"  class="dropify form-control @error('image') is-invalid @enderror" data-default-file="{{ isset($category) ? asset('uploads/categoryphoto/'.$category->image) : '' }}" name="image">
+                        @error('image')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{$message}}</strong>
+                        </span>
                         @enderror
 					</div>
-
-
-					<div class="form-group">
-						<label class="form-label">Right Sidebar</label>
-						<select name="rightsidebar_id" class="form-control @error('rightsidebar_id') is-invalid @enderror form-select select2" data-bs-placeholder="Select Sidebar">
-							<option value="">Select Right Sidebar</option>
-                            <option value="0">None</option>
-                            @foreach ($sidebars as $sidebar)
-                            @if($sidebar->type == 'Right Side Bar')
-							<option value="{{$sidebar->id}}">{{$sidebar->title}}</option>
-                            @endif
-                            @endforeach
-						</select>
-                        @error('rightsidebar_id')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-					</div>
-
-                    @endisset
 
 				</div>
 

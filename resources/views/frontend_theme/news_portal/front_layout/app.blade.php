@@ -7,7 +7,7 @@
 
 	<!-- Stylesheets
 	============================================= -->
-    @include('frontend_theme.canvas.front_layout.vertical.styles')
+    @include('frontend_theme.news_portal.front_layout.vertical.styles')
 
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -26,14 +26,24 @@
 		<!-- Top Bar
 		============================================= -->
 
-        @include('frontend_theme.canvas.front_layout.vertical.topbar')
+        @include('frontend_theme.news_portal.front_layout.vertical.topbar')
 
 		<!-- #top-bar end -->
 
 		<!-- Header
 		============================================= -->
-
-        @include('frontend_theme.canvas.front_layout.vertical.header')
+        @php
+        $menus = \App\Models\Frontmenu\Frontmenu::where([['type','=','main-menu'],['status','=',true]])->get();
+        foreach($menus as $menu)
+        {
+            $menuitems = $menu->menuItems()->get();
+        }
+        @endphp
+        @isset($menuitems)
+         @include('frontend_theme.news_portal.front_layout.vertical.header',['menuitems'=>$menuitems])
+         @else
+        @include('frontend_theme.news_portal.front_layout.vertical.header')
+        @endisset
 
 		<!-- #header end -->
 
@@ -50,7 +60,7 @@
 		<!-- Footer
 		============================================= -->
 
-        @include('frontend_theme.canvas.front_layout.vertical.footer')
+        @include('frontend_theme.news_portal.front_layout.vertical.footer')
 
 		<!-- #footer end -->
 
@@ -60,7 +70,7 @@
 	============================================= -->
 	<div id="gotoTop" class="icon-angle-up"></div>
 
-    @include('frontend_theme.canvas.front_layout.vertical.scripts')
+    @include('frontend_theme.news_portal.front_layout.vertical.scripts')
 
 
 </body>

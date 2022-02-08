@@ -3419,7 +3419,7 @@ html[xmlns] .slider-wrap {
 	display: block;
 	max-width: 100%;
 	max-height: 100%;
-	height: 100px;
+	/* height: 100px; */
 }
 
 .header-size-sm #header-wrap #logo img {
@@ -3622,7 +3622,7 @@ body:not(.top-search-open) .top-search-parent #primary-menu-trigger {
 	display: block;
 	line-height: 22px;
 	padding: 14px 5px;
-	color: #444;
+	color: #fff;
 	font-weight: 700;
 	font-size: 0.8125rem;
 	letter-spacing: 1px;
@@ -4800,7 +4800,7 @@ body:not(.top-search-open) .top-search-parent #primary-menu-trigger {
 	font-size: 1.125rem;
 	line-height: 20px;
 	text-align: center;
-	color: #333;
+	color: #fff;
 	-webkit-transition: color .3s ease-in-out;
 	-o-transition: color .3s ease-in-out;
 	transition: color .3s ease-in-out;

@@ -5,14 +5,14 @@
             <!-- Logo
             ============================================= -->
             <div id="logo" class="me-0 me-lg-auto">
-                <a href="index.html" class="standard-logo" data-dark-logo="images/logo-dark.png"><img src="images/logo.png" alt="Canvas Logo"></a>
-                <a href="index.html" class="retina-logo" data-dark-logo="images/logo-dark@2x.png"><img src="images/logo@2x.png" alt="Canvas Logo"></a>
+                <a href="{{route('home')}}" class="standard-logo" data-dark-logo="images/logo-dark.png"><img src="{{asset('assets/frontend/images/logo_big.png')}}" alt="Canvas Logo"></a>
+                {{-- <a href="index.html" class="retina-logo" data-dark-logo="images/logo-dark@2x.png"><img src="images/logo@2x.png" alt="Canvas Logo"></a> --}}
             </div><!-- #logo end -->
 
             <div class="header-misc mb-4 mb-lg-0 d-none d-lg-flex">
 
                 <div class="top-advert">
-                    <img src="images/magazine/ad.jpg" alt="Ad">
+                    <img height="90" width="720" src="{{asset('assets/frontend/images/banner2.jpg')}}" alt="Ad">
                 </div>
 
             </div>
@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <div id="header-wrap" class="border-top border-f5">
+    <div id="header-wrap" style="background: #d72924;" class="border-top border-f5">
         <div class="container">
             <div class="header-row justify-content-between">
 
@@ -43,168 +43,16 @@
                 <nav class="primary-menu">
 
                     <ul class="menu-container">
+                    @isset($menuitems)
+                    @foreach ($menuitems as $menuitem)
+                    @if($menuitem->childs->isEmpty())
                         <li class="menu-item">
-                            <a class="menu-link" href="index.html"><div>Home</div></a>
-                            <ul class="sub-menu-container">
-                                <li class="menu-item">
-                                    <a class="menu-link" href="intro.html#section-niche"><div>Niche Demos</div></a>
-                                </li>
-                                <li class="menu-item">
-                                    <a class="menu-link" href="intro.html#section-onepage"><div>One-Page Demos</div></a>
-                                </li>
-                                <li class="menu-item">
-                                    <a class="menu-link" href="index-corporate.html"><div>Home - Corporate</div></a>
-                                    <ul class="sub-menu-container">
-                                        <li class="menu-item">
-                                            <a class="menu-link" href="index-corporate.html"><div>Corporate - Layout 1</div></a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a class="menu-link" href="index-corporate-2.html"><div>Corporate - Layout 2</div></a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a class="menu-link" href="index-corporate-3.html"><div>Corporate - Layout 3</div></a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a class="menu-link" href="index-corporate-4.html"><div>Corporate - Layout 4</div></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item">
-                                    <a class="menu-link" href="index-portfolio.html"><div>Home - Portfolio</div></a>
-                                    <ul class="sub-menu-container">
-                                        <li class="menu-item">
-                                            <a class="menu-link" href="index-portfolio.html"><div>Portfolio - Layout 1</div></a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a class="menu-link" href="index-portfolio-2.html"><div>Portfolio - Layout 2</div></a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a class="menu-link" href="index-portfolio-3.html"><div>Portfolio - Masonry</div></a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a class="menu-link" href="index-portfolio-4.html"><div>Portfolio - AJAX</div></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item">
-                                    <a class="menu-link" href="index-blog.html"><div>Home - Blog</div></a>
-                                    <ul class="sub-menu-container">
-                                        <li class="menu-item">
-                                            <a class="menu-link" href="index-blog.html"><div>Blog - Layout 1</div></a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a class="menu-link" href="index-blog-2.html"><div>Blog - Layout 2</div></a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a class="menu-link" href="index-blog-3.html"><div>Blog - Layout 3</div></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item">
-                                    <a class="menu-link" href="index-shop.html"><div>Home - Shop</div></a>
-                                    <ul class="sub-menu-container">
-                                        <li class="menu-item">
-                                            <a class="menu-link" href="index-shop.html"><div>Shop - Layout 1</div></a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a class="menu-link" href="index-shop-2.html"><div>Shop - Layout 2</div></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item">
-                                    <a class="menu-link" href="index-magazine.html"><div>Home - Magazine</div></a>
-                                    <ul class="sub-menu-container">
-                                        <li class="menu-item">
-                                            <a class="menu-link" href="index-magazine.html"><div>Magazine - Layout 1</div></a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a class="menu-link" href="index-magazine-2.html"><div>Magazine - Layout 2</div></a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a class="menu-link" href="index-magazine-3.html"><div>Magazine - Layout 3</div></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item">
-                                    <a class="menu-link" href="landing.html"><div>Home - Landing Page</div></a>
-                                    <ul class="sub-menu-container">
-                                        <li class="menu-item">
-                                            <a class="menu-link" href="landing.html"><div>Landing Page - Layout 1</div></a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a class="menu-link" href="landing-2.html"><div>Landing Page - Layout 2</div></a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a class="menu-link" href="landing-3.html"><div>Landing Page - Layout 3</div></a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a class="menu-link" href="landing-4.html"><div>Landing Page - Layout 4</div></a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a class="menu-link" href="landing-5.html"><div>Landing Page - Layout 5</div></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item">
-                                    <a class="menu-link" href="index-fullscreen-image.html"><div>Home - Full Screen</div></a>
-                                    <ul class="sub-menu-container">
-                                        <li class="menu-item">
-                                            <a class="menu-link" href="index-fullscreen-image.html"><div>Full Screen - Image</div></a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a class="menu-link" href="index-fullscreen-slider.html"><div>Full Screen - Slider</div></a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a class="menu-link" href="index-fullscreen-video.html"><div>Full Screen - Video</div></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item">
-                                    <a class="menu-link" href="index-onepage.html"><div>Home - One Page</div></a>
-                                    <ul class="sub-menu-container">
-                                        <li class="menu-item">
-                                            <a class="menu-link" href="index-onepage.html"><div>One Page - Default</div></a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a class="menu-link" href="index-onepage-2.html"><div>One Page - Submenu</div></a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a class="menu-link" href="index-onepage-3.html"><div>One Page - Dots Style</div></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item mega-menu mega-menu-small">
-                                    <a class="menu-link" href="#"><div>Extras</div></a>
-                                    <div class="mega-menu-content">
-                                        <div class="row mx-0">
-                                            <ul class="sub-menu-container mega-menu-column col">
-                                                <li class="menu-item">
-                                                    <a class="menu-link" href="index-wedding.html"><div>Wedding</div></a>
-                                                </li>
-                                                <li class="menu-item">
-                                                    <a class="menu-link" href="index-restaurant.html"><div>Restaurant</div></a>
-                                                </li>
-                                                <li class="menu-item">
-                                                    <a class="menu-link" href="index-events.html"><div>Events</div></a>
-                                                </li>
-                                            </ul>
-                                            <ul class="sub-menu-container mega-menu-column col">
-                                                <li class="menu-item">
-                                                    <a class="menu-link" href="index-parallax.html"><div>Parallax</div></a>
-                                                </li>
-                                                <li class="menu-item">
-                                                    <a class="menu-link" href="index-app-showcase.html"><div>App Showcase</div></a>
-                                                </li>
-                                                <li class="menu-item">
-                                                    <a class="menu-link" href="index-boxed.html"><div>Boxed Layout</div></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
+                            <a class="menu-link" href="{{route('categories',$menuitem->slug)}}"><div>{{$menuitem->title}}</div></a>
                         </li>
-                        <li class="menu-item">
+                    @endif
+                    @endforeach
+                    @endisset
+                        {{-- <li class="menu-item">
                             <a class="menu-link" href="#"><div>Features</div></a>
                             <ul class="sub-menu-container">
                                 <li class="menu-item">
@@ -1437,7 +1285,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </li>
+                        </li> --}}
                     </ul>
 
                 </nav><!-- #primary-menu end -->

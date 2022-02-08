@@ -8,18 +8,10 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 |
 */
-// user login
-Route::get('/user/login','SingleVendor\LoginController@login')->name('user.login');
-Route::get('/user/register','SingleVendor\LoginController@register')->name('user.register');
 
-//Change Password
-// Route::get('change-password', 'ChangePasswordController@index');
-Route::post('change-password', 'SingleVendor\ChangePasswordController@store')->name('change.password');
+Route::get('/', 'NewsPortal\HomepageController@index')->name('home');
 
-
-
-Route::get('/', 'SingleVendor\HomepageController@index')->name('home');
-Route::get('/home/video', 'SingleVendor\HomepageController@video')->name('home.video');
+Route::get('/home/video', 'NewsPortal\HomepageController@video')->name('home.video');
 Route::post('/home/section/category', 'SingleVendor\HomepageController@load_category_section')->name('home.section.category');
 Route::post('/home/section/flashdeal', 'SingleVendor\HomepageController@load_flashdeal_section')->name('home.section.flashdeal');
 Route::post('/home/section/hot-deals', 'SingleVendor\HomepageController@load_hot_deals_section')->name('home.section.hot-deal');
@@ -30,7 +22,8 @@ Route::post('/home/section/home-brand', 'SingleVendor\HomepageController@load_br
 Route::post('/home/section/home-callsection', 'SingleVendor\HomepageController@load_call_section')->name('home.section.call');
 Route::post('/home/section/home-recent', 'SingleVendor\HomepageController@load_recent_section')->name('home.section.recent');
 
-Route::get('/product/details/{slug}', 'SingleVendor\HomepageController@single_product_details')->name('product.details');
+Route::get('/categories/{slug}', 'NewsPortal\HomepageController@categories')->name('categories');
+Route::get('/fetchnews/{id}', 'NewsPortal\HomepageController@fetchnews')->name('fetchnews');
 Route::get('/product/shops/{slug}', 'SingleVendor\HomepageController@shop')->name('shops');
 Route::get('/product/shops/filtered/{catId}/{id}', 'SingleVendor\HomepageController@filter')->name('shops.filter');
 Route::get('/product/shops/filtered/attribute/{catId}/{id}', 'SingleVendor\HomepageController@filterAttribute')->name('shops.filter.attribute');

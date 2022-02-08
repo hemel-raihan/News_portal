@@ -18,10 +18,9 @@ class CreateCategoriesTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->integer('parent_id')->unsigned()->default(0)->references('id')->on('categories')->onDelete('cascade');;
-            $table->string('image')->default('default.png');
+            $table->string('image')->nullable();
             $table->string('desc')->nullable();
-            $table->integer('leftsidebar_id');
-            $table->integer('rightsidebar_id');
+            $table->string('position');
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

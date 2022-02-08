@@ -12,7 +12,7 @@ use App\Models\Product\Productcategory;
 class HomepageController extends Controller
 {
     public function index(){
-        return view('frontend_theme.single_vendor.pages.homepage');
+        return view('frontend_theme.canvas.homepage');
     }
 
     public function load_category_section(){
@@ -88,40 +88,40 @@ class HomepageController extends Controller
     }
 
 
-    public function video()
-    {
-        $today = date("Y/m/d");
-        $to_day=date("Y-m-d",strtotime($today));
-        $mytime = Carbon::now();
-        $start = Carbon::parse($mytime)->format('h:i a');
-        //  $programs = Program::where([['start_date','<=', $to_day],['end_date','>=', $to_day],['start_time','<=', $start],['end_time','<=', $start]])->pluck('video');
-        $programs = Program::where([['start_date','<=', $to_day],['start_time','<=', $start]])->where([['end_date','>=', $to_day],['end_time','>=', $start]])->pluck('video');
-        // $programs = Program::pluck('video');
-        // $program_sche = Program::all();
-        // foreach($program_sche as $prog)
-        // {
-        //     $from_datee=date("Y-m-d",strtotime($prog->start_date));
-        //     $from_time=date("h:i a",strtotime($prog->start_time));
-        //     $to_datee=date("Y-m-d",strtotime($prog->end_date));
-        //     $to_time=date("h:i a",strtotime($prog->end_time));
+    // public function video()
+    // {
+    //     $today = date("Y/m/d");
+    //     $to_day=date("Y-m-d",strtotime($today));
+    //     $mytime = Carbon::now();
+    //     $start = Carbon::parse($mytime)->format('h:i a');
+    //     //  $programs = Program::where([['start_date','<=', $to_day],['end_date','>=', $to_day],['start_time','<=', $start],['end_time','<=', $start]])->pluck('video');
+    //     $programs = Program::where([['start_date','<=', $to_day],['start_time','<=', $start]])->where([['end_date','>=', $to_day],['end_time','>=', $start]])->pluck('video');
+    //     // $programs = Program::pluck('video');
+    //     // $program_sche = Program::all();
+    //     // foreach($program_sche as $prog)
+    //     // {
+    //     //     $from_datee=date("Y-m-d",strtotime($prog->start_date));
+    //     //     $from_time=date("h:i a",strtotime($prog->start_time));
+    //     //     $to_datee=date("Y-m-d",strtotime($prog->end_date));
+    //     //     $to_time=date("h:i a",strtotime($prog->end_time));
 
-        //     $test = $prog->pluck('video');
+    //     //     $test = $prog->pluck('video');
 
-        //     if($to_day >= $from_datee && $to_day <= $to_datee)
-        //     {
-        //     if ($start >= $from_time && $start <= $to_time)
-        //     {
-        //         return response()->json([
-        //             'programs' => $test,
-        //         ]);
-        //     }
-        // }
-       
-        // }
-                    return response()->json([
-                        'programs' => $programs,
-                    ]);
-    }
+    //     //     if($to_day >= $from_datee && $to_day <= $to_datee)
+    //     //     {
+    //     //     if ($start >= $from_time && $start <= $to_time)
+    //     //     {
+    //     //         return response()->json([
+    //     //             'programs' => $test,
+    //     //         ]);
+    //     //     }
+    //     // }
+
+    //     // }
+    //                 return response()->json([
+    //                     'programs' => $programs,
+    //                 ]);
+    // }
 
 
 

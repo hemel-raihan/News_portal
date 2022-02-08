@@ -47,9 +47,9 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
 
-                Route::middleware('singlevendor')
+                Route::middleware('newsportal')
                 ->namespace($this->namespace)
-                ->group(base_path('routes/single_vendor.php'));
+                ->group(base_path('routes/news_portal.php'));
 
 
         });
