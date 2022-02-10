@@ -23,8 +23,9 @@ Route::post('/home/section/home-callsection', 'SingleVendor\HomepageController@l
 Route::post('/home/section/home-recent', 'SingleVendor\HomepageController@load_recent_section')->name('home.section.recent');
 
 Route::get('/categories/{slug}', 'NewsPortal\HomepageController@categories')->name('categories');
+Route::get('/categories/{slug}/all', 'NewsPortal\HomepageController@categories_all')->name('categories.all');
 Route::get('/fetchnews/{id}', 'NewsPortal\HomepageController@fetchnews')->name('fetchnews');
-Route::get('/product/shops/{slug}', 'SingleVendor\HomepageController@shop')->name('shops');
+Route::get('/news/{slug}', 'NewsPortal\HomepageController@news_details')->name('news.details');
 Route::get('/product/shops/filtered/{catId}/{id}', 'SingleVendor\HomepageController@filter')->name('shops.filter');
 Route::get('/product/shops/filtered/attribute/{catId}/{id}', 'SingleVendor\HomepageController@filterAttribute')->name('shops.filter.attribute');
 // Route::get('/product/cart', 'SingleVendor\HomepageController@view_cart')->name('view.cart');

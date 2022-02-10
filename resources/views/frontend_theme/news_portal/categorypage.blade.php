@@ -153,22 +153,21 @@
                     </div>
                 </div>
             </div>
-<input type="hidden" id="category_id" value="{{$category->id}}">
             <div class="row">
                 <div class="col-lg-12 bottommargin">
                     <div class="container"><h1>Bootstrap  tab panel example (using nav-pills)  </h1></div>
                     <div id="exTab1" class="containe">
                             <div class="topnav">
-                                @if($category->childrenRecursive->count()>0)
-                                @foreach($category->childrenRecursive as $key => $sub)
+                                @if($single_category->childrenRecursive->count()>0)
+                                @foreach($single_category->childrenRecursive as $key => $sub)
                                 <a data-toggle="tab" class="tab "  href="#{{$sub->slug}}">{{$sub->name}}</a>
                                 @endforeach
                                 @endif
                               </div>
                             </br>
                                 <div class="tab-content clearfix">
-                                    @if($category->childrenRecursive->count()>0)
-                                    @foreach($category->childrenRecursive as $key => $subcat)
+                                    @if($single_category->childrenRecursive->count()>0)
+                                    @foreach($single_category->childrenRecursive as $key => $subcat)
                                     <div class="tab-pane" id="{{$subcat->slug}}">
                                         <div class="row posts-md col-mb-30">
                                             @foreach ($subcat->posts()->orderBy('id', 'desc')->take(3)->get() as $news)
@@ -176,10 +175,10 @@
                                             <div class=" entry col-sm-6 col-xl-4">
                                                 <div class="grid-inner">
                                                     <div class="entry-image">
-                                                        <a href="#"><img src="{{asset('uploads/postphoto/'.$news->image)}}" alt="Image"></a>
+                                                        <a href="{{route('news.details',$news->slug)}}"><img src="{{asset('uploads/postphoto/'.$news->image)}}" alt="Image"></a>
                                                     </div>
                                                     <div class="entry-title title-xs nott">
-                                                        <h3><a href="blog-single.html">{{$news->title}}</a></h3>
+                                                        <h3><a href="{{route('news.details',$news->slug)}}">{{$news->title}}</a></h3>
                                                     </div>
                                                     <div class="entry-meta">
                                                         <ul>
@@ -190,6 +189,7 @@
                                                     <div class="entry-content">
                                                         <p>{!!Str::limit($news->body, 100)!!}</p>
                                                     </div>
+
                                                 </div>
                                             </div>
                                             @endif
@@ -226,15 +226,19 @@
                                     <div class="entry col-sm-6 col-xl-4">
                                         <div class="grid-inner">
                                             <div class="entry-image">
-                                                <a href="#"><img src="{{asset('uploads/postphoto/'.$post->image)}}" alt="Image"></a>
+                                                <a href="{{route('news.details',$post->slug)}}"><img src="{{asset('uploads/postphoto/'.$post->image)}}" alt="Image"></a>
                                             </div>
                                             <div class="entry-title title-xs nott">
-                                                <h3><a href="blog-single.html">{{$post->title}}</a></h3>
+                                                <h3><a href="{{route('news.details',$post->slug)}}">{{$post->title}}</a></h3>
                                             </div>
                                             <div class="entry-meta">
                                                 <ul>
-                                                    <li><i class="icon-calendar3"></i> {{ $post->created_at->format('j-F-Y') }}</li>
-                                                    <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 23</a></li>
+                                                    <li><i class="icon-calendar3"></i> {{$post->created_at->diffForHumans()}}</li>
+                                                    <li></i>@foreach ($post->categories as $category)
+                                                        <a href="{{route('categories.all',$category->parent->slug)}}">
+                                                        {{$category->parent->name}} </a>
+                                                    @endforeach
+                                                    </li>
                                                 </ul>
                                             </div>
                                             <div class="entry-content">
@@ -254,14 +258,15 @@
 
 <section id="hem">
 
-    {{-- <div class="body-position-1">
+    <div class="body-position-1">
         <div class="col-12" style="margin-top: 20px;">
             <div class="fancy-title title-border">
                 <h3>আরও সংবাদ</h3>
             </div>
-            @foreach($category->childrenRecursive as $key => $subcat)
+            @foreach($single_category->childrenRecursive as $key => $subcat)
             @foreach ($subcat->posts as $news)
             @if ($news->status == 1)
+            {{-- @foreach (\App\Models\blog\Post::orderBy('id', 'desc')->take(6)->get() as $news) --}}
             <div class="posts-md">
                 <div class="entry row mb-5">
                     <div class="col-md-3">
@@ -286,6 +291,7 @@
                     </div>
                 </div>
             </div>
+            {{-- @endforeach --}}
             @endif
             @endforeach
             @endforeach
@@ -296,10 +302,10 @@
             <img height="90" width="720" src="{{asset('assets/frontend/images/banner2.jpg')}}" alt="Ad">
         </div>
 
-    </div> --}}
+    </div>
 
 
-    <div class="body-position-1">
+    {{-- <div class="body-position-1">
         <div class="col-12" style="margin-top: 20px;">
             <div class="fancy-title title-border">
                 <h3>আরও সংবাদ</h3>
@@ -314,7 +320,8 @@
             <img height="90" width="720" src="{{asset('assets/frontend/images/banner2.jpg')}}" alt="Ad">
         </div>
 
-    </div>
+    </div> --}}
+
 </section>
 
 
@@ -337,7 +344,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
-    <script>
+    {{-- <script>
         $(document).ready(function(){
 
     fetchnews();
@@ -365,7 +372,7 @@
     });
     }
 });
-    </script>
+    </script> --}}
 
     <script>
         $(document).ready(function() {

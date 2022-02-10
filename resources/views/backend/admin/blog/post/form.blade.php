@@ -139,12 +139,7 @@
                         @enderror
 					</div>
 
-                    @isset($post)
-                    <div class="form-group">
-						<label for="exampleInputname">Post Slug</label>
-						<input type="text" class="form-control" value="{{$post->slug ?? old('slug')}}" name="slug" id="postslug" placeholder="Post Slug">
-					</div>
-                    @endisset
+                    <input type="hidden" name="slug" value="{{$post->slug ?? old('slug')}}" id="slug">
 
 
 
@@ -417,6 +412,13 @@
 
 @section('scripts')
 
+<script>
+    $("#posttitle").keyup(function(){
+    var str = $(this).val();
+    var txt = str.replace(/ /g,"-");
+    $("#slug").val(txt.toLowerCase());
+})
+</script>
 
 
     {{-- <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script> --}}

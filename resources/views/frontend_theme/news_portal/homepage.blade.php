@@ -1,7 +1,43 @@
 @extends('frontend_theme.news_portal.front_layout.app')
 
 @section('styles')
+<style>
+    .centered {
+        position: absolute;
+        top: 70%;
+        left: 40%;
+        transform: translate(-50%, -50%);
+        }
+    .centered a,h5{
+        color: #fff;
+        font-weight: bold;
+        text-decoration: none;
+        outline: 0 solid;
+    }
+    .post-cat{
+        position: absolute;
+        left: 0;
+        top: 0;
+        margin-left: 30px;
 
+        /* position: relative; */
+        z-index: 1;
+        display: inline-block;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        padding: 0px 10px;
+        /* margin-left: 40px; */
+        line-height: 21px;
+        height: 19px;
+        /* top: -1px; */
+        letter-spacing: .55px;
+    }
+    .ts-orange-bg {
+        background: #ff6e0d;
+    }
+</style>
 @endsection
 
 @section('content')
@@ -37,55 +73,27 @@
 
             <div class="row">
                 <div class="col-lg-3 bottommargin">
+                    @foreach (\App\Models\blog\Post::where('hot_news', 1)->orderBy('id', 'desc')->take(4)->get() as $key => $post)
+                    @if ($post->status == 1)
+                    @if ($key%2 == 0)
                     <div class="col-12">
-                        <a class="post-cat ts-orange-bg" href="#">Travel</a>
-                        <img src="{{asset('assets/frontend/images/travel6.jpg')}}" alt="Snow" style="width:100%;">
-                        <div class="centered"><a href="#">10 critical points from Zuckerberg’s epic security points manifesto <h5>March 21, 2019</h5></a></div>
+                        <a class="post-cat ts-orange-bg" href="#">Hot News</a>
+                        <img src="{{asset('uploads/postphoto/'.$post->image)}}" alt="Snow" style="width:100%;">
+                        <div class="centered"><a href="#">{{$post->title}} <h5>{{$post->created_at->diffForHumans()}}</h5></a></div>
                     </div>
+                    @endif
+                    @endif
                 </br>
-                    <div class="col-12">
+                    @endforeach
+
+
+                    {{-- <div class="col-12">
                         <a class="post-cat ts-orange-bg" href="#">Travel</a>
                         <img src="{{asset('assets/frontend/images/sports2.jpg')}}" alt="Snow" style="width:100%;">
                         <div class="centered"><a href="#">10 critical points from Zuckerberg’s epic security points manifesto <h5>March 21, 2019</h5></a></div>
-                    </div>
+                    </div> --}}
 
-                    <style>
-                        .centered {
-                            position: absolute;
-                            top: 70%;
-                            left: 40%;
-                            transform: translate(-50%, -50%);
-                            }
-                        .centered a,h5{
-                            color: #fff;
-                            font-weight: bold;
-                            text-decoration: none;
-                            outline: 0 solid;
-                        }
-                        .post-cat{
-                            position: absolute;
-                            left: 0;
-                            top: 0;
-                            margin-left: 30px;
 
-                            /* position: relative; */
-                            z-index: 1;
-                            display: inline-block;
-                            color: #fff;
-                            font-size: 11px;
-                            font-weight: 700;
-                            text-transform: uppercase;
-                            padding: 0px 10px;
-                            /* margin-left: 40px; */
-                            line-height: 21px;
-                            height: 19px;
-                            /* top: -1px; */
-                            letter-spacing: .55px;
-                        }
-                        .ts-orange-bg {
-                            background: #ff6e0d;
-                        }
-                    </style>
                 </div>
                 <div class="col-lg-6 bottommargin">
                     <div class="col-12">
@@ -121,17 +129,23 @@
                     </div>
                 </div>
                 <div class="col-lg-3 bottommargin">
+                    @foreach (\App\Models\blog\Post::where('hot_news', 1)->orderBy('id', 'desc')->take(4)->get() as $key => $post)
+                    @if ($post->status == 1)
+                    @if ($key%2 != 0)
                     <div class="col-12">
-                        <a class="post-cat ts-orange-bg" href="#">Travel</a>
-                        <img src="{{asset('assets/frontend/images/health3.jpg')}}" alt="Snow" style="width:100%;">
-                        <div class="centered"><a href="#">10 critical points from Zuckerberg’s epic security points manifesto <h5>March 21, 2019</h5></a></div>
+                        <a class="post-cat ts-orange-bg" href="#">Hot News</a>
+                        <img src="{{asset('uploads/postphoto/'.$post->image)}}" alt="Snow" style="width:100%;">
+                        <div class="centered"><a href="#">{{$post->title}} <h5>{{$post->created_at->diffForHumans()}}</h5></a></div>
                     </div>
-                </br>
-                    <div class="col-12">
+                    @endif
+                    @endif
+                    </br>
+                    @endforeach
+                    {{-- <div class="col-12">
                         <a class="post-cat ts-orange-bg" href="#">Travel</a>
                         <img src="{{asset('assets/frontend/images/music1.jpg')}}" alt="Snow" style="width:100%;">
                         <div class="centered"><a href="#">10 critical points from Zuckerberg’s epic security points manifesto <h5>March 21, 2019</h5></a></div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
 
@@ -231,15 +245,19 @@
                                     <div class="entry col-sm-6 col-xl-4">
                                         <div class="grid-inner">
                                             <div class="entry-image">
-                                                <a href="#"><img src="{{asset('uploads/postphoto/'.$post->image)}}" alt="Image"></a>
+                                                <a href="{{route('news.details',$post->slug)}}"><img src="{{asset('uploads/postphoto/'.$post->image)}}" alt="Image"></a>
                                             </div>
                                             <div class="entry-title title-xs nott">
-                                                <h3><a href="blog-single.html">{{$post->title}}</a></h3>
+                                                <h3><a href="{{route('news.details',$post->slug)}}">{{$post->title}}</a></h3>
                                             </div>
                                             <div class="entry-meta">
                                                 <ul>
                                                     <li><i class="icon-calendar3"></i> {{$post->created_at->diffForHumans()}}</li>
-                                                    <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 23</a></li>
+                                                    <li></i>@foreach ($post->categories as $category)
+                                                        <a href="{{route('categories.all',$category->parent->slug)}}">
+                                                        {{$category->parent->name}} </a>
+                                                    @endforeach
+                                                    </li>
                                                 </ul>
                                             </div>
                                             <div class="entry-content">
@@ -263,7 +281,7 @@
                             @endphp
                             @if ($to_day >= $from_datee && $to_day <= $to_datee)
                             <div class="col-12" style="margin-top: 10px; margin-left: 50px;">
-                                <img height="90" width="720" src="{{asset('uploads/advertisement/'.$advertisement->banner)}}" alt="Ad">
+                               <a href="{{$advertisement->url}}"> <img height="90" width="720" src="{{asset('uploads/advertisement/'.$advertisement->banner)}}" alt="Ad"></a>
                             </div>
                             @else
                             @endif
@@ -299,12 +317,12 @@
                                     <div class="entry row mb-5">
                                         <div class="col-md-5">
                                             <div class="entry-image">
-                                                <a href="#"><img src="{{asset('uploads/postphoto/'.$latest_news->image)}}" alt="Image"></a>
+                                                <a href="{{route('news.details',$latest_news->slug)}}"><img src="{{asset('uploads/postphoto/'.$latest_news->image)}}" alt="Image"></a>
                                             </div>
                                         </div>
                                         <div class="col-md-7 mt-3 mt-md-0">
                                             <div class="entry-title title-sm nott">
-                                                <h3><a href="blog-single.html">{{$latest_news->title}}</a></h3>
+                                                <h3><a href="{{route('news.details',$latest_news->slug)}}">{{$latest_news->title}}</a></h3>
                                             </div>
                                             <div class="entry-meta">
                                                 <ul>
@@ -329,12 +347,12 @@
                                         <div class="grid-inner row g-0">
                                             <div class="col-auto">
                                                 <div class="entry-image">
-                                                    <a href="#"><img src="{{asset('uploads/postphoto/'.$post->image)}}" alt="Image"></a>
+                                                    <a href="{{route('news.details',$post->slug)}}"><img src="{{asset('uploads/postphoto/'.$post->image)}}" alt="Image"></a>
                                                 </div>
                                             </div>
                                             <div class="col ps-3">
                                                 <div class="entry-title">
-                                                    <h4><a href="#">{{$post->title}}</a></h4>
+                                                    <h4><a href="{{route('news.details',$post->slug)}}">{{$post->title}}</a></h4>
                                                 </div>
                                                 <div class="entry-meta">
                                                     <ul>
@@ -365,7 +383,7 @@
                             @endphp
                             @if ($to_day >= $from_datee && $to_day <= $to_datee)
                             <div class="col-12" style="margin-top: 10px; margin-left: 50px;">
-                                <img height="90" width="720" src="{{asset('uploads/advertisement/'.$advertisement->banner)}}" alt="Ad">
+                                <a href="{{$advertisement->url}}"> <img height="90" width="720" src="{{asset('uploads/advertisement/'.$advertisement->banner)}}" alt="Ad"> </a>
                             </div>
                             @else
                             @endif
@@ -424,10 +442,10 @@
                                     <div class="entry col-sm-6 col-xl-4">
                                         <div class="grid-inner">
                                             <div class="entry-image">
-                                                <a href="#"><img src="{{asset('uploads/postphoto/'.$post->image)}}" alt="Image"></a>
+                                                <a href="{{route('news.details',$post->slug)}}"><img src="{{asset('uploads/postphoto/'.$post->image)}}" alt="Image"></a>
                                             </div>
                                             <div class="entry-title title-xs nott">
-                                                <h3><a href="blog-single.html">{{$post->title}}</a></h3>
+                                                <h3><a href="{{route('news.details',$post->slug)}}">{{$post->title}}</a></h3>
                                             </div>
                                             <div class="entry-meta">
                                                 <ul>
@@ -451,10 +469,10 @@
                                     <div class="entry col-sm-6 col-xl-4">
                                         <div class="grid-inner">
                                             <div class="entry-image">
-                                                <a href="#"><img src="{{asset('uploads/postphoto/'.$post->image)}}" alt="Image"></a>
+                                                <a href="{{route('news.details',$post->slug)}}"><img src="{{asset('uploads/postphoto/'.$post->image)}}" alt="Image"></a>
                                             </div>
                                             <div class="entry-title title-xs nott">
-                                                <h3><a href="blog-single.html">{{$post->title}}</a></h3>
+                                                <h3><a href="{{route('news.details',$post->slug)}}">{{$post->title}}</a></h3>
                                             </div>
                                             <div class="entry-meta">
                                                 <ul>
@@ -488,7 +506,7 @@
                             @endphp
                             @if ($to_day >= $from_datee && $to_day <= $to_datee)
                             <div class="col-12" style="margin-top: 10px; margin-left: 50px;">
-                                <img  src="{{asset('uploads/advertisement/'.$advertisement->banner)}}" alt="Ad">
+                               <a href="{{$advertisement->url}}"> <img  src="{{asset('uploads/advertisement/'.$advertisement->banner)}}" alt="Ad"> </a>
                             </div>
                             @else
                             @endif
@@ -499,6 +517,7 @@
 
                 </div>
 
+                {{-- Sidebar --}}
                 @include('frontend_theme.news_portal.front_layout.vertical.sidebar')
 
 

@@ -46,9 +46,9 @@ class ProgramController extends Controller
             'video' => 'required',
             'categories' => 'required',
             'start_date' => 'required',
-            'start_time' => 'required|unique:programs',
+            //'start_time' => 'required|unique:programs',
             'end_date' => 'required',
-            'end_time' => 'required|unique:programs',
+            //'end_time' => 'required|unique:programs',
         ]);
         $slug = Str::slug($request->title);
 
@@ -82,8 +82,10 @@ class ProgramController extends Controller
                 'slug' => $slug,
                 'video' => $file_name,
                 'start_date' => $request->start_date,
+                'start_datetime' => $request->start_date.' '.$start,
                 'start_time' => $start,
                 'end_date' => $request->end_date,
+                'end_datetime' => $request->end_date.' '.$end,
                 'end_time' => $end,
             ]);
             notify()->success("Program Successfully created","Added");
@@ -156,9 +158,9 @@ class ProgramController extends Controller
                 'title' => $request->title,
                 'slug' => $slug,
                 'video' => $file_name,
-                'start_date' => $request->start_date,
+                'start_date' => $request->start_date.' '.$start,
                 'start_time' => $start,
-                'end_date' => $request->end_date,
+                'end_date' => $request->end_date.' '.$end,
                 'end_time' => $end,
             ]);
             notify()->success("Program Successfully Updated","Updated");
