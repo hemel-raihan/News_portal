@@ -18,7 +18,7 @@ class HomepageController extends Controller
 
     }
 
-    public function categories($slug)
+    public function categories($slug,Request $request)
     {
         $menuitem = Frontmenuitem::where('slug',$slug)->firstOrFail();
         $blogcategory = category::all();
@@ -27,12 +27,18 @@ class HomepageController extends Controller
         {
             if($blogcat->id == $blogcategoryid)
             {
+                if($request->ajax())
+                {
+                    $view = view('frontend_theme.news_portal.loadmore_data')->render();
+                    return response()->json(['html'=>$view]);
+                }
                 $single_category = category::find($blogcategoryid);
                 $newses = $single_category->posts()->get();
                 return view('frontend_theme.news_portal.categorypage',compact('newses','single_category'));
 
             }
         }
+        
 
     }
 

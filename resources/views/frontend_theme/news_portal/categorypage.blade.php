@@ -263,44 +263,20 @@
             <div class="fancy-title title-border">
                 <h3>আরও সংবাদ</h3>
             </div>
-            @foreach($single_category->childrenRecursive as $key => $subcat)
-            @foreach ($subcat->posts as $news)
-            @if ($news->status == 1)
-            {{-- @foreach (\App\Models\blog\Post::orderBy('id', 'desc')->take(6)->get() as $news) --}}
-            <div class="posts-md">
-                <div class="entry row mb-5">
-                    <div class="col-md-3">
-                        <div class="entry-image">
-                            <a href="#"><img src="{{asset('uploads/postphoto/'.$news->image)}}" alt="Image"></a>
-                        </div>
-                    </div>
-                    <div class="col-md-9 mt-3 mt-md-0">
-                        <div class="entry-title title-sm nott">
-                            <h3><a href="blog-single.html">{{$news->title}}</a></h3>
-                        </div>
-                        <div class="entry-meta">
-                            <ul>
-                                <li><i class="icon-calendar3"></i> {{ $news->created_at->format('j-F-Y') }}</li>
-                                <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 21</a></li>
-                                <li><a href="#"><i class="icon-camera-retro"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="entry-content">
-                            <p class="mb-0">{!!Str::limit($news->body, 100)!!}</p>
-                        </div>
-                    </div>
-                </div>
+            <div id="more_news">
+                @include('frontend_theme.news_portal.loadmore_data')
             </div>
-            {{-- @endforeach --}}
-            @endif
-            @endforeach
-            @endforeach
-
+    
         </div>
 
-        <div class="col-12" style="margin-top: 10px; margin-left: 50px;">
+        <div class="ajax-load text-center" style="display: none;">
+            <p><img height="200" src="{{asset('assets/frontend/images/480px-Loader.gif')}}">Loading More News</p>
+        </div>
+
+
+        {{-- <div class="col-12" style="margin-top: 10px; margin-left: 50px;">
             <img height="90" width="720" src="{{asset('assets/frontend/images/banner2.jpg')}}" alt="Ad">
-        </div>
+        </div> --}}
 
     </div>
 
@@ -343,6 +319,42 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+
+    <script>
+        function loadMoreData(page)
+        {
+            $.ajax({
+                url: '?page=' +page,
+                type: 'get',
+                beforeSend: function()
+                {
+                    $(".ajax-load").show();
+                }
+            })
+            .done(function(data){
+                if(data.html == " ")
+                {
+                    $('.ajax-load').html('No More News Found');
+                    return;
+                }
+                $('.ajax-load').hide();
+                $('#more_news').append(data.html);
+            })
+            .fail(function(jqXHR,ajaxOptions,throwError){
+                alert("server naspd");
+            })
+        }
+
+        var page = 1;
+        $(window).scroll(function(){
+            if($(window).scrollTop() + $(window).height() >= $(document).height())
+            {
+                page++;
+                loadMoreData(page);
+            }
+        })
+    </script>
 
     {{-- <script>
         $(document).ready(function(){

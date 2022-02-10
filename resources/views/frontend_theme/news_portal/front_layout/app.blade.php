@@ -60,7 +60,7 @@
 		<!-- Footer
 		============================================= -->
 
-        @include('frontend_theme.news_portal.front_layout.vertical.footer')
+        {{-- @include('frontend_theme.news_portal.front_layout.vertical.footer') --}}
 
 		<!-- #footer end -->
 
