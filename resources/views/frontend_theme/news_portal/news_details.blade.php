@@ -87,10 +87,25 @@
                             </div>
 
                             <div class="row posts-md col-mb-30">
+                                @php
+                                $data = [];
+                                @endphp
                                 @foreach($category_id->childrenRecursive as $key => $subcat)
-                                @foreach ($subcat->posts as $post)
+                                @foreach ($subcat->posts()->orderBy('id', 'desc')->get() as $post)
                                 @if ($post->status == 1)
                                 @if ($post->id != $news->id)
+                                @php
+                                   $data[] = $post;
+                                @endphp
+                                @endif
+                                @endif
+                                @endforeach
+                                @endforeach
+
+                                @php
+                                $postdata = array_slice($data, 0,6);
+                                @endphp
+                                @foreach ($postdata as $post)
                                 <div class="entry col-sm-6 col-xl-4">
                                     <div class="grid-inner">
                                         <div class="entry-image">
@@ -114,11 +129,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                @endif
-                                @endif
                                 @endforeach
-                                @endforeach
+
                             </div>
+
+
+
                         </div>
 
 

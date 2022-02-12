@@ -63,15 +63,19 @@
                                 $data = [];
                             @endphp
                             @foreach($widget->category->childrenRecursive as $key => $subcat)
-                            @foreach ($subcat->posts as $post)
+                            @foreach ($subcat->posts()->orderBy('id','desc')->get() as $post)
                             @php
                             $data[] = $post;
                             @endphp
-                            
                             @endforeach
                             @endforeach
+                            {{-- {{dd($data);}} --}}
 
-                            @foreach ($data[0]->take($widget->no_of_post)->get() as $post)
+                            @php
+                                $postdata = array_slice($data, 0,$widget->no_of_post);
+                                //dd($test);
+                            @endphp
+                            @foreach ($postdata as $post)
 
                             <div class="entry col-12">
                                 <div class="grid-inner row g-0">

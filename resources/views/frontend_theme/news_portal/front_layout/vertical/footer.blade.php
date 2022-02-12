@@ -13,11 +13,18 @@
 
                             <div class="widget clearfix">
 
-                                <img src="images/footer-widget-logo.png" alt="Image" class="footer-logo">
+                                @php
+                                $logo  = \App\Models\Admin\Setting::where([['id',1]])->orderBy('id','desc')->first();
+                                @endphp
+                                @isset($logo)
+                                <img width="200" src="{{asset('uploads/settings/'.$logo->logo)}}" alt="Image" class="footer-logo">
+                                @endisset
+
+
 
                                 <p>We believe in <strong>Simple</strong>, <strong>Creative</strong> &amp; <strong>Flexible</strong> Design Standards.</p>
 
-                                <div style="background: url('images/world-map.png') no-repeat center center; background-size: 100%;">
+                                {{-- <div style="background: url('images/world-map.png') no-repeat center center; background-size: 100%;">
                                     <address>
                                         <strong>Headquarters:</strong><br>
                                         795 Folsom Ave, Suite 600<br>
@@ -26,26 +33,32 @@
                                     <abbr title="Phone Number"><strong>Phone:</strong></abbr> (1) 8547 632521<br>
                                     <abbr title="Fax"><strong>Fax:</strong></abbr> (1) 11 4752 1433<br>
                                     <abbr title="Email Address"><strong>Email:</strong></abbr> info@canvas.com
-                                </div>
+                                </div> --}}
 
                             </div>
 
                         </div>
 
                         <div class="col-md-4">
+                        <div class="search-bar">
 
+                        </div>
                             <div class="widget widget_links clearfix">
 
                                 <h4>Blogroll</h4>
 
                                 <ul>
-                                    <li><a href="https://codex.wordpress.org/">Documentation</a></li>
-                                    <li><a href="https://wordpress.org/support/forum/requests-and-feedback">Feedback</a></li>
+                                    @isset($footer_menuitems)
+                                    @foreach ($footer_menuitems as $footer_menuitem)
+                                    <li><a href="{{route('categories',$footer_menuitem->slug)}}">{{$footer_menuitem->title}}</a></li>
+                                    {{-- <li><a href="https://wordpress.org/support/forum/requests-and-feedback">Feedback</a></li>
                                     <li><a href="https://wordpress.org/extend/plugins/">Plugins</a></li>
                                     <li><a href="https://wordpress.org/support/">Support Forums</a></li>
                                     <li><a href="https://wordpress.org/extend/themes/">Themes</a></li>
                                     <li><a href="https://wordpress.org/news/">Canvas Blog</a></li>
-                                    <li><a href="https://planet.wordpress.org/">Canvas Planet</a></li>
+                                    <li><a href="https://planet.wordpress.org/">Canvas Planet</a></li> --}}
+                                    @endforeach
+                                    @endisset
                                 </ul>
 
                             </div>
@@ -54,7 +67,7 @@
 
                         <div class="col-md-4">
 
-                            <div class="widget clearfix">
+                            {{-- <div class="widget clearfix">
                                 <h4>Recent Posts</h4>
 
                                 <div class="posts-sm row col-mb-30" id="post-list-footer">
@@ -103,7 +116,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                         </div>
                     </div>
@@ -113,7 +126,7 @@
                 <div class="col-lg-4">
 
                     <div class="row col-mb-50">
-                        <div class="col-md-4 col-lg-12">
+                        {{-- <div class="col-md-4 col-lg-12">
                             <div class="widget clearfix" style="margin-bottom: -20px;">
 
                                 <div class="row">
@@ -143,7 +156,7 @@
                                     </div>
                                 </form>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="col-md-3 col-lg-12">
                             <div class="widget clearfix" style="margin-bottom: -20px;">
@@ -177,7 +190,7 @@
 
     </div>
 
-    <!-- Copyrights
+    {{-- <!-- Copyrights
     ============================================= -->
     <div id="copyrights">
         <div class="container">
@@ -240,5 +253,5 @@
             </div>
 
         </div>
-    </div><!-- #copyrights end -->
+    </div><!-- #copyrights end --> --}}
 </footer>

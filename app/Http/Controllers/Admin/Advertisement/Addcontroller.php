@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use Intervention\Image\Facades\Image;
 use App\Models\Advertisement\Advertisement;
 
-class Addcontroller extends Controller
+class AddController extends Controller
 {
     /**
      * Display a listing of the resource.

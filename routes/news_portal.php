@@ -26,6 +26,7 @@ Route::get('/categories/{slug}', 'NewsPortal\HomepageController@categories')->na
 Route::get('/categories/{slug}/all', 'NewsPortal\HomepageController@categories_all')->name('categories.all');
 Route::get('/fetchnews/{id}', 'NewsPortal\HomepageController@fetchnews')->name('fetchnews');
 Route::get('/news/{slug}', 'NewsPortal\HomepageController@news_details')->name('news.details');
+Route::get('/video/gallary', 'NewsPortal\HomepageController@video_gallary')->name('video.gallary');
 Route::get('/product/shops/filtered/{catId}/{id}', 'SingleVendor\HomepageController@filter')->name('shops.filter');
 Route::get('/product/shops/filtered/attribute/{catId}/{id}', 'SingleVendor\HomepageController@filterAttribute')->name('shops.filter.attribute');
 // Route::get('/product/cart', 'SingleVendor\HomepageController@view_cart')->name('view.cart');

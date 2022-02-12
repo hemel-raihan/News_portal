@@ -155,7 +155,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 bottommargin">
-                    <div class="container"><h1>Bootstrap  tab panel example (using nav-pills)  </h1></div>
+                    
                     <div id="exTab1" class="containe">
                             <div class="topnav">
                                 @if($single_category->childrenRecursive->count()>0)
@@ -237,7 +237,7 @@
                                                     <li></i>@foreach ($post->categories as $category)
                                                         <a href="{{route('categories.all',$category->parent->slug)}}">
                                                         {{$category->parent->name}} </a>
-                                                    @endforeach
+                                                        @endforeach
                                                     </li>
                                                 </ul>
                                             </div>
@@ -266,13 +266,12 @@
             <div id="more_news">
                 @include('frontend_theme.news_portal.loadmore_data')
             </div>
-    
         </div>
 
         <div class="ajax-load text-center" style="display: none;">
             <p><img height="200" src="{{asset('assets/frontend/images/480px-Loader.gif')}}">Loading More News</p>
         </div>
-
+        {{-- <button id="load_more_news" onclick="load_more_news()" style="margin-left: 40%;" class="button button-small button-circle button-green"><i class="icon-repeat"></i>More News</button> --}}
 
         {{-- <div class="col-12" style="margin-top: 10px; margin-left: 50px;">
             <img height="90" width="720" src="{{asset('assets/frontend/images/banner2.jpg')}}" alt="Ad">
@@ -339,16 +338,24 @@
                     return;
                 }
                 $('.ajax-load').hide();
+                console.log(data.html);
                 $('#more_news').append(data.html);
             })
-            .fail(function(jqXHR,ajaxOptions,throwError){
-                alert("server naspd");
-            })
+            // .fail(function(jqXHR,ajaxOptions,throwError){
+            //     alert("server naspd");
+            // })
         }
 
         var page = 1;
+        // function load_more_news()
+        //         {
+        //             page++;
+        //             loadMoreData(page);
+        //         }
         $(window).scroll(function(){
-            if($(window).scrollTop() + $(window).height() >= $(document).height())
+            var nav = $('#footer');
+
+            if($(window).scrollTop() + $(window).height() == $(document).height())
             {
                 page++;
                 loadMoreData(page);

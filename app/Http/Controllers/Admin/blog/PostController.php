@@ -59,8 +59,8 @@ class PostController extends Controller
                 'gallaryimage.*' => 'max:1024',
                 'files' => 'mimes:pdf,doc,docx',
                 'categories' => 'required',
-                'leftsidebar_id' => 'required',
-                'rightsidebar_id' => 'required',
+                // 'leftsidebar_id' => 'required',
+                // 'rightsidebar_id' => 'required',
             ]);
 
 
@@ -138,6 +138,15 @@ class PostController extends Controller
             $status = 1;
         }
 
+        if(!$request->hot_news)
+        {
+            $hot_news = 0;
+        }
+        else
+        {
+            $hot_news = 1;
+        }
+
         if(!Auth::guard('admin')->user()->role_id == 1)
         {
             $is_approved = false;
@@ -175,8 +184,9 @@ class PostController extends Controller
             'gallaryimage'=>  implode("|",$images),
             'files' => $filename,
             'body' => $request->body,
-            'leftsidebar_id' => $request->leftsidebar_id,
-            'rightsidebar_id' => $request->rightsidebar_id,
+            'hot_news' => $hot_news,
+            // 'leftsidebar_id' => $request->leftsidebar_id,
+            // 'rightsidebar_id' => $request->rightsidebar_id,
             'status' => $status,
             'is_approved' => $is_approved,
 
@@ -277,8 +287,8 @@ class PostController extends Controller
                 'gallaryimage.*' => 'max:1024',
                 'files' => 'mimes:pdf,doc,docx',
                 'categories' => 'required',
-                'leftsidebar_id' => 'required',
-                'rightsidebar_id' => 'required',
+                // 'leftsidebar_id' => 'required',
+                // 'rightsidebar_id' => 'required',
         ]);
 
         //get form image
@@ -382,6 +392,15 @@ class PostController extends Controller
             $status = 1;
         }
 
+        if(!$request->hot_news)
+        {
+            $hot_news = 0;
+        }
+        else
+        {
+            $hot_news = 1;
+        }
+
         if(!Auth::guard('admin')->user()->role_id == 1)
         {
             $is_approved = false;
@@ -418,8 +437,9 @@ class PostController extends Controller
             'gallaryimage'=>  implode("|",$images),
             'files' => $filename,
             'body' => $request->body,
-            'leftsidebar_id' => $request->leftsidebar_id,
-            'rightsidebar_id' => $request->rightsidebar_id,
+            'hot_news' => $hot_news,
+            // 'leftsidebar_id' => $request->leftsidebar_id,
+            // 'rightsidebar_id' => $request->rightsidebar_id,
             'status' => $status,
             'is_approved' => $is_approved,
 

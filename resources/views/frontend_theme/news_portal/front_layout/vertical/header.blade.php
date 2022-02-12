@@ -5,7 +5,13 @@
             <!-- Logo
             ============================================= -->
             <div id="logo" class="me-0 me-lg-auto">
-                <a href="{{route('home')}}" class="standard-logo" data-dark-logo="images/logo-dark.png"><img src="{{asset('assets/frontend/images/logo_big.png')}}" alt="Canvas Logo"></a>
+                @php
+                $logo  = \App\Models\Admin\Setting::where([['id',1]])->orderBy('id','desc')->first();
+                @endphp
+                @isset($logo)
+                    <a href="{{route('home')}}" class="standard-logo" data-dark-logo="{{asset('uploads/settings/'.$logo->logo)}}"><img src="{{asset('uploads/settings/'.$logo->logo)}}" alt="Canvas Logo"></a>
+                @endisset
+                {{-- <a href="{{route('home')}}" class="standard-logo" data-dark-logo="images/logo-dark.png"><img src="{{asset('assets/frontend/images/logo_big.png')}}" alt="Canvas Logo"></a> --}}
                 {{-- <a href="index.html" class="retina-logo" data-dark-logo="images/logo-dark@2x.png"><img src="images/logo@2x.png" alt="Canvas Logo"></a> --}}
             </div><!-- #logo end -->
 
@@ -58,12 +64,26 @@
                     @isset($menuitems)
                     @foreach ($menuitems as $menuitem)
                     @if($menuitem->childs->isEmpty())
+                    @if ($menuitem->slug == null)
+                        <li class="menu-item">
+                            <a class="menu-link" href="{{$menuitem->url}}"><div>{{$menuitem->title}}</div></a>
+                        </li>
+                    @else
                         <li class="menu-item">
                             <a class="menu-link" href="{{route('categories',$menuitem->slug)}}"><div>{{$menuitem->title}}</div></a>
                         </li>
                     @endif
+                    @endif
                     @endforeach
                     @endisset
+                    <li class="menu-item">
+                        <a class="menu-link" href="slider-revolution.html"><div>আরও<i class="icon-line-arrow-down"></i></div></a>
+                        <ul class="sub-menu-container">
+                            <li class="menu-item">
+                                <a class="menu-link" href="{{route('video.gallary')}}"><div>ভিডিও</div></a>
+                            </li>
+                        </ul>
+                    </li>
                         {{-- <li class="menu-item">
                             <a class="menu-link" href="#"><div>Features</div></a>
                             <ul class="sub-menu-container">

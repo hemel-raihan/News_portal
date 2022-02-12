@@ -13,7 +13,7 @@
             <div id="logo">
                 @php
                 $logo  = \App\Models\Admin\Setting::where([['id',1]])->orderBy('id','desc')->first();
-            @endphp
+                @endphp
             @isset($logo)
                 <a href="index.html" class="standard-logo" data-dark-logo="{{asset('uploads/settings/'.$logo->logo)}}"><img src="{{asset('uploads/settings/'.$logo->logo)}}" alt="Canvas Logo"></a>
             @endisset

@@ -45,7 +45,7 @@
 <section id="content">
     <div class="content-wrap">
 
-        <div class="section header-stick bottommargin-lg py-3">
+        {{-- <div class="section header-stick bottommargin-lg py-3">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-auto">
@@ -67,7 +67,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <div class="container clearfix">
 

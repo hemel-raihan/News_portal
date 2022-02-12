@@ -43,7 +43,7 @@ class SettingController extends Controller
             }
 
             $img                     =       Image::make($image->path());
-            $img->resize(900, 600)->save($settingPath.'/'.$imagename);
+            $img->resize(211, 57)->save($settingPath.'/'.$imagename);
 
         }
         else

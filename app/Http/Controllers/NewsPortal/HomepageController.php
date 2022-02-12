@@ -9,6 +9,7 @@ use App\Models\blog\category;
 use App\Models\Program\Program;
 use App\Http\Controllers\Controller;
 use App\Models\Frontmenu\Frontmenuitem;
+use App\Models\Program\Programcategory;
 
 class HomepageController extends Controller
 {
@@ -29,7 +30,8 @@ class HomepageController extends Controller
             {
                 if($request->ajax())
                 {
-                    $view = view('frontend_theme.news_portal.loadmore_data')->render();
+                    $single_category = category::find($blogcategoryid);
+                    $view = view('frontend_theme.news_portal.loadmore_data',compact('single_category'))->render();
                     return response()->json(['html'=>$view]);
                 }
                 $single_category = category::find($blogcategoryid);
@@ -38,13 +40,15 @@ class HomepageController extends Controller
 
             }
         }
-        
+
 
     }
 
     public function categories_all($slug)
     {
         $single_category = category::where('slug',$slug)->first();
+        // $view = view('frontend_theme.news_portal.loadmore_data',compact('single_category'))->render();
+        // return response()->json(['html'=>$view]);
         $newses = $single_category->posts()->get();
         return view('frontend_theme.news_portal.categorypage',compact('newses','single_category'));
     }
@@ -87,6 +91,13 @@ class HomepageController extends Controller
             $category_id = $category->parent;
         }
         return view('frontend_theme.news_portal.news_details',compact('news','category_id'));
+    }
+
+    public function video_gallary()
+    {
+        $categories = Programcategory::all();
+        $programs = Program::all();
+        return view('frontend_theme.news_portal.video_gallary',compact('categories','programs'));
     }
 
 

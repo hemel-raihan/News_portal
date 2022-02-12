@@ -16,11 +16,14 @@
                 ============================================= -->
                 <ul class="grid-filter" data-container="#portfolio">
                     <li class="activeFilter"><a href="#" data-filter="*">Show All</a></li>
-                    <li><a href="#" data-filter=".pf-icons">Icons</a></li>
-                    <li><a href="#" data-filter=".pf-illustrations">Illustrations</a></li>
+                    @foreach ($categories as $category)
+                    <li><a href="#" data-filter=".{{$category->slug}}">{{$category->name}}</a></li>
+                    @endforeach
+
+                    {{-- <li><a href="#" data-filter=".pf-illustrations">Illustrations</a></li>
                     <li><a href="#" data-filter=".pf-uielements">UI Elements</a></li>
                     <li><a href="#" data-filter=".pf-media">Media</a></li>
-                    <li><a href="#" data-filter=".pf-graphics">Graphics</a></li>
+                    <li><a href="#" data-filter=".pf-graphics">Graphics</a></li> --}}
                 </ul><!-- .grid-filter end -->
 
                 <div class="grid-shuffle rounded" data-container="#portfolio">
@@ -34,12 +37,15 @@
             <div id="portfolio" class="portfolio row grid-container gutter-20" data-layout="fitRows">
 
                 <!-- Portfolio Item: Start -->
-                <article class="portfolio-item col-lg-3 col-md-4 col-sm-6 col-12 pf-media pf-icons">
+                @foreach ($programs as $program)
+                <article class="portfolio-item col-lg-3 col-md-4 col-sm-6 col-12 pf-media {{$program->programcategory->slug}}">
                     <video poster="images/videos/explore-poster.jpg" preload="auto" controls style="display: block; width: 100%;">
                         {{-- <source src='images/videos/explore.webm' type='video/webm' /> --}}
-                        <source src='{{asset('uploads/video/Y2Mate.is - New In Laravel 8.82.0 - New Required Array Keys Validation Rule Added-_q3gYeK7gdo-1080p-1644055906118.mp4')}}' type='video/mp4' />
+                        <source src='{{asset('uploads/video/'.$program->video)}}' type='video/mp4' />
                     </video>
                 </article>
+                @endforeach
+
                 <!-- Portfolio Item: End -->
 
                 {{-- <article class="portfolio-item col-lg-3 col-md-4 col-sm-6 col-12 pf-illustrations">

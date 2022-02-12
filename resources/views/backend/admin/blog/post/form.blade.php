@@ -325,7 +325,29 @@
 
                     @endisset
 
-					@isset($editsidebars)
+
+                    @isset($post)
+					<div class="form-group">
+						<div class="form-label">Hot News</div>
+						<label class="custom-switch">
+							<input type="checkbox" name="hot_news" {{$post->hot_news == true ? 'checked' : ''}} class="custom-switch-input ">
+							<span class="custom-switch-indicator"></span>
+						</label>
+					</div>
+
+                    @else
+
+                    <div class="form-group">
+						<div class="form-label">Hot News</div>
+						<label class="custom-switch">
+							<input type="checkbox" name="hot_news" class="custom-switch-input ">
+							<span class="custom-switch-indicator"></span>
+						</label>
+					</div>
+
+                    @endisset
+
+					{{-- @isset($editsidebars)
 
                     <div class="form-group">
 						<label class="form-label">Left Sidebar</label>
@@ -393,7 +415,7 @@
                         @enderror
 					</div>
 
-                    @endisset
+                    @endisset --}}
 
                     <div class="form-group">
 						<label class="form-label">File</label>

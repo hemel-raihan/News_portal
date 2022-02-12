@@ -60,7 +60,18 @@
 		<!-- Footer
 		============================================= -->
 
-        {{-- @include('frontend_theme.news_portal.front_layout.vertical.footer') --}}
+        @php
+        $footer_menus = \App\Models\Frontmenu\Frontmenu::where([['type','=','footer-menu'],['status','=',true]])->get();
+        foreach($footer_menus as $footer_menu)
+        {
+            $footer_menuitems = $footer_menu->menuItems()->get();
+        }
+        @endphp
+        @isset($footer_menuitems)
+        @include('frontend_theme.news_portal.front_layout.vertical.footer',['footer_menuitems'=>$footer_menuitems])
+        @else
+        @include('frontend_theme.news_portal.front_layout.vertical.footer')
+        @endisset
 
 		<!-- #footer end -->
 
