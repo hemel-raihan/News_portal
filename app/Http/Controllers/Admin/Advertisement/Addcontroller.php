@@ -48,7 +48,6 @@ class AddController extends Controller
      */
     public function store(Request $request)
     {
-
         $this->validate($request,[
             'title' => 'required|unique:advertisements',
             'banner' => 'max:1024',

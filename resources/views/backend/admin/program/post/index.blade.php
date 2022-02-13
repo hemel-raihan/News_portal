@@ -51,27 +51,29 @@
 							<table id="file-datatable" class="table table-bordered text-nowrap key-buttons border-bottom  w-100">
 								<thead>
 									<tr>
-										<th class="border-bottom-0">Title</th>
-										<th class="border-bottom-0">Category</th>
-										<th class="border-bottom-0">Status</th>
-										<th class="border-bottom-0">Action</th>
+										<th class="border-bottom-0 text-center">Title</th>
+                                        <th class="border-bottom-0 text-center">Schedule</th>
+										<th class="border-bottom-0 text-center">Poster</th>
+										<th class="border-bottom-0 text-center">Status</th>
+										<th class="border-bottom-0 text-center">Action</th>
 									</tr>
 								</thead>
 								<tbody>
                                 @foreach($programs as $program)
 									<tr>
-										<td>{{Str::limit($program->title,'30')}}</td>
-                                        <td>
-                                        {{$program->programcategory->name}}
+										<td class="text-center">{{Str::limit($program->title,'30')}}</td>
+                                        <td class="text-center">
+                                        {{$program->start_datetime}} </br> To </br> {{$program->end_datetime}}
                                         </td>
-										<td>
-                                            {{-- @if($post->status == true)
-                                            <a href="{{route('admin.portfolio.status',$post->id)}}" class="btn btn-green">Active</a>
+                                        <td class="text-center"><img class="" width="70px" src="{{ asset('uploads/video/'.$program->poster)}}"></td>
+										<td class="text-center">
+                                            @if($program->status == true)
+                                            <a href="{{route('admin.program.status',$program->id)}}" class="btn btn-green">Active</a>
                                             @else
-                                            <a href="{{route('admin.portfolio.status',$post->id)}}" class="btn btn-red">InActive</a>
-                                            @endif --}}
+                                            <a href="{{route('admin.program.status',$program->id)}}" class="btn btn-red">InActive</a>
+                                            @endif
                                         </td>
-										<td>
+										<td class="text-center">
                                             <a href="{{route('admin.programs.edit',$program->id)}}" class="btn btn-success">
                                             <i class="fa fa-edit"></i>
                                             </a>

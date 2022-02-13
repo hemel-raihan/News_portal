@@ -19,13 +19,13 @@
 							<a class="side-menu__item" href="{{ url('widgets') }}"><i class="side-menu__icon fe fe-grid"></i><span class="side-menu__label">Widgets</span></a>
 						</li> -->
 
-                        <li class="slide">
+                        {{-- <li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-layers"></i><span class="side-menu__label">Page Builder</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
 								<li><a href="{{route('admin.custompages.create')}}" class="slide-item">Create Custom Page </a></li>
 								<li><a href="{{route('admin.custompages.index')}}" class="slide-item">All Pages</a></li>
 							</ul>
-						</li>
+						</li> --}}
 
                         <li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-layers"></i><span class="side-menu__label">Page Management</span><i class="angle fa fa-angle-right"></i></a>
@@ -38,24 +38,24 @@
                         <li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-layers"></i><span class="side-menu__label">Program Management</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
+                                <li><a href="{{route('admin.programs.create')}}" class="slide-item">Create New Programs</a></li>
 								<li><a href="{{route('admin.programs.index')}}" class="slide-item">All Programs</a></li>
 								<li><a href="{{route('admin.programcategories.index')}}" class="slide-item">All Categories</a></li>
 							</ul>
 						</li>
 
-                        <li class="slide">
+                        {{-- <li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-shopping-cart"></i><span class="side-menu__label">Product Management</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
 								<li><a href="{{route('admin.products.create')}}" class="slide-item">Create New Product </a></li>
 								<li><a href="{{route('admin.products.index')}}" class="slide-item">All Products</a></li>
 								<li><a href="{{route('admin.productcategories.create')}}" class="slide-item">Add Category</a></li>
                                 <li><a href="{{route('admin.productcategories.index')}}" class="slide-item">All Categories</a></li>
-                                {{-- <li><a href="{{route('admin.brands.create')}}" class="slide-item">Add Brand</a></li> --}}
                                 <li><a href="{{route('admin.brands.index')}}" class="slide-item">All Brands</a></li>
                                 <li><a href="{{route('admin.attributes.index')}}" class="slide-item">All Attributes</a></li>
                                 <li><a href="{{route('admin.colors.index')}}" class="slide-item">All Colors</a></li>
 							</ul>
-						</li>
+						</li> --}}
 
                         <li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-globe"></i><span class="side-menu__label">News Management</span><i class="angle fa fa-angle-right"></i></a>
@@ -75,7 +75,7 @@
 							</ul>
 						</li>
 
-                        <li class="slide">
+                        {{-- <li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-database"></i><span class="side-menu__label">Genaral Content</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
 								<li><a href="{{route('admin.contentposts.create')}}" class="slide-item">Add New Content </a></li>
@@ -83,7 +83,7 @@
 								<li><a href="{{route('admin.contentcategories.create')}}" class="slide-item">Add Content Category</a></li>
                                 <li><a href="{{route('admin.contentcategories.index')}}" class="slide-item">All Categories</a></li>
 							</ul>
-						</li>
+						</li> --}}
 
                         <li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-user-plus"></i><span class="side-menu__label">Team Management</span><i class="angle fa fa-angle-right"></i></a>
@@ -95,14 +95,14 @@
 							</ul>
 						</li>
 
-                        <li class="slide">
+                        {{-- <li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-user-plus"></i><span class="side-menu__label">Marketing</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
 								<li><a href="{{route('admin.flash-deals.index')}}" class="slide-item">FlashDeals</a></li>
 							</ul>
-						</li>
+						</li> --}}
 
-                        <li class="slide">
+                        {{-- <li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-settings"></i><span class="side-menu__label">Service Management</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
 								<li><a href="{{route('admin.services.create')}}" class="slide-item">Add New Service </a></li>
@@ -110,9 +110,9 @@
 								<li><a href="{{route('admin.servicecategories.create')}}" class="slide-item">Add Service Category</a></li>
                                 <li><a href="{{route('admin.servicecategories.index')}}" class="slide-item">All Categories</a></li>
 							</ul>
-						</li>
+						</li> --}}
 
-                        <li class="slide">
+                        {{-- <li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-briefcase"></i><span class="side-menu__label">Portfolio Management</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
 								<li><a href="{{route('admin.portfolios.create')}}" class="slide-item">Add New Portfolio </a></li>
@@ -120,9 +120,9 @@
 								<li><a href="{{route('admin.portfoliocategories.create')}}" class="slide-item">Add Portfolio Category</a></li>
                                 <li><a href="{{route('admin.portfoliocategories.index')}}" class="slide-item">All Categories</a></li>
 							</ul>
-						</li>
+						</li> --}}
 
-                        <li class="slide">
+                        {{-- <li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-dollar-sign"></i><span class="side-menu__label">Pricing Tables</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
 								<li><a href="{{route('admin.prices.create')}}" class="slide-item">Add New Price </a></li>
@@ -130,7 +130,7 @@
 								<li><a href="{{route('admin.pricecategories.create')}}" class="slide-item">Add Price Category</a></li>
                                 <li><a href="{{route('admin.pricecategories.index')}}" class="slide-item">All Categories</a></li>
 							</ul>
-						</li>
+						</li> --}}
 
                         <li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-align-justify"></i><span class="side-menu__label">Sidebar</span><i class="angle fa fa-angle-right"></i></a>
@@ -140,7 +140,7 @@
 							</ul>
 						</li>
 
-						<li class="slide">
+						{{-- <li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-bell"></i><span class="side-menu__label">Notice</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
 								<li><a href="{{route('admin.notices.create')}}" class="slide-item">Create New Notice </a></li>
@@ -154,7 +154,7 @@
 								<li><a href="{{route('admin.links.create')}}" class="slide-item">Create Hot Link </a></li>
 								<li><a href="{{route('admin.links.index')}}" class="slide-item">All Links</a></li>
 							</ul>
-						</li>
+						</li> --}}
 
                         <li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-align-left"></i><span class="side-menu__label">Front Menu</span><i class="angle fa fa-angle-right"></i></a>
@@ -165,7 +165,7 @@
 						</li>
 
 						{{-- Slide + Slider--}}
-						<li class="slide">
+						{{-- <li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-airplay"></i><span class="side-menu__label">Slider</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
 								<li><a href="{{ route('admin.slides.create') }}" class="slide-item"> Create Slide</a></li>
@@ -173,15 +173,15 @@
 								<li><a href="{{ route('admin.sliders.create') }}" class="slide-item"> Create Slider</a></li>
 								<li><a href="{{ route('admin.sliders.index') }}" class="slide-item">All Slider</a></li>
 							</ul>
-						</li>
+						</li> --}}
 
-                        <li class="slide">
+                        {{-- <li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-video"></i><span class="side-menu__label">Video</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
 								<li><a href="{{ route('admin.videos.create') }}" class="slide-item"> Create Video</a></li>
 								<li><a href="{{ route('admin.videos.index') }}" class="slide-item"> All Videos</a></li>
 							</ul>
-						</li>
+						</li> --}}
 
 						<li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">User Management</span><i class="angle fa fa-angle-right"></i></a>
