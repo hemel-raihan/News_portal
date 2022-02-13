@@ -28,13 +28,13 @@ class HomepageController extends Controller
         {
             if($blogcat->id == $blogcategoryid)
             {
+                $single_category = category::find($blogcategoryid);
                 if($request->ajax())
                 {
-                    $single_category = category::find($blogcategoryid);
                     $view = view('frontend_theme.news_portal.loadmore_data',compact('single_category'))->render();
                     return response()->json(['html'=>$view]);
                 }
-                $single_category = category::find($blogcategoryid);
+                
                 $newses = $single_category->posts()->get();
                 return view('frontend_theme.news_portal.categorypage',compact('newses','single_category'));
 

@@ -139,9 +139,13 @@
                         @enderror
 					</div>
 
+					
+                    {{-- <button onclick="filemanager.selectFile('profile-photo')">Choose</button> --}}
+
                     <div class="form-group">
 						<label class="form-label">Video</label>
-                        <input type="file" data-height="100" class="dropify form-control"  name="video">
+						<input type="text" class="form-control" id="profile-photo">
+                        <input type="file"  onclick="filemanager.selectFile('profile-photo')" data-height="100" class="dropify form-control"  name="video">
 					</div>
 
 

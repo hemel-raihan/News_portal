@@ -11,18 +11,17 @@
             @endforeach
             @endforeach
 
-
             @foreach ($data as $news)
             <div class="posts-md">
                 <div class="entry row mb-5">
                     <div class="col-md-3">
                         <div class="entry-image">
-                            <a href="{{route('news.details',$post->slug)}}"><img src="{{asset('uploads/postphoto/'.$news->image)}}" alt="Image"></a>
+                            <a href="{{route('news.details',$news->slug)}}"><img src="{{asset('uploads/postphoto/'.$news->image)}}" alt="Image"></a>
                         </div>
                     </div>
                     <div class="col-md-9 mt-3 mt-md-0">
                         <div class="entry-title title-sm nott">
-                            <h3><a href="{{route('news.details',$post->slug)}}">{{$news->title}}</a></h3>
+                            <h3><a href="{{route('news.details',$news->slug)}}">{{$news->title}}</a></h3>
                         </div>
                         <div class="entry-meta">
                             <ul>
