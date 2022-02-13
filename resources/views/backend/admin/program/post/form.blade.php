@@ -76,6 +76,8 @@
 				<!-- INTERNAL multi css-->
 				<link rel="stylesheet" href="{{ asset('assets/plugins/multi/multi.min.css') }}">
 
+                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
 @endsection
 
 @section('content')
@@ -105,7 +107,7 @@
 						<!-- PAGE-HEADER END -->
 
                    <!-- ROW-1 OPEN -->
-    <form method="POST" action="{{isset($program) ? route('admin.programs.update',$program->id) : route('admin.programs.store')}}" enctype="multipart/form-data">
+    <form method="POST" id="fileUploadForm" action="{{isset($program) ? route('admin.programs.update',$program->id) : route('admin.programs.store')}}" enctype="multipart/form-data">
     @csrf
     @isset($program)
     @method('PUT')
@@ -139,14 +141,32 @@
                         @enderror
 					</div>
 
-					
-                    {{-- <button onclick="filemanager.selectFile('profile-photo')">Choose</button> --}}
+                    <input type="radio" name="link" checked id="test2">
+                    <label for="css">Local</label>
+                    <input type="radio" name="link" id="test1">
+                    <label for="html">Embed Code</label>
+
+
+                    <div class="form-group embed_code" style="display:none">
+						<label for="exampleInputname">Embed Code</label>
+						<input type="text" class="form-control" value="{{$program->embed_code ?? old('embed_code')}}" name="embed_code" id="embed_code" placeholder="Embed Code Id">
+					</div>
+
+					<div class="form-group video">
+                        <label class="form-label">Video</label>
+                        <input type="file" data-height="100" data-default-file="{{ isset($program) ? asset('uploads/video/'.$program->video) : '' }}" class="dropify form-control"  name="video">
+					</div>
 
                     <div class="form-group">
-						<label class="form-label">Video</label>
-						<input type="text" class="form-control" id="profile-photo">
-                        <input type="file"  onclick="filemanager.selectFile('profile-photo')" data-height="100" class="dropify form-control"  name="video">
+                        <label class="form-label">Program Poster</label>
+                        <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($program) ? asset('uploads/video/'.$program->poster) : '' }}" name="poster">
 					</div>
+
+                    <div class="form-group">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                        </div>
+                    </div>
 
 
 				</div>
@@ -170,7 +190,7 @@
 
 			<div class="card shadow-none border">
 				<div class="card-header">
-					<h5 class="card-title">Parent Category</h5>
+					<h5 class="card-title">Select Category</h5>
 				</div>
 				<div class="card-body" style="padding:2px;">
 					<div class="transfer">
@@ -297,10 +317,36 @@
 	</div>
     </form>
 	<!-- ROW-1 CLOSED -->
-@endsection('content')
+
+
+@endsection()
 
 @section('scripts')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
 
+<script>
+    $(function () {
+        $(document).ready(function () {
+
+            $('form').ajaxForm({
+                beforeSend: function () {
+                    var percentage = '0';
+                },
+                uploadProgress: function (event, position, total, percentComplete) {
+                    var percentage = percentComplete;
+
+                    $('.progress .progress-bar').css("width", percentage+'%', function() {
+                      return $(this).attr("aria-valuenow", percentage) + "%";
+                    })
+                },
+                complete: function (xhr) {
+                    console.log('File has uploaded');
+                }
+            });
+        });
+    });
+</script>
 
 
     {{-- <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script> --}}
@@ -316,6 +362,8 @@
 	    });
 	}
 </script>
+
+
 
 {{-- <script src="{{asset('ckeditor/ckeditor.js')}}"></script> --}}
 
@@ -337,21 +385,21 @@
 
 
 <script>
-$(document).ready(function() {
-    $("input[id$='test1']").click(function() {
-        var link = $(this).val();
+    $(document).ready(function() {
+        $("input[id$='test1']").click(function() {
+            var link = $(this).val();
 
-        $("div.youtube").show();
-        $("div.featur").hide();
+            $("div.embed_code").show();
+            $("div.video").hide();
+        });
+
+        $("input[id$='test2']").click(function() {
+            var link = $(this).val();
+
+            $("div.embed_code").hide();
+            $("div.video").show();
+        });
     });
-
-    $("input[id$='test2']").click(function() {
-        var link = $(this).val();
-
-        $("div.youtube").hide();
-        $("div.featur").show();
-    });
-});
 </script>
 
 

@@ -37,6 +37,7 @@
             <div id="portfolio" class="portfolio row grid-container gutter-20" data-layout="fitRows">
 
                 <!-- Portfolio Item: Start -->
+                
                 @foreach ($programs as $program)
                 <article class="portfolio-item col-lg-3 col-md-4 col-sm-6 col-12 pf-media {{$program->programcategory->slug}}">
                     <video poster="images/videos/explore-poster.jpg" preload="auto" controls style="display: block; width: 100%;">

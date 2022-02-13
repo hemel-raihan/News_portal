@@ -27,7 +27,7 @@
                 @endphp
                 @if ($to_day >= $from_datee && $to_day <= $to_datee)
                 <div class="top-advert">
-                    <img height="90" width="720" src="{{asset('uploads/advertisement/'.$advertisement->banner)}}" alt="Ad">
+                    <img height="90" width="720" src="{{asset('uploads/advertisement/'.$advertisement->banner)}}" alt="banner">
                 </div>
                 @else
                 @endif

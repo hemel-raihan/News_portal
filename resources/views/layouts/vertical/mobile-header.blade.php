@@ -10,9 +10,9 @@
 								<img src="{{ asset('frontend/images/browser_logo.png') }}" class="header-brand-img light-logo1" alt="logo">
 							</a><!-- LOGO -->
 							<div class="dropdown d-md-flex">
-								{{-- <a class="nav-link icon full-screen-link mt-2 nav-link-bg" target="_blank" href="{{ route('home') }}">
+								<a class="nav-link icon full-screen-link mt-2 nav-link-bg" target="_blank" href="{{ route('home') }}">
 									<i class="fe fe-globe"></i>
-								</a> --}}
+								</a>
 							</div>
 							<div class="d-flex order-lg-2 ms-auto header-right-icons">
 								<div class="dropdown d-lg-none d-md-block d-none">

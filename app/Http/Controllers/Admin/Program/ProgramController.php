@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Program\Program;
 use App\Http\Controllers\Controller;
+use Intervention\Image\Facades\Image;
 use App\Models\Program\Programcategory;
 
 class ProgramController extends Controller
@@ -43,7 +44,7 @@ class ProgramController extends Controller
     {
         $this->validate($request,[
             'title' => 'required|unique:programs',
-            'video' => 'required',
+            //'video' => 'required',
             'categories' => 'required',
             'start_date' => 'required',
             //'start_time' => 'required|unique:programs',
@@ -55,42 +56,80 @@ class ProgramController extends Controller
         $file = $request->file('video');
 
 
-        // $currentDate = Carbon::now()->toDateString();
-        //     $videoname = $currentDate.'-'.uniqid().'.'.$video->getClientOriginalExtension();
+        if(isset($file))
+        {
             $file->move('public/uploads/video',$file->getClientOriginalName());
             $file_name = $file->getClientOriginalName();
+        }
+        else
+        {
+            $file_name = null;
+        }
+
+
 
             $start = Carbon::parse($request->input('start_time'))->format('h:i a');
             $end = Carbon::parse($request->input('end_time'))->format('h:i a');
 
 
-            // $program_date = Program::all();
-            // foreach($program_date as $date)
-            // {
-            //     if($request->start_date == $date->start_date && $request->end_date == $date->end_date &&  $start > $date->start_time && $start < $date->end_time && $end > $date->end_time && $end < $date->end_time)
-            //     {
-            //         notify()->success("Already have a video in this date & time");
-            //         return back();
-            //     }
-            // }
+            //get form image
+            $image = $request->file('poster');
 
-            // if($request->start_date != $date->start_date && $request->end_date != $date->end_date && $start != $date->start_time && $end != $date->end_time)
-            // {
+            if(isset($image))
+            {
+                $currentDate = Carbon::now()->toDateString();
+                $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
+
+                $postphotoPath = public_path('uploads/video');
+                $img                     =       Image::make($image->path());
+                $img->resize(900, 600)->save($postphotoPath.'/'.$imagename);
+            }
+            else
+            {
+                $imagename = null;
+            }
             $program = Program::create([
+
                 'programcategory_id' => $request->categories,
                 'title' => $request->title,
                 'slug' => $slug,
+                'poster' => $imagename,
                 'video' => $file_name,
+                'embed_code' => $request->embed_code,
                 'start_date' => $request->start_date,
                 'start_datetime' => $request->start_date.' '.$start,
-                'start_time' => $start,
+                'start_time' => $request->start_time,
                 'end_date' => $request->end_date,
                 'end_datetime' => $request->end_date.' '.$end,
-                'end_time' => $end,
+                'end_time' => $request->end_time,
             ]);
-            notify()->success("Program Successfully created","Added");
-            return redirect()->route('admin.programs.index');
+            //notify()->success("Program Successfully created","Added");
+            // return redirect()->route('admin.programs.index');
+            return response()->json(['success'=>'Successfully uploaded.']);
+
         //}
+    }
+
+
+    public function status($id)
+    {
+        $program = Program::find($id);
+        if($program->status == true)
+        {
+            $program->status = false;
+            $program->save();
+
+            notify()->success('Successfully Deactiveated Post');
+        }
+        elseif($program->status == false)
+        {
+            $program->status = true;
+            $program->save();
+
+            notify()->success('Removed the Activeated Approval');
+        }
+
+        return redirect()->back();
     }
 
     /**
@@ -150,6 +189,30 @@ class ProgramController extends Controller
             $file_name = $program->video;
         }
 
+        $image = $request->file('poster');
+        if(isset($image))
+        {
+            $currentDate = Carbon::now()->toDateString();
+            $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
+
+            $postphotoPath = public_path('uploads/video');
+
+            $postphoto_path = public_path('uploads/video/'.$program->image);  // Value is not URL but directory file path
+            if (file_exists($postphoto_path)) {
+
+                @unlink($postphoto_path);
+
+            }
+
+           $img                     =       Image::make($image->path());
+            $img->resize(900, 600)->save($postphotoPath.'/'.$imagename);
+
+        }
+        else
+        {
+            $imagename = $program->image;
+        }
+
         $start = Carbon::parse($request->input('start_time'))->format('h:i a');
         $end = Carbon::parse($request->input('end_time'))->format('h:i a');
 
@@ -157,11 +220,15 @@ class ProgramController extends Controller
                 'programcategory_id' => $request->categories,
                 'title' => $request->title,
                 'slug' => $slug,
+                'poster' =>$imagename,
                 'video' => $file_name,
-                'start_date' => $request->start_date.' '.$start,
-                'start_time' => $start,
-                'end_date' => $request->end_date.' '.$end,
-                'end_time' => $end,
+                'embed_code' => $request->embed_code,
+                'start_date' => $request->start_date,
+                'start_datetime' => $request->start_date.' '.$start,
+                'start_time' => $request->start_time,
+                'end_date' => $request->end_date,
+                'end_datetime' => $request->end_date.' '.$end,
+                'end_time' => $request->end_time,
             ]);
             notify()->success("Program Successfully Updated","Updated");
             return redirect()->route('admin.programs.index');

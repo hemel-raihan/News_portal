@@ -96,7 +96,9 @@ class HomepageController extends Controller
     public function video_gallary()
     {
         $categories = Programcategory::all();
-        $programs = Program::all();
+        $today = date("Y/m/d h:i a");
+        $to_day=date("Y-m-d h:i a",strtotime($today));
+        $programs = Program::where('end_datetime','<',$to_day)->get();
         return view('frontend_theme.news_portal.video_gallary',compact('categories','programs'));
     }
 

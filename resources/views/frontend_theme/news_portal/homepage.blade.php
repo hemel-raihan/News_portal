@@ -95,7 +95,7 @@
 
 
                 </div>
-                <div class="col-lg-6 bottommargin">
+                <div class="col-lg-6">
                     <div class="col-12">
                         <div class="fslider flex-thumb-grid grid-6" data-animation="fade" data-arrows="true" data-thumbs="true">
                             <div class="flexslider">
@@ -123,12 +123,12 @@
                                     {{-- @endif
                                     @endforeach --}}
 
-                                    <div id="elvideo"></div>
+                                    <div style="background: black;" id="elvideo"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 bottommargin">
+                <div class="col-lg-3">
                     @foreach (\App\Models\blog\Post::where('hot_news', 1)->orderBy('id', 'desc')->take(4)->get() as $key => $post)
                     @if ($post->status == 1)
                     @if ($key%2 != 0)
@@ -553,7 +553,7 @@
                             if(len == 1)
                             {
                                 $.each(response.programs, function(key, item){
-                                    document.getElementById('elvideo').innerHTML ="<video id='videoElement' width=640 height=425 controls controlsList='nodownload' autoplay playsinline><p>Tu navegador no funciona, actualizalo</p></video>";
+                                    document.getElementById('elvideo').innerHTML ="<video id='videoElement' width=640 height=425 controls controlsList='nodownload'  playsinline autoplay><p>Tu navegador no funciona, actualizalo</p></video>";
                                     var videoPlayer = document.getElementById('videoElement');
                                     videoPlayer.src = "http://localhost/News_portal/public/uploads/video/"+item;
                                 });
@@ -566,7 +566,7 @@
                                 var n = str.includes(",");
                                 if (n) {
                                 var nArr = str.split(',');
-                                    document.getElementById('elvideo').innerHTML ="<video id='videoElement' width=640 height=425 controls controlsList='nodownload' autoplay playsinline><p>Tu navegador no funciona, actualizalo</p></video>";
+                                    document.getElementById('elvideo').innerHTML ="<video id='videoElement' width=640 height=425 controls controlsList='nodownload'  playsinline autoplay><p>Tu navegador no funciona, actualizalo</p></video>";
                                 var videoPlayer = document.getElementById('videoElement');
                                 videoPlayer.src = "http://localhost/News_portal/public/uploads/video/"+nArr[0]+"#t=0,10";
                                 i = 1;
