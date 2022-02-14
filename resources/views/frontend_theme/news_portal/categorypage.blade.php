@@ -338,7 +338,6 @@
                     return;
                 }
                 $('.ajax-load').hide();
-                console.log(data.html);
                 $('#more_news').append(data.html);
             })
             // .fail(function(jqXHR,ajaxOptions,throwError){
