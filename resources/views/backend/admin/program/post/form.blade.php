@@ -2,7 +2,7 @@
 
 @section('styles')
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css" integrity="sha512-EZSUkJWTjzDlspOoPSpUFR0o0Xy7jdzW//6qhUkoZ9c4StFkVsp9fbbd0O06p9ELS3H486m4wmrCELjza4JEog==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css" integrity="sha512-EZSUkJWTjzDlspOoPSpUFR0o0Xy7jdzW//6qhUkoZ9c4StFkVsp9fbbd0O06p9ELS3H486m4wmrCELjza4JEog==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
         <!-- FILE UPLODE CSS -->
         <link href="{{ asset('assets/plugins/fileuploads/css/fileupload.css') }}" rel="stylesheet" type="text/css"/>
@@ -76,7 +76,8 @@
 				<!-- INTERNAL multi css-->
 				<link rel="stylesheet" href="{{ asset('assets/plugins/multi/multi.min.css') }}">
 
-                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Filepond stylesheet -->
+{{-- <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet"> --}}
 
 @endsection
 
@@ -141,32 +142,42 @@
                         @enderror
 					</div>
 
-                    <input type="radio" name="link" checked id="test2">
-                    <label for="css">Local</label>
-                    <input type="radio" name="link" id="test1">
-                    <label for="html">Embed Code</label>
-
-
-                    <div class="form-group embed_code" style="display:none">
-						<label for="exampleInputname">Embed Code</label>
-						<input type="text" class="form-control" value="{{$program->embed_code ?? old('embed_code')}}" name="embed_code" id="embed_code" placeholder="Embed Code Id">
-					</div>
-
-					<div class="form-group video">
-                        <label class="form-label">Video</label>
-                        <input type="file" data-height="100" data-default-file="{{ isset($program) ? asset('uploads/video/'.$program->video) : '' }}" class="dropify form-control"  name="video">
-					</div>
-
-                    <div class="form-group">
-                        <label class="form-label">Program Poster</label>
-                        <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($program) ? asset('uploads/video/'.$program->poster) : '' }}" name="poster">
-					</div>
-
-                    <div class="form-group">
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="exampleInputname">Start Date</label>
+                                <input type="date" class="form-control" value="{{$program->start_date ?? old('start_date') }}" name="start_date" id="">
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="exampleInputname">Start Time</label>
+                                <input type="time" class="form-control" value="{{$program->start_time ?? old('start_time') }}" name="start_time" id="">
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="exampleInputname">End Date</label>
+                                <input type="date" class="form-control" value="{{$program->end_date ?? old('end_date') }}" name="end_date" id="">
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="exampleInputname">End Time</label>
+                                <input type="time" class="form-control" value="{{$program->end_time ?? old('end_time') }}" name="end_time" id="">
+                            </div>
                         </div>
                     </div>
+
+
+
+
+
+
+
+
+                    {{-- <input type="file" name="video" class="filepond"> --}}
+
 
 
 				</div>
@@ -289,25 +300,34 @@
 
                     @endisset
 
-                    <div class="form-group">
-						<label for="exampleInputname">Start Date</label>
-						<input type="date" class="form-control" value="{{$program->start_date ?? old('start_date') }}" name="start_date" id="">
+                    <input type="radio" name="link" checked id="test2">
+                    <label for="css">Local</label>
+                    <input type="radio" name="link" id="test1">
+                    <label for="html">Embed Code</label>
+
+
+                    <div class="form-group embed_code" style="display:none">
+						<label for="exampleInputname">Embed Code</label>
+						<input type="text" class="form-control" value="{{$program->embed_code ?? old('embed_code')}}" name="embed_code" id="embed_code" placeholder="Embed Code Id">
+					</div>
+
+					<div class="form-group video">
+                        <label class="form-label">Video</label>
+                        <input type="file"  data-default-file="{{ isset($program) ? asset('uploads/video/'.$program->video) : '' }}" class="dropify form-control"  name="">
 					</div>
 
                     <div class="form-group">
-						<label for="exampleInputname">Start Time</label>
-						<input type="time" class="form-control" value="{{$program->start_time ?? old('start_time') }}" name="start_time" id="">
+                        <label class="form-label">Program Poster</label>
+                        <input type="file"  class="dropify form-control" data-default-file="{{ isset($program) ? asset('uploads/video/'.$program->poster) : '' }}" name="poster">
 					</div>
 
                     <div class="form-group">
-						<label for="exampleInputname">End Date</label>
-						<input type="date" class="form-control" value="{{$program->end_date ?? old('end_date') }}" name="end_date" id="">
-					</div>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                        </div>
+                    </div>
 
-                    <div class="form-group">
-						<label for="exampleInputname">End Time</label>
-						<input type="time" class="form-control" value="{{$program->end_time ?? old('end_time') }}" name="end_time" id="">
-					</div>
+
 
 				</div>
 
@@ -322,14 +342,21 @@
 @endsection()
 
 @section('scripts')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
+{{-- <script src="https://unpkg.com/filepond/dist/filepond.js"></script> --}}
+
+{{-- <script>
+    FilePond.parse(document.body);
+
+    FilePond.SetOptions({
+        server: '/api'
+    });
+</script> --}}
 
 <script>
     $(function () {
         $(document).ready(function () {
 
-            $('form').ajaxForm({
+            $('#fileUploadForm').ajaxForm({
                 beforeSend: function () {
                     var percentage = '0';
                 },
@@ -347,6 +374,7 @@
         });
     });
 </script>
+
 
 
     {{-- <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script> --}}

@@ -1,7 +1,7 @@
 
+
     <!-- FAVICON -->
 		<link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/frontend/logo.png') }}" />
-
 		<!-- BOOTSTRAP CSS -->
 		<link href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">

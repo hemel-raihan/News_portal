@@ -105,8 +105,8 @@ class HomepageController extends Controller
 
     public function video()
     {
-        // $today = date("Y/m/d");
-        // $to_day=date("Y-m-d",strtotime($today));
+        $date = date("Y/m/d");
+        $only_date=date("Y-m-d",strtotime($date));
         $today = date("Y/m/d h:i a");
         $to_day=date("Y-m-d h:i a",strtotime($today));
         $mytime = Carbon::now();
@@ -114,10 +114,21 @@ class HomepageController extends Controller
         //  $programs = Program::where([['start_date','<=', $to_day],['end_date','>=', $to_day],['start_time','<=', $start],['end_time','<=', $start]])->pluck('video');
         // $programs = Program::where([['start_date','<=', $to_day],['start_time','<=', $start]])->where([['end_date','>=', $to_day],['end_time','>=', $start]])->pluck('video');
 
+        $prog_video = Program::where([['start_date','<=', $only_date],['end_date','>=', $only_date]])->get();
+        $program_start = Program::where([['start_datetime','<=', $to_day],['end_datetime','>=', $to_day]])->pluck('start_datetime');
+        $program_end = Program::where([['start_datetime','<=', $to_day],['end_datetime','>=', $to_day]])->pluck('end_datetime');
+        //$test = Program::where([['start_datetime','<=', $to_day],['end_datetime','>=', $to_day]])->pluck('video');
         $programs = Program::where([['start_datetime','<=', $to_day],['end_datetime','>=', $to_day]])->pluck('video');
+        $embed_video = Program::where([['start_datetime','<=', $to_day],['end_datetime','>=', $to_day]])->where('embed_code','!=',null)->pluck('embed_code');
+        return response()->json([
+            'programs' => $programs,
+            'prog_video' => $prog_video,
+            'embed_video' => $embed_video,
+            //'test' => $test,
+            'program_start' => $program_start,
+            'program_end' => $program_end,
+        ]);
 
-            return response()->json([
-                'programs' => $programs,
-            ]);
+
     }
 }

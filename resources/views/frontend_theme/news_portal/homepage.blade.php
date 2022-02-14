@@ -71,6 +71,36 @@
 
         <div class="container clearfix">
 
+            {{-- <video style="width:100%;" height="" muted autoplay loop controller>
+                <source src="{{asset('uploads/video/মুখের এক্সারসাইজ।৩_৪ কেজি ওজন কম মনে হবে ওজন কমানো ছাড়াই. face exercise-720p.mp4')}}" type="video/mp4" />
+            </video> --}}
+
+            {{-- @php
+                //$program = \App\Models\Program\Program::find(5);
+                $today = date("Y/m/d");
+                $to_day=date("Y-m-d",strtotime($today));
+                $mytime = Carbon\Carbon::now();
+                $start = Carbon\Carbon::parse($mytime)->format('h:i a');
+
+                $from_datee=date("Y-m-d",strtotime($program->start_date));
+                $from_time=date("h:i a",strtotime($program->start_time));
+                $to_datee=date("Y-m-d",strtotime($program->end_date));
+                $to_time=date("h:i a",strtotime($program->end_time));
+            @endphp --}}
+            {{-- @if($to_day >= $from_datee && $to_day <= $to_datee && $start >= $from_time && $start <= $to_time)
+            @if ($start >= $from_time && $start <= $to_time) --}}
+
+            {{-- <video id='videoElem' width=640 height=425 controls controlsList='nodownload'  playsinline muted autoplay>
+                @foreach (\App\Models\Program\Program::all() as $program)
+                <source  src="{{asset('uploads/video/'.$program->video)}}"  type="video/mp4" />
+                    @endforeach
+            </video> --}}
+
+            {{-- @endif
+            @endif --}}
+
+
+
             <div class="row">
                 <div class="col-lg-3 bottommargin">
                     @foreach (\App\Models\blog\Post::where('hot_news', 1)->orderBy('id', 'desc')->take(4)->get() as $key => $post)
@@ -122,7 +152,6 @@
                                     {{-- @endif --}}
                                     {{-- @endif
                                     @endforeach --}}
-
                                     <div style="background: black;" id="elvideo"></div>
                             </div>
                         </div>
@@ -533,6 +562,7 @@
 
 <script>
 
+
     $(document).ready(function(){
 
         fetchvideo();
@@ -545,39 +575,108 @@
             dtaType: "json",
             success: function(response)
             {
-                //$.each(response.programs, function(key, item){
 
-                            // var str = "VID-20220127-WA0010.mp4,VID-20220130-WA0000.mp4";
-                            var len= response.programs.length;
-                            console.log(len);
+
+                $.each(response.prog_video, function(key, item){
+
+                if(item.embed_code == null)
+                {
+                           var len= response.programs.length;
+                           console.log(len);
+
+                            function formatAMPM(date) {
+                            var datee = date.getDate();
+                            var month = date.getMonth() + 1;
+                            var year = date.getFullYear();
+                            var hours = date.getHours();
+                            var minutes = date.getMinutes();
+                            var ampm = hours >= 12 ? 'pm' : 'am';
+                            hours = hours % 12;
+                            //hours = hours ? hours : 12; // the hour '0' should be '12'
+                            hours = hours < 10 ? '0'+hours : hours;
+                            minutes = minutes < 10 ? '0'+minutes : minutes;
+                            month = month < 10 ? '0'+month : month;
+                            var strTime = datee + ' ' + month + ' ' + year + ' ' + hours + ':' + minutes + ' ' + ampm;
+                            var strTime = year + '-' + month + '-' + datee + ' ' + hours + ':' + minutes + ' ' + ampm;
+                            return strTime;
+                            }
+
+                            var datetime = formatAMPM(new Date);
+
+
+
                             if(len == 1)
                             {
                                 $.each(response.programs, function(key, item){
-                                    document.getElementById('elvideo').innerHTML ="<video id='videoElement' width=640 height=425 controls controlsList='nodownload'  playsinline autoplay><p>Tu navegador no funciona, actualizalo</p></video>";
+                                    document.getElementById('elvideo').innerHTML ="<video id='videoElement' width=640 height=425 controls controlsList='nodownload'  playsinline muted autoplay><p>Tu navegador no funciona, actualizalo</p></video>";
                                     var videoPlayer = document.getElementById('videoElement');
                                     videoPlayer.src = "http://localhost/News_portal/public/uploads/video/"+item;
+                                    videoPlayer.onended = function(){
+                                        location.reload();
+
+                                  }
                                 });
                             }
                             else
                             {
                                 var coma = response.programs.join(",");
-                                console.log(coma);
                                 var str = coma;
+                                //var str = "VID-20220127-WA0010.mp4,VID-20220130-WA0000.mp4";
                                 var n = str.includes(",");
                                 if (n) {
                                 var nArr = str.split(',');
-                                    document.getElementById('elvideo').innerHTML ="<video id='videoElement' width=640 height=425 controls controlsList='nodownload'  playsinline autoplay><p>Tu navegador no funciona, actualizalo</p></video>";
+                                // $.each(response.prog_video, function(key, item){
+                                //     console.log(item.end_datetime);
+                                //   if(datetime >= item.start_datetime && datetime <= item.end_datetime)
+                                //   {
+                                    document.getElementById('elvideo').innerHTML ="<video id='videoElement' width=640 height=425 controls controlsList='nodownload'  playsinline muted autoplay><p>Tu navegador no funciona, actualizalo</p></video>";
                                 var videoPlayer = document.getElementById('videoElement');
-                                videoPlayer.src = "http://localhost/News_portal/public/uploads/video/"+nArr[0]+"#t=0,10";
+                                videoPlayer.src = "http://localhost/News_portal/public/uploads/video/"+nArr[0];
                                 i = 1;
                                 videoPlayer.onended = function(){
                                     if (i < nArr.length) {
-                                        videoPlayer.src = "http://localhost/News_portal/public/uploads/video/"+nArr[i]+"#t=0,10";
+                                        videoPlayer.src = "http://localhost/News_portal/public/uploads/video/"+nArr[i];
                                     i++
                                     }
+
                                   }
+                                //   }
+                                // });
                                 }
                             }
+                }
+                else
+                {
+                    var len= response.embed_video.length;
+                    if(len == 1)
+                    {
+                        // $.each(response.embed_video, function(key, item){
+                        document.getElementById('elvideo').innerHTML ="<iframe width='640' height='425' src='https://www.youtube.com/embed/"+response.embed_video+"??controls=0&autoplay=1&muted=1' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>";
+                        // });
+                    }
+                    else
+                    {
+                        var coma = response.embed_video.join(",");
+                        var str = coma;
+                        var n = str.includes(",");
+                        if (n) {
+                        var nArr = str.split(',');
+
+                        document.getElementById('elvideo').innerHTML ="<iframe width='640' height='425' src='https://www.youtube.com/embed/"+nArr[0]+"?controls=0&autoplay=1&muted=1' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay;  clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>";
+                        i = 1;
+
+                        // videoPlayer.onended = function(){
+                        //     if (i < nArr.length) {
+                        //         document.getElementById('elvideo').innerHTML ="<iframe width='640' height='425' src='https://www.youtube.com/embed/"+nArr[i]+"?controls=0' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>";
+                        //         i++;
+                        //         }
+                        //     }
+                        }
+                    }
+                }
+
+
+                        });
 
             }
         });
@@ -585,6 +684,12 @@
 
     });
 
+//     var asd = document.getElementById('videoElement');
+// asd.onended = function(){
+
+//         alert
+
+// }
 
 </script>
 

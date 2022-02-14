@@ -1,5 +1,6 @@
 
-
+ {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script> --}}
         <!-- BACK-TO-TOP -->
 		<a href="#top" id="back-to-top"><i class="fa fa-angle-up"></i></a>
 
@@ -27,13 +28,17 @@
 
 
         <script src="{{ asset('js/iziToast.js') }}"></script>
-        @yield('scripts')
 
 
+
+@yield('scripts')
 		<!-- CUSTOM JS-->
 		<script src="{{ asset('assets/js/custom.js') }}"></script>
 
         @include('vendor.lara-izitoast.toast')
+
+
+
 
 
 

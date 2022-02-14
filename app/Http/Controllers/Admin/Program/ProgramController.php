@@ -88,6 +88,7 @@ class ProgramController extends Controller
             {
                 $imagename = null;
             }
+            $start_date=date("d/m/Y",strtotime($request->start_date));
             $program = Program::create([
 
                 'programcategory_id' => $request->categories,
@@ -103,9 +104,9 @@ class ProgramController extends Controller
                 'end_datetime' => $request->end_date.' '.$end,
                 'end_time' => $request->end_time,
             ]);
-            //notify()->success("Program Successfully created","Added");
-            // return redirect()->route('admin.programs.index');
-            return response()->json(['success'=>'Successfully uploaded.']);
+            notify()->success("Program Successfully created","Added");
+            return redirect()->route('admin.programs.index');
+            //return response()->json(['success'=>'Successfully uploaded.']);
 
         //}
     }
@@ -210,7 +211,7 @@ class ProgramController extends Controller
         }
         else
         {
-            $imagename = $program->image;
+            $imagename = $program->poster;
         }
 
         $start = Carbon::parse($request->input('start_time'))->format('h:i a');
