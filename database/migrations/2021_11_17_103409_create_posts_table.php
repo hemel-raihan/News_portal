@@ -29,6 +29,8 @@ class CreatePostsTable extends Migration
             $table->integer('rightsidebar_id')->nullable();
             $table->integer('leftsidebar_id')->nullable();
             $table->string('files')->nullable();
+            $table->string('meta_title')->nullable();
+            $table->string('meta_desc')->nullable();
             $table->timestamps();
         });
     }

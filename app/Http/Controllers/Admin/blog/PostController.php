@@ -56,8 +56,8 @@ class PostController extends Controller
             $this->validate($request,[
                 'title' => 'required|unique:posts',
                 'image' => 'max:1024',
-                'gallaryimage.*' => 'max:1024',
-                'files' => 'mimes:pdf,doc,docx',
+                //'gallaryimage.*' => 'max:1024',
+                //'files' => 'mimes:pdf,doc,docx',
                 'categories' => 'required',
                 // 'leftsidebar_id' => 'required',
                 // 'rightsidebar_id' => 'required',
@@ -77,6 +77,10 @@ class PostController extends Controller
             $img                     =       Image::make($image->path());
             $img->resize(900, 600)->save($postphotoPath.'/'.$imagename);
 
+        }
+        else
+        {
+            $imagename = null;
         }
 
 
@@ -179,16 +183,18 @@ class PostController extends Controller
             'title' => $request->title,
             'slug' => $request->slug,
             'admin_id' => Auth::id(),
-            'image' => $featureimg,
-            'youtube_link' => $youtube,
-            'gallaryimage'=>  implode("|",$images),
-            'files' => $filename,
+            'image' => $imagename,
+            //'youtube_link' => $request->youtube_link,
+            //'gallaryimage'=>  implode("|",$images),
+            //'files' => $filename,
             'body' => $request->body,
             'hot_news' => $hot_news,
             // 'leftsidebar_id' => $request->leftsidebar_id,
             // 'rightsidebar_id' => $request->rightsidebar_id,
             'status' => $status,
             'is_approved' => $is_approved,
+            'meta_title' => $request->meta_title,
+            'meta_desc' => $request->meta_desc,
 
         ]);
 
@@ -284,8 +290,8 @@ class PostController extends Controller
         $this->validate($request,[
             'title' => 'required',
                 'image' => 'max:1024',
-                'gallaryimage.*' => 'max:1024',
-                'files' => 'mimes:pdf,doc,docx',
+                //'gallaryimage.*' => 'max:1024',
+                //'files' => 'mimes:pdf,doc,docx',
                 'categories' => 'required',
                 // 'leftsidebar_id' => 'required',
                 // 'rightsidebar_id' => 'required',
@@ -433,15 +439,17 @@ class PostController extends Controller
             'slug' => $request->slug,
             'admin_id' => Auth::id(),
             'image' => $imagename,
-            'youtube_link' => $request->youtube_link,
-            'gallaryimage'=>  implode("|",$images),
-            'files' => $filename,
+            //'youtube_link' => $request->youtube_link,
+            //'gallaryimage'=>  implode("|",$images),
+            //'files' => $filename,
             'body' => $request->body,
             'hot_news' => $hot_news,
             // 'leftsidebar_id' => $request->leftsidebar_id,
             // 'rightsidebar_id' => $request->rightsidebar_id,
             'status' => $status,
             'is_approved' => $is_approved,
+            'meta_title' => $request->meta_title,
+            'meta_desc' => $request->meta_desc,
 
         ]);
 

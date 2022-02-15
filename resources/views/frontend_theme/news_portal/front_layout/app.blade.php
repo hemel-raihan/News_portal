@@ -13,7 +13,13 @@
 
 	<!-- Document Title
 	============================================= -->
-	<title>Home - Magazine Layout | Canvas</title>
+	<title>Home-NotionTV</title>
+    @php
+    $logo  = \App\Models\Admin\Setting::where([['id',1]])->orderBy('id','desc')->first();
+    @endphp
+    @isset($logo)
+    <link rel="icon" href="{{asset('uploads/settings/'.$logo->logo)}}">
+    @endisset
 
 </head>
 

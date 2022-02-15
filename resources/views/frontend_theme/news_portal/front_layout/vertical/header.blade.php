@@ -77,7 +77,7 @@
                     @endforeach
                     @endisset
                     <li class="menu-item">
-                        <a class="menu-link" href="slider-revolution.html"><div>আরও<i class="icon-line-arrow-down"></i></div></a>
+                        <a class="menu-link" href="#"><div>আরও<i class="icon-line-arrow-down"></i></div></a>
                         <ul class="sub-menu-container">
                             <li class="menu-item">
                                 <a class="menu-link" href="{{route('video.gallary')}}"><div>ভিডিও</div></a>

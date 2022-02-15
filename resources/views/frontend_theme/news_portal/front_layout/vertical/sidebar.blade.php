@@ -16,7 +16,7 @@
         <div class="widget clearfix">
 
             @if ($widget->type == 'Image Widget')
-            <img class="aligncenter" src="{{asset('uploads/sidebarphoto/'.$widget->image)}}" alt="Image">
+            <a href="{{$widget->url}}"><img class="aligncenter" src="{{asset('uploads/sidebarphoto/'.$widget->image)}}" alt="Image"></a>
             @endif
 
             @if ($widget->type == 'Blog Category')

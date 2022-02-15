@@ -153,6 +153,8 @@
                             <option value="Body-Position-1" {{($advertisement->position == 'Body-Position-1') ? 'selected' : ''}}>Body-Position-1</option>
                             <option value="Body-Position-2" {{($advertisement->position == 'Body-Position-2') ? 'selected' : ''}} >Body-Position-2</option>
                             <option value="Body-Position-3" {{($advertisement->position == 'Body-Position-3') ? 'selected' : ''}} >Body-Position-3</option>
+                            <option value="Category-Position-1" {{($advertisement->position == 'Category-Position-1') ? 'selected' : ''}} >Body-Position-1(category-page)</option>
+                            <option value="Single-Position-1" {{($advertisement->position == 'Single-Position-1') ? 'selected' : ''}} >Body-Position-1(single-page)</option>
                         </select>
                         @else
                         <label class="form-label" for="type">Select Position</label>
@@ -162,6 +164,8 @@
                             <option value="Body-Position-1">Body-Position-1</option>
                             <option value="Body-Position-2">Body-Position-2</option>
                             <option value="Body-Position-3">Body-Position-3</option>
+                            <option value="Category-Position-1">Body-Position-1(category-page)</option>
+                            <option value="Single-Position-1">Body-Position-1(single-page)</option>
                         </select>
                         @endisset
                     </div>

@@ -18,11 +18,16 @@ class CreateProgramsTable extends Migration
             $table->foreignId('programcategory_id')->nullable();
             $table->string('title')->nullable();
             $table->string('slug')->unique()->nullable();
+            $table->text('body')->nullable();
+            $table->string('poster')->nullable();
             $table->string('video')->nullable();
+            $table->string('embed_code')->nullable();
             $table->string('start_date')->nullable();
-            $table->string('start_time')->nullable();
+            $table->time('start_time')->nullable();
+            $table->string('start_datetime')->nullable();
             $table->string('end_date')->nullable();
-            $table->string('end_time')->nullable();
+            $table->time('end_time')->nullable();
+            $table->string('end_datetime')->nullable();
             $table->boolean('status')->default(false);
             $table->timestamps();
         });

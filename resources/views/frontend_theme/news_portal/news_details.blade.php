@@ -56,7 +56,7 @@
 
                                 <!-- Tag Cloud
                                 ============================================= -->
-                                <div class="tagcloud clearfix bottommargin">
+                                {{-- <div class="tagcloud clearfix bottommargin">
                                     @foreach ($news->categories as $category)
                                     <a href="{{route('categories.all',$category->parent->slug)}}">{{$category->parent->name}}</a>
                                     @endforeach
@@ -66,7 +66,24 @@
                                     <a href="#">press</a>
                                     <a href="#">gallery</a>
                                     <a href="#">illustration</a>
-                                </div><!-- .tagcloud end -->
+                                </div><!-- .tagcloud end --> --}}
+
+                            @php
+                            $today = date("Y/m/d");
+                            $to_day=date("Y-m-d",strtotime($today));
+                            @endphp
+                            @foreach (\App\Models\Advertisement\Advertisement::where([['position','=','Single-Position-1'],['status','=',1]])->get() as $advertisement)
+                            @php
+                                $from_datee=date("Y-m-d",strtotime($advertisement->start_date));
+                                $to_datee=date("Y-m-d",strtotime($advertisement->end_date));
+                            @endphp
+                            @if ($to_day >= $from_datee && $to_day <= $to_datee)
+                            <div class="col-12" style="margin-top: 10px; margin-left: 50px;">
+                               <a href="{{$advertisement->url}}"> <img height="90" width="720" src="{{asset('uploads/advertisement/'.$advertisement->banner)}}" alt="Ad"></a>
+                            </div>
+                            @else
+                            @endif
+                            @endforeach
 
 
 

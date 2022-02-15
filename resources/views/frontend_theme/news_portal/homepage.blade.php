@@ -72,21 +72,20 @@
         <div class="container clearfix">
 
             <div class="row">
-                <div class="col-lg-3 bottommargin">
+                <div class="col-lg-3 bottommargin" id="left-hotnews">
                     @foreach (\App\Models\blog\Post::where('hot_news', 1)->orderBy('id', 'desc')->take(4)->get() as $key => $post)
                     @if ($post->status == 1)
                     @if ($key%2 == 0)
                     <div style="margin-bottom: 10px;" class="col-12">
                         <a class="post-cat ts-orange-bg" href="#">Hot News</a>
                        <a href="{{route('news.details',$post->slug)}}"><img src="{{asset('uploads/postphoto/'.$post->image)}}" alt="Snow" style="width:100%;"></a>
-                        <div class="centered"><a href="{{route('news.details',$post->slug)}}">{{$post->title}} <h5>{{$post->created_at->diffForHumans()}}</h5></a></div>
+                        <div class="centered"><a href="{{route('news.details',$post->slug)}}" style="text-shadow: 1px 1px 1px #000;">{{$post->title}} <h5>{{$post->created_at->diffForHumans()}}</h5></a></div>
                     </div>
                     @endif
                     @endif
                     @endforeach
-
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6" id="video-tv">
                     <div class="col-12">
                         <div class="fslider flex-thumb-grid grid-6" data-animation="fade" data-arrows="true" data-thumbs="true">
                             <div class="flexslider">
@@ -122,7 +121,6 @@
                                             style="border: solid 4px #37474F"
                                     ></iframe> --}}
                                     @endif
-
                                     @endif
                                     @endforeach
                                     {{-- <div style="background: black;" id="elvideo"></div> --}}
@@ -137,7 +135,7 @@
                     <div style="margin-bottom: 10px;" class="col-12">
                         <a class="post-cat ts-orange-bg" href="#">Hot News</a>
                         <a href="{{route('news.details',$post->slug)}}"><img src="{{asset('uploads/postphoto/'.$post->image)}}" alt="Snow" style="width:100%;"></a>
-                        <div class="centered"><a href="{{route('news.details',$post->slug)}}">{{$post->title}} <h5>{{$post->created_at->diffForHumans()}}</h5></a></div>
+                        <div class="centered"><a href="{{route('news.details',$post->slug)}}" style="text-shadow: 1px 1px 1px #000;" >{{$post->title}} <h5>{{$post->created_at->diffForHumans()}}</h5></a></div>
                     </div>
                     @endif
                     @endif

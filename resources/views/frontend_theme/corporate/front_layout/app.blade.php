@@ -13,7 +13,7 @@
 
 	<!-- Document Title
 	============================================= -->
-	<title>Home - </title>
+	<title>Home-</title>
 
 </head>
 

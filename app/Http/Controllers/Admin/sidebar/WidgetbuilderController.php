@@ -60,6 +60,7 @@ class WidgetbuilderController extends Controller
         }
         $sidebar->widgets()->create([
             'title' => $request->title,
+            'url' => $request->url,
             'category_id' => $request->category_id,
             'no_of_post' => $request->no_of_post,
             'type' => $request->type,
@@ -132,6 +133,7 @@ class WidgetbuilderController extends Controller
 
         $sidebar->widgets()->findOrFail($widgetId)->update([
             'title' => $request->title,
+            'url' => $request->url,
             'category_id' => $request->category_id,
             'no_of_post' => $request->no_of_post,
             'type' => $request->type,

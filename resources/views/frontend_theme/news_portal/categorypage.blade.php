@@ -155,7 +155,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 bottommargin">
-                    
+
                     <div id="exTab1" class="containe">
                             <div class="topnav">
                                 @if($single_category->childrenRecursive->count()>0)
@@ -251,9 +251,23 @@
                                 </div>
                             </div>
 
+                            @php
+                            $today = date("Y/m/d");
+                            $to_day=date("Y-m-d",strtotime($today));
+                            @endphp
+                            @foreach (\App\Models\Advertisement\Advertisement::where([['position','=','Category-Position-1'],['status','=',1]])->get() as $advertisement)
+                            @php
+                                $from_datee=date("Y-m-d",strtotime($advertisement->start_date));
+                                $to_datee=date("Y-m-d",strtotime($advertisement->end_date));
+                            @endphp
+                            @if ($to_day >= $from_datee && $to_day <= $to_datee)
                             <div class="col-12" style="margin-top: 10px; margin-left: 50px;">
-                                <img height="90" width="720" src="{{asset('assets/frontend/images/banner2.jpg')}}" alt="Ad">
+                               <a href="{{$advertisement->url}}"> <img height="90" width="720" src="{{asset('uploads/advertisement/'.$advertisement->banner)}}" alt="Ad"></a>
                             </div>
+                            @else
+                            @endif
+                            @endforeach
+                            
                         </div>
 
 <section id="hem">

@@ -73,20 +73,10 @@
 
 <section id="content">
     <div class="content-wrap">
-
-
         <div class="container clearfix">
-
-            
-            
-
-
             <div class="row">
                 <div class="col-lg-8 bottommargin">
-
                     <div class="row col-mb-50">
-
-
                         <div class="body-position-2" style="margin-top: 20px;">
                             <div class="col-12" style="margin-bottom: 20px;">
 
@@ -126,19 +116,12 @@
                             <div class="col-12" style="margin-top: 10px; margin-left: 50px;">
                                 <img height="90" width="720" src="{{asset('assets/frontend/images/banner2.jpg')}}" alt="Ad">
                             </div>
+
                         </div>
-
-
-
-
                     </div>
-
                 </div>
-
                 @include('frontend_theme.news_portal.front_layout.vertical.sidebar')
-
             </div>
-
         </div>
     </div>
 </section><!-- #content end -->
@@ -151,47 +134,7 @@
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 
-    <script>
-        function loadMoreData(page)
-        {
-            $.ajax({
-                url: '?page=' +page,
-                type: 'get',
-                beforeSend: function()
-                {
-                    $(".ajax-load").show();
-                }
-            })
-            .done(function(data){
-                if(data.html == " ")
-                {
-                    $('.ajax-load').html('No More News Found');
-                    return;
-                }
-                $('.ajax-load').hide();
-                $('#more_news').append(data.html);
-            })
-            // .fail(function(jqXHR,ajaxOptions,throwError){
-            //     alert("server naspd");
-            // })
-        }
 
-        var page = 1;
-        // function load_more_news()
-        //         {
-        //             page++;
-        //             loadMoreData(page);
-        //         }
-        $(window).scroll(function(){
-            var nav = $('#footer');
-
-            if($(window).scrollTop() + $(window).height() == $(document).height())
-            {
-                page++;
-                loadMoreData(page);
-            }
-        })
-    </script>
 
     {{-- <script>
         $(document).ready(function(){
@@ -223,29 +166,7 @@
 });
     </script> --}}
 
-    <script>
-        $(document).ready(function() {
-            $('.tab:first-child').addClass('active');
-            $(".tab-pane:first-child").addClass("active");
-        $(".tab").click(function () {
-            $(".tab").removeClass("active");
-            // $(".tab").addClass("active"); // instead of this do the below
-            $(this).addClass("active");
-        });
-        });
-    </script>
-
-    <script>
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
-    });
-});
-</script>
+   
 
 
 @endsection

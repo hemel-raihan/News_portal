@@ -163,29 +163,18 @@
 						</div>
 					</div>
 
-
-                    <input type="radio" name="link" checked id="test2">
-                    <label for="css">Feature Image</label>
-                    <input type="radio" name="link" id="test1">
-                    <label for="html">Youtube Link</label>
-
-
-                    <div class="form-group youtube" style="display:none">
-						<label for="exampleInputname">Youtube Link</label>
-						<input type="text" class="form-control" value="{{$post->youtube_link ?? old('youtube_link')}}" name="youtube_link" id="youtube_link" placeholder="Youtube Video Link">
+                    <div class="form-group">
+						<label for="exampleInputname">Meta Title</label>
+						<input type="text" class="form-control" value="{{isset($post->meta_title) ? old('meta_title') : ''}}" name="meta_title" id="">
 					</div>
 
-					<div class="form-group featur">
-						<label class="form-label">Feature Image</label>
-						<!-- <input id="demo" type="file" name="image" accept=".jpg, .png, image/jpeg, image/png" multiple="" class="ff_fileupload_hidden"> -->
-                        <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($post) ? asset('uploads/postphoto/'.$post->image) : '' }}" name="image">
+                    <div class="form-group">
+						<label for="exampleInputname">Meta Description</label>
+                        <textarea name="meta_desc" class="my-editor form-control" id="" style="height: 200px;" cols="30" rows="10">{{isset($post->meta_desc) ? old('meta_desc') : ''}}</textarea>
 					</div>
 
-					<div class="form-group">
-						<label class="form-label">Gallary Image</label>
-						<!-- <input id="demo" type="file" name="image" accept=".jpg, .png, image/jpeg, image/png" multiple="" class="ff_fileupload_hidden"> -->
-                        <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($post) ? asset('uploads/gallary_image/'.$post->gallaryimage) : '' }}" multiple name="gallaryimage[]">
-					</div>
+
+
 
 				</div>
 				<div class="card-footer text-end">
@@ -347,6 +336,29 @@
 
                     @endisset
 
+                    {{-- <input type="radio" name="link" checked id="test2">
+                    <label for="css">Feature Image</label>
+                    <input type="radio" name="link" id="test1">
+                    <label for="html">Youtube Link</label> --}}
+
+
+                    {{-- <div class="form-group youtube" style="display:none">
+						<label for="exampleInputname">Youtube Link</label>
+						<input type="text" class="form-control" value="{{$post->youtube_link ?? old('youtube_link')}}" name="youtube_link" id="youtube_link" placeholder="Youtube Video Link">
+					</div> --}}
+
+					<div class="form-group featur">
+						<label class="form-label">Feature Image</label>
+						<!-- <input id="demo" type="file" name="image" accept=".jpg, .png, image/jpeg, image/png" multiple="" class="ff_fileupload_hidden"> -->
+                        <input type="file"  class="dropify form-control" data-default-file="{{ isset($post) ? asset('uploads/postphoto/'.$post->image) : '' }}" name="image">
+					</div>
+
+					{{-- <div class="form-group">
+						<label class="form-label">Gallary Image</label>
+						<!-- <input id="demo" type="file" name="image" accept=".jpg, .png, image/jpeg, image/png" multiple="" class="ff_fileupload_hidden"> -->
+                        <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($post) ? asset('uploads/gallary_image/'.$post->gallaryimage) : '' }}" multiple name="gallaryimage[]">
+					</div> --}}
+
 					{{-- @isset($editsidebars)
 
                     <div class="form-group">
@@ -417,10 +429,10 @@
 
                     @endisset --}}
 
-                    <div class="form-group">
+                    {{-- <div class="form-group">
 						<label class="form-label">File</label>
 						<input type="file" name="files" class="dropify" data-default-file="{{ isset($post) ? asset('uploads/files/'.$post->files) : ''}}" data-bs-height="180"  />
-					</div>
+					</div> --}}
 
 				</div>
 

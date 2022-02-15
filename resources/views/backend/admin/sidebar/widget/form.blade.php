@@ -150,6 +150,13 @@
                     <input type="text" class="form-control " value="{{$widget->title ?? old('title')}}" name="title" id="" placeholder="Widget Title">
                 </div>
 
+                <div id="add_url">
+                <div class="form-group">
+                    <label for="exampleInputname">URL</label>
+                    <input type="text" class="form-control " value="{{$widget->url ?? old('url')}}" name="url" id="" placeholder="give url here">
+                </div>
+                </div>
+
                 <div id="no_of_post">
                 <div class="form-group">
                     <label for="exampleInputname">No of Posts</label>
@@ -191,11 +198,7 @@
 					</div>
 				</div>
 
-                <div id="image_widget">
-					<div class="card-body">
-                        <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($widget) ? asset('uploads/sidebarphoto/'.$widget->image) : '' }}" name="image">
-					</div>
-				</div>
+
 
 				<div id="popular_post">
 					<div class="card-body">
@@ -228,6 +231,22 @@
                     </button>
 					<a href="{{route('admin.sidebars.index')}}" class="btn btn-danger mt-1">Cancel</a>
 				</div>
+			</div>
+		</div>
+        <div class="col-lg-3 col-xl-3 col-md-12 col-sm-12" style="float: left">
+
+
+
+			<div class="card">
+				<div class="card-header">
+					<h3 class="card-title">Select Image</h3>
+				</div>
+                <div id="image_widget">
+					<div class="card-body">
+                        <input type="file" class="dropify form-control" data-default-file="{{ isset($widget) ? asset('uploads/sidebarphoto/'.$widget->image) : '' }}" name="image">
+					</div>
+				</div>
+
 			</div>
 		</div>
 	</div>
@@ -285,9 +304,10 @@
 			$('#blog_category').addClass('d-none');
             $('#category').addClass('d-none');
 			$('#popular_post').addClass('d-none');
-            $('#text_widget').removeClass('d-none');
+            $('#text_widget').addClass('d-none');
             $('#no_of_post').addClass('d-none');
             $('#image_widget').removeClass('d-none');
+            $('#add_url').removeClass('d-none');
 		}
 	}
 	setWidget();
