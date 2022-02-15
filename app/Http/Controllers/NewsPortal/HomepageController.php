@@ -34,7 +34,7 @@ class HomepageController extends Controller
                     $view = view('frontend_theme.news_portal.loadmore_data',compact('single_category'))->render();
                     return response()->json(['html'=>$view]);
                 }
-                
+
                 $newses = $single_category->posts()->get();
                 return view('frontend_theme.news_portal.categorypage',compact('newses','single_category'));
 
@@ -100,6 +100,16 @@ class HomepageController extends Controller
         $to_day=date("Y-m-d h:i a",strtotime($today));
         $programs = Program::where('end_datetime','<',$to_day)->get();
         return view('frontend_theme.news_portal.video_gallary',compact('categories','programs'));
+    }
+
+    public function video_details($slug)
+    {
+        $today = date("Y/m/d h:i a");
+        $to_day=date("Y-m-d h:i a",strtotime($today));
+        $video = Program::where([['slug',$slug],['end_datetime','<',$to_day]])->first();
+        $progcategory = Programcategory::find($video->programcategory->id);
+        $progvideos = $progcategory->programs()->where('end_datetime','<',$to_day)->get();
+        return view('frontend_theme.news_portal.video_details',compact('video','progvideos'));
     }
 
 

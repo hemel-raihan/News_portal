@@ -170,6 +170,12 @@
                     </div>
 
 
+                    <div class="form-group">
+						<label for="exampleInputContent">Program Description</label>
+						<div class="ql-wrapper ql-wrapper-demo bg-light">
+                            <textarea name="body" class="my-editor form-control" id="editor" style="height: 200px;" cols="30" rows="10">{!!$program->body ?? old('body')!!}</textarea>
+						</div>
+					</div>
 
 
 
@@ -303,12 +309,12 @@
                     <input type="radio" name="link" checked id="test2">
                     <label for="css">Local</label>
                     <input type="radio" name="link" id="test1">
-                    <label for="html">Embed Code</label>
+                    <label for="html">Youtube Code</label>
 
 
                     <div class="form-group embed_code" style="display:none">
-						<label for="exampleInputname">Embed Code</label>
-						<input type="text" class="form-control" value="{{$program->embed_code ?? old('embed_code')}}" name="embed_code" id="embed_code" placeholder="Embed Code Id">
+						<label for="exampleInputname">Youtube Code</label>
+						<input type="text" class="form-control" value="{{$program->embed_code ?? old('embed_code')}}" name="embed_code" id="embed_code" placeholder="EX: JVhtt3RVRJA">
 					</div>
 
 					<div class="form-group video">

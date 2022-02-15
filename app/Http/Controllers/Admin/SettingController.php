@@ -52,6 +52,10 @@ class SettingController extends Controller
         }
 
         $setting->update([
+            'company_name' => $request->company_name,
+            'company_slogan' => $request->company_slogan,
+            'phone' => $request->phone,
+            'email' => $request->email,
             'facebook_link' => $request->facebook_link,
             'logo' => $imagename,
             'contact' => $request->contact,

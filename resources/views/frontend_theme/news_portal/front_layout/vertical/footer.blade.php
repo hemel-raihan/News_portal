@@ -14,15 +14,15 @@
                             <div class="widget clearfix">
 
                                 @php
-                                $logo  = \App\Models\Admin\Setting::where([['id',1]])->orderBy('id','desc')->first();
+                                $setting  = \App\Models\Admin\Setting::where([['id',1]])->orderBy('id','desc')->first();
                                 @endphp
-                                @isset($logo)
-                                <img width="200" src="{{asset('uploads/settings/'.$logo->logo)}}" alt="Image" class="footer-logo">
+                                @isset($setting)
+                                <img width="200" src="{{asset('uploads/settings/'.$setting->logo)}}" alt="Image" class="footer-logo">
                                 @endisset
 
 
 
-                                <p>We believe in <strong>Simple</strong>, <strong>Creative</strong> &amp; <strong>Flexible</strong> Design Standards.</p>
+                                <p>{{$setting->company_slogan}}</p>
 
                                 {{-- <div style="background: url('images/world-map.png') no-repeat center center; background-size: 100%;">
                                     <address>
@@ -40,23 +40,16 @@
                         </div>
 
                         <div class="col-md-4">
-                        <div class="search-bar">
-
-                        </div>
                             <div class="widget widget_links clearfix">
 
-                                <h4>Blogroll</h4>
+                                {{-- <h4>Blogroll</h4> --}}
 
                                 <ul>
                                     @isset($footer_menuitems)
                                     @foreach ($footer_menuitems as $footer_menuitem)
+                                    @if ($footer_menuitem->url == null)
                                     <li><a href="{{route('categories',$footer_menuitem->slug)}}">{{$footer_menuitem->title}}</a></li>
-                                    {{-- <li><a href="https://wordpress.org/support/forum/requests-and-feedback">Feedback</a></li>
-                                    <li><a href="https://wordpress.org/extend/plugins/">Plugins</a></li>
-                                    <li><a href="https://wordpress.org/support/">Support Forums</a></li>
-                                    <li><a href="https://wordpress.org/extend/themes/">Themes</a></li>
-                                    <li><a href="https://wordpress.org/news/">Canvas Blog</a></li>
-                                    <li><a href="https://planet.wordpress.org/">Canvas Planet</a></li> --}}
+                                    @endif
                                     @endforeach
                                     @endisset
                                 </ul>
@@ -66,6 +59,22 @@
                         </div>
 
                         <div class="col-md-4">
+
+                            <div class="widget widget_links clearfix">
+
+                                {{-- <h4>Blogroll</h4> --}}
+
+                                <ul>
+                                    @isset($footer_menuitems)
+                                    @foreach ($footer_menuitems as $footer_menuitem)
+                                    @if ($footer_menuitem->slug == null)
+                                    <li><a href="{{$footer_menuitem->url}}">{{$footer_menuitem->title}}</a></li>
+                                    @endif
+                                    @endforeach
+                                    @endisset
+                                </ul>
+
+                            </div>
 
                             {{-- <div class="widget clearfix">
                                 <h4>Recent Posts</h4>
@@ -163,18 +172,11 @@
 
                                 <div class="row">
                                     <div class="col-6 col-md-12 col-lg-6 clearfix bottommargin-sm">
-                                        <a href="#" class="social-icon si-dark si-colored si-facebook mb-0" style="margin-right: 10px;">
+                                        <a href="{{$setting->facebook_link}}" class="social-icon si-dark si-colored si-facebook mb-0" style="margin-right: 10px;">
                                             <i class="icon-facebook"></i>
                                             <i class="icon-facebook"></i>
                                         </a>
-                                        <a href="#"><small style="display: block; margin-top: 3px;"><strong>Like us</strong><br>on Facebook</small></a>
-                                    </div>
-                                    <div class="col-6 col-md-12 col-lg-6 clearfix">
-                                        <a href="#" class="social-icon si-dark si-colored si-rss mb-0" style="margin-right: 10px;">
-                                            <i class="icon-rss"></i>
-                                            <i class="icon-rss"></i>
-                                        </a>
-                                        <a href="#"><small style="display: block; margin-top: 3px;"><strong>Subscribe</strong><br>to RSS Feeds</small></a>
+                                        <a href="{{$setting->facebook_link}}"><small style="display: block; margin-top: 3px;"><strong>Like us</strong><br>on Facebook</small></a>
                                     </div>
                                 </div>
 

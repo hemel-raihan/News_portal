@@ -31,7 +31,6 @@
                     <marquee direction="left" scrollamount="4" onmouseover="this.stop()" onmouseout="this.start()">
                         @foreach ($posts as $post)
                         <a href="{{route('posts.details',$post->id)}}"  style="color: blue;" >{{$post->title}} </a>||
-
                         @endforeach
                     </marquee>
 
@@ -94,7 +93,7 @@
                 }
             </style>
             <script></script>
-            
+
             <style>
                 .lineheight {
                     line-height: 22px;

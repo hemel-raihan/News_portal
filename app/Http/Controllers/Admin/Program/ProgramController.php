@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Admin\Program;
 
 use Carbon\Carbon;
+use FFMpeg\FFMpeg;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use FFMpeg\Format\Video\X264;
 use App\Models\Program\Program;
+use FFMpeg\Coordinate\TimeCode;
 use App\Http\Controllers\Controller;
 use Intervention\Image\Facades\Image;
 use App\Models\Program\Programcategory;
+require 'vendor/autoload.php';
 
 class ProgramController extends Controller
 {
@@ -20,7 +24,9 @@ class ProgramController extends Controller
     public function index()
     {
         $programs = Program::latest()->get();
+
         return view('backend.admin.program.post.index',compact('programs'));
+
     }
 
     /**
@@ -65,7 +71,16 @@ class ProgramController extends Controller
         {
             $file_name = null;
         }
+        // $ffmpeg = FFMpeg::create();
+        // $video = $ffmpeg->open('asd.mpg');
 
+        // $clip = $video->clip(TimeCode::fromSeconds(30), TimeCode::fromSeconds(15));
+        // $clip->save(new X264(), 'dsa.mp4');
+
+        // $video = '../../../../../Newfolder/hem/asd.mp4';
+        // $output = '../../../../../Newfolder/hem/test.mp4';
+        // $cmd = "C:/FFmpeg/bin/ffmpeg -i $video -ss 00:00:10 -t 00:00:10 $output";
+        // echo shell_exec($cmd);
 
 
             $start = Carbon::parse($request->input('start_time'))->format('h:i a');
@@ -94,6 +109,7 @@ class ProgramController extends Controller
                 'programcategory_id' => $request->categories,
                 'title' => $request->title,
                 'slug' => $slug,
+                'body' => $request->body,
                 'poster' => $imagename,
                 'video' => $file_name,
                 'embed_code' => $request->embed_code,
@@ -221,6 +237,7 @@ class ProgramController extends Controller
                 'programcategory_id' => $request->categories,
                 'title' => $request->title,
                 'slug' => $slug,
+                'body' => $request->body,
                 'poster' =>$imagename,
                 'video' => $file_name,
                 'embed_code' => $request->embed_code,

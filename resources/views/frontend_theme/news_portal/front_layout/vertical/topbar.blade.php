@@ -9,13 +9,21 @@
             <div class="col-8">
                 <div class="scroll">
                     <h3>
-                        <marquee style="color: white;" direction="left" scrollamount="4" onmouseover="this.stop()" onmouseout="this.start()">
+                        {{-- <marquee style="color: white;" direction="left" scrollamount="4" onmouseover="this.stop()" onmouseout="this.start()">
                             নো মাস্ক নো সার্ভিস। করোনাভাইরাসের বিস্তার রোধে এখনই ডাউনলোড করুন Corona Tracer BD অ্যাপ। ডাউনলোড করতে ক্লিক করুন
                             <a href="https://bit.ly/coronatracerbd" target="_blank" style="color: blue;">https://bit.ly/coronatracerbd</a>। নিজে সুরক্ষিত থাকুন অন্যকেও নিরাপদ রাখুন। দেশের প্রথম ক্রাউডফান্ডিং প্ল্যাটফর্ম 'একদেশ'- এর
                             মাধ্যমে আর্থিক অনুদান পৌঁছে দিন নির্বাচিত সরকারি-বেসরকারি প্রতিষ্ঠানসমূহে। ভিজিট করুন <a href="//ekdesh.ekpay.gov.bd" target="_blank" style="color: blue;">ekdesh.ekpay.gov.bd</a> অথবা
                             <a href="//play.google.com/store/apps/details?id=com.synesis.donationapp" target="_blank" style="color: blue;">“Ek Desh”</a> অ্যাপ ডাউনলোড করুন। করোনার লক্ষণ দেখা দিলে গোপন না করে ডাক্তারের পরামর্শের জন্য
                             ফ্রি কল করুন ৩৩৩ ও ১৬২৬৩ নম্বরে। করোনাভাইরাস প্রতিরোধে নিয়ম মেনে মাস্ক ব্যবহার করুন। আতঙ্কিত না হয়ে বরং সচেতন থাকুন। ভিজিট করুন
                             <a href="//corona.gov.bd" target="_blank" style="color: blue;">corona.gov.bd</a>
+                        </marquee> --}}
+                        @php
+                            $posts = \App\Models\blog\Post::where('scrollable',1)->orderBy('id','desc')->limit(5)->get();
+                        @endphp
+                        <marquee direction="left" scrollamount="4" onmouseover="this.stop()" onmouseout="this.start()">
+                            @foreach ($posts as $post)
+                            <a href="{{route('news.details',$post->slug)}}"  style="color: white;" >{{$post->title}} </a>||
+                            @endforeach
                         </marquee>
                     </h3>
                 </div>

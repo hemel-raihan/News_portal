@@ -112,6 +112,46 @@
                         </div>
                     @endif
 
+                    <div class="form-group">
+						<label for="exampleInputname">Company Name</label>
+						<input type="text" class="form-control @error('company_name') is-invalid @enderror" value="{{$setting->company_name ?? old('company_name')}}" name="company_name" id="" placeholder="Company Name">
+                        @error('company_name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{$message}}</strong>
+                        </span>
+                        @enderror
+					</div>
+
+                    <div class="form-group">
+						<label for="exampleInputname">Company Slogan</label>
+						<input type="text" class="form-control @error('company_slogan') is-invalid @enderror" value="{{$setting->company_slogan ?? old('company_slogan')}}" name="company_slogan" id="" placeholder="">
+                        @error('company_slogan')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{$message}}</strong>
+                        </span>
+                        @enderror
+					</div>
+
+                    <div class="form-group">
+						<label for="exampleInputname">Phone Number</label>
+						<input type="text" class="form-control @error('phone') is-invalid @enderror" value="{{$setting->phone ?? old('phone')}}" name="phone" id="" placeholder="">
+                        @error('phone')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{$message}}</strong>
+                        </span>
+                        @enderror
+					</div>
+
+                    <div class="form-group">
+						<label for="exampleInputname">Email Id</label>
+						<input type="text" class="form-control @error('email') is-invalid @enderror" value="{{$setting->email ?? old('email')}}" name="email" id="" placeholder="Facebook Link">
+                        @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{$message}}</strong>
+                        </span>
+                        @enderror
+					</div>
+
 
 					<div class="form-group">
 						<label for="exampleInputname">Facebook Page Link</label>
