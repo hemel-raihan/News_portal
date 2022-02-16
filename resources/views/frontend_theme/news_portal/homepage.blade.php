@@ -546,6 +546,19 @@
 
 {{-- <script src="http://www.youtube.com/iframe_api"></script> --}}
 
+{{-- <script>
+    var path = "{{route('search.news')}}";
+
+    $('input.typehead').typeahead({
+        source: function(terms,process)
+        {
+            return $.get(path,{terms:terms},function(data){
+                return process(data);
+            })
+        }
+    })
+</script> --}}
+
 <script type="text/javascript">
     var tag = document.createElement('script');
     tag.id = 'iframe-demo';

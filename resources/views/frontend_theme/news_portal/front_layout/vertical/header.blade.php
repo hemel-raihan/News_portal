@@ -1322,8 +1322,8 @@
 
                 </nav><!-- #primary-menu end -->
 
-                <form class="top-search-form" action="search.html" method="get">
-                    <input type="text" name="q" class="form-control" value="" placeholder="Type &amp; Hit Enter.." autocomplete="off">
+                <form class="top-search-form" method="GET" action="{{route('search.news')}}">
+                    <input type="text" class="form-control" name="query" value="" placeholder="Type &amp; Hit Enter.." autocomplete="off">
                 </form>
 
             </div>

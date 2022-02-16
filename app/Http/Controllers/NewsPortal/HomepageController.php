@@ -112,6 +112,12 @@ class HomepageController extends Controller
         return view('frontend_theme.news_portal.video_details',compact('video','progvideos'));
     }
 
+    public function autocomplete(Request $request)
+    {
+        $query = $request->input('query');
+        $search_news = Post::where('title','LIKE',"%$query%")->where('status',1)->get();
+        return view('frontend_theme.news_portal.search',compact('search_news','query'));
+    }
 
     public function video()
     {
