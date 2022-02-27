@@ -261,13 +261,13 @@
                                 $to_datee=date("Y-m-d",strtotime($advertisement->end_date));
                             @endphp
                             @if ($to_day >= $from_datee && $to_day <= $to_datee)
-                            <div class="col-12" style="margin-top: 10px; margin-left: 50px;">
+                            <div class="col-12" style="margin-top: 10px;">
                                <a href="{{$advertisement->url}}"> <img height="90" width="720" src="{{asset('uploads/advertisement/'.$advertisement->banner)}}" alt="Ad"></a>
                             </div>
                             @else
                             @endif
                             @endforeach
-                            
+
                         </div>
 
 <section id="hem">
@@ -285,7 +285,11 @@
         <div class="ajax-load text-center" style="display: none;">
             <p><img height="200" src="{{asset('assets/frontend/images/480px-Loader.gif')}}">Loading More News</p>
         </div>
-        {{-- <button id="load_more_news" onclick="load_more_news()" style="margin-left: 40%;" class="button button-small button-circle button-green"><i class="icon-repeat"></i>More News</button> --}}
+
+        <div class="load-more-btn" style="display: none;">
+            <button id="load_more_news" onclick="load_more_news()" class="button button-small button-circle button-green"><i class="icon-repeat"></i>More News</button>
+        </div>
+
 
         {{-- <div class="col-12" style="margin-top: 10px; margin-left: 50px;">
             <img height="90" width="720" src="{{asset('assets/frontend/images/banner2.jpg')}}" alt="Ad">
@@ -360,11 +364,11 @@
         }
 
         var page = 1;
-        // function load_more_news()
-        //         {
-        //             page++;
-        //             loadMoreData(page);
-        //         }
+        function load_more_news()
+                {
+                    page++;
+                    loadMoreData(page);
+                }
         $(window).scroll(function(){
             var nav = $('#footer');
 

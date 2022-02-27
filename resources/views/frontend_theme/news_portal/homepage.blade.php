@@ -38,6 +38,46 @@
         background: #ff6e0d;
     }
 </style>
+<style>
+    .common-heading-style {
+    width: 100%;
+}
+.common-heading-text {
+    line-height: 36px;
+    background: #343334;
+    margin-bottom: 15px;
+}
+.common-heading-text .read-more-left {
+    background: #ff4444;
+    padding: 0 20px;
+    line-height: 36px;
+    display: inline-block;
+    position: relative;
+    padding-top: 4px;
+    font-size: 24px;
+}
+.common-heading-text .read-more-left a {
+    color: #fff;
+}
+.common-heading-text .read-more-right {
+    float: right;
+    padding-right: 15px;
+    font-size: 22px;
+    line-height: 40px;
+}
+.common-heading-text .read-more-left:before {
+    content: "";
+    width: 1px;
+    height: 1px;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    border-top: 40px solid #ff4444;
+    border-right: 35px solid transparent;
+    border-bottom: 0;
+    border-left: 0;
+}
+</style>
 @endsection
 
 @section('content')
@@ -72,23 +112,25 @@
         <div class="container clearfix">
 
             <div class="row">
-                <div class="col-lg-3 bottommargin" id="left-hotnews">
-                    @foreach (\App\Models\blog\Post::where('hot_news', 1)->orderBy('id', 'desc')->take(4)->get() as $key => $post)
-                    @if ($post->status == 1)
-                    @if ($key%2 == 0)
-                    <div style="margin-bottom: 10px;" class="col-12">
-                        <a class="post-cat ts-orange-bg" href="#">Hot News</a>
-                       <a href="{{route('news.details',$post->slug)}}"><img src="{{asset('uploads/postphoto/'.$post->image)}}" alt="Snow" style="width:100%;"></a>
-                        <div class="centered"><a href="{{route('news.details',$post->slug)}}" style="text-shadow: 1px 1px 1px #000;">{{$post->title}} <h5>{{$post->created_at->diffForHumans()}}</h5></a></div>
+                <div class="col-lg-9 bottommargin">
+                    <div class="row">
+                        @foreach (\App\Models\blog\Post::where('hot_news', 1)->orderBy('id', 'desc')->take(6)->get() as $key => $post)
+                        @if ($post->status == 1)
+                        <div class="col-md-4 mb-3">
+                            @include('frontend_theme.news_portal.partials.news_box_2',['post'=>$post])
+                        </div>
+
+
+                        @endif
+                        @endforeach
                     </div>
-                    @endif
-                    @endif
-                    @endforeach
+
                 </div>
-                <div class="col-lg-6" id="video-tv">
+                <div class="col-lg-3">
                     <div class="col-12">
                         <div class="fslider flex-thumb-grid grid-6" data-animation="fade" data-arrows="true" data-thumbs="true">
                             <div class="flexslider">
+
                                 @foreach (\App\Models\Program\Program::all() as $program)
                                     @php
                                         //$program = \App\Models\Program\Program::find(5);
@@ -105,14 +147,14 @@
                                     @endphp
                                     @if($to_day >= $program->start_datetime && $to_day <= $program->end_datetime)
                                     @if ($program->video != null)
-                                    <video id='videoElem' width=640 height=425 controls controlsList='nodownload'  playsinline muted autoplay>
+                                    <video  style="background: black;" id='videoElem' width=640 height=425 controls controlsList='nodownload'  playsinline muted autoplay>
                                         <source  src="{{asset('uploads/video/'.$program->video)}}"  type="video/mp4" />
                                     </video>
                                     @else
                                     {{-- <iframe width='640' id='existing-iframe-example' height='425' src='https://www.youtube.com/embed/"kB4mWA-Rhak"??controls=0&autoplay=1'
                                     title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen>
                                     </iframe> --}}
-                                    <iframe width="640" height="425" id='existing-iframe-example' src="https://www.youtube.com/embed/{{$program->embed_code}}?autoplay=1&mute=1&enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    <iframe  style="background: black;" width="640" height="425" id='existing-iframe-example' src="https://www.youtube.com/embed/{{$program->embed_code}}?autoplay=1&mute=1&enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                     {{-- <iframe id="ik_player_iframe" frameborder="0" height="315" src="http://www.youtube.com/embed/5EnL2WXsxNQ?enablejsapi=1" width="560"></iframe> --}}
                                     {{-- <iframe id="existing-iframe-example"
                                             width="640" height="360"
@@ -121,31 +163,44 @@
                                             style="border: solid 4px #37474F"
                                     ></iframe> --}}
                                     @endif
+
                                     @endif
+
                                     @endforeach
+
+                                    @php
+                                        $last_video = \App\Models\Program\Program::orderBy('id','desc')->first();
+                                    @endphp
+                                    @if ($last_video->end_datetime < $to_day)
+                                    @if ($last_video->video != null)
+                                    <video  style="background: black;" id='videoElem' width=300 height=225 controls controlsList='nodownload'  playsinline muted autoplay>
+                                        <source  src="{{asset('uploads/video/'.$last_video->video)}}"  type="video/mp4" />
+                                    </video>
+                                    @else
+                                    <iframe  style="background: black;" width="300" height="225" id='existing-iframe-example' src="https://www.youtube.com/embed/{{$last_video->embed_code}}?autoplay=1&mute=1&enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    @endif
+                                    @endif
+
+                                    {{-- <div style="width: 640px; height: 425px; background: black;">
+                                        <p style="color: white; jutify-content: center;">LIVE VIDEO</p>
+                                    </div> --}}
                                     {{-- <div style="background: black;" id="elvideo"></div> --}}
                             </div>
                         </div>
                     </div>
+
                 </div>
-                <div class="col-lg-3">
-                    @foreach (\App\Models\blog\Post::where('hot_news', 1)->orderBy('id', 'desc')->take(4)->get() as $key => $post)
-                    @if ($post->status == 1)
-                    @if ($key%2 != 0)
-                    <div style="margin-bottom: 10px;" class="col-12">
-                        <a class="post-cat ts-orange-bg" href="#">Hot News</a>
-                        <a href="{{route('news.details',$post->slug)}}"><img src="{{asset('uploads/postphoto/'.$post->image)}}" alt="Snow" style="width:100%;"></a>
-                        <div class="centered"><a href="{{route('news.details',$post->slug)}}" style="text-shadow: 1px 1px 1px #000;" >{{$post->title}} <h5>{{$post->created_at->diffForHumans()}}</h5></a></div>
-                    </div>
-                    @endif
-                    @endif
-                    {{-- </br> --}}
-                    @endforeach
-                    {{-- <div class="col-12">
-                        <a class="post-cat ts-orange-bg" href="#">Travel</a>
-                        <img src="{{asset('assets/frontend/images/music1.jpg')}}" alt="Snow" style="width:100%;">
-                        <div class="centered"><a href="#">10 critical points from Zuckerberg’s epic security points manifesto <h5>March 21, 2019</h5></a></div>
-                    </div> --}}
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    @php
+                    $categories = App\Models\Program\Programcategory::all();
+                    $today = date("Y/m/d h:i a");
+                    $to_day=date("Y-m-d h:i a",strtotime($today));
+                    $programs = App\Models\Program\Program::where('end_datetime','<',$to_day)->get();
+                @endphp
+                @include('frontend_theme.news_portal.video',[['categories'=>$categories],['programs'=>$programs]])
                 </div>
             </div>
 
@@ -153,84 +208,8 @@
                 <div class="col-lg-9 bottommargin">
 
                     <div class="row col-mb-50">
-                        {{-- <div class="col-12">
-                            <div class="fslider flex-thumb-grid grid-6" data-animation="fade" data-arrows="true" data-thumbs="true">
-                                <div class="flexslider">
 
 
-                                    <div class="slider-wrap">
-                                        <div class="slide" data-thumb="images/magazine/thumb/1.jpg">
-                                            <a href="#">
-                                                <img src="images/magazine/1.jpg" alt="Image">
-                                                <div class="bg-overlay">
-                                                    <div class="bg-overlay-content text-overlay-mask dark align-items-end justify-content-start">
-                                                        <div class="portfolio-desc py-0">
-                                                            <h3>Locked Steel Gate</h3>
-                                                            <span>Illustrations</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="slide" data-thumb="images/magazine/thumb/2.jpg">
-                                            <a href="#">
-                                                <img src="images/magazine/2.jpg" alt="Image">
-                                                <div class="bg-overlay">
-                                                    <div class="bg-overlay-content text-overlay-mask dark align-items-end justify-content-start">
-                                                        <div class="portfolio-desc py-0">
-                                                            <h3>Russia hits back, says US acts like a 'bad surgeon'</h3>
-                                                            <span><i class="icon-star3 me-1"></i><i class="icon-star3 me-1"></i><i class="icon-star3 me-1"></i><i class="icon-star-half-full me-1"></i><i class="icon-star-empty"></i></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="slide" data-thumb="images/magazine/thumb/3.jpg">
-                                            <a href="#">
-                                                <img src="images/magazine/3.jpg" alt="Image">
-                                                <div class="bg-overlay">
-                                                    <div class="bg-overlay-content text-overlay-mask dark align-items-end justify-content-start">
-                                                        <div class="portfolio-desc py-0">
-                                                            <h3>Locked Steel Gate</h3>
-                                                            <span>Technology</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="slide" data-thumb="images/magazine/thumb/4.jpg">
-                                            <iframe src="https://player.vimeo.com/video/99895335" width="500" height="281" allow="autoplay; fullscreen" allowfullscreen></iframe>
-                                        </div>
-                                        <div class="slide" data-thumb="images/magazine/thumb/5.jpg">
-                                            <a href="#">
-                                                <img src="images/magazine/5.jpg" alt="Image">
-                                                <div class="bg-overlay">
-                                                    <div class="bg-overlay-content text-overlay-mask dark align-items-end justify-content-start">
-                                                        <div class="portfolio-desc py-0">
-                                                            <h3>Locked Steel Gate</h3>
-                                                            <span><i class="icon-star3 me-1"></i><i class="icon-star3 me-1"></i><i class="icon-star3 me-1"></i><i class="icon-star-half-full me-1"></i><i class="icon-star-empty"></i></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="slide" data-thumb="images/magazine/thumb/6.jpg">
-                                            <a href="#">
-                                                <img src="images/magazine/6.jpg" alt="Image">
-                                                <div class="bg-overlay">
-                                                    <div class="bg-overlay-content text-overlay-mask dark align-items-end justify-content-start">
-                                                        <div class="portfolio-desc py-0">
-                                                            <h3>Locked Steel Gate</h3>
-                                                            <span>Entertainment</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
 
                         <div class="body-position-4" style="margin-top: 20px;">
                             <div class="col-12" style="margin-bottom: 20px;">
@@ -242,29 +221,7 @@
                                 <div class="row posts-md col-mb-30">
                                     @foreach (\App\Models\blog\Post::orderBy('id', 'desc')->take(6)->get() as $post)
                                     @if ($post->status == 1)
-                                    <div class="entry col-sm-6 col-xl-4">
-                                        <div class="grid-inner">
-                                            <div class="entry-image">
-                                                <a href="{{route('news.details',$post->slug)}}"><img src="{{asset('uploads/postphoto/'.$post->image)}}" alt="Image"></a>
-                                            </div>
-                                            <div class="entry-title title-xs nott">
-                                                <h3><a href="{{route('news.details',$post->slug)}}">{{$post->title}}</a></h3>
-                                            </div>
-                                            <div class="entry-meta">
-                                                <ul>
-                                                    <li><i class="icon-calendar3"></i> {{$post->created_at->diffForHumans()}}</li>
-                                                    <li></i>@foreach ($post->categories as $category)
-                                                        <a href="{{route('categories.all',$category->parent->slug)}}">
-                                                        {{$category->parent->name}} </a>
-                                                    @endforeach
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="entry-content">
-                                                <p>{!!Str::limit($post->body, 100)!!}</p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @include('frontend_theme.news_portal.partials.news_box_1',['post'=>$post])
                                     @endif
                                     @endforeach
                                 </div>
@@ -280,7 +237,7 @@
                                 $to_datee=date("Y-m-d",strtotime($advertisement->end_date));
                             @endphp
                             @if ($to_day >= $from_datee && $to_day <= $to_datee)
-                            <div class="col-12" style="margin-top: 10px; margin-left: 50px;">
+                            <div class="col-12" style="margin-top: 10px;">
                                <a href="{{$advertisement->url}}"> <img height="90" width="720" src="{{asset('uploads/advertisement/'.$advertisement->banner)}}" alt="Ad"></a>
                             </div>
                             @else
@@ -293,10 +250,14 @@
                         <div class="body-position-1" style="margin-top: 20px;">
                             @foreach (\App\Models\blog\category::where([['position','=','Body-Position-1'],['status','=',1]])->get() as $category)
 
+                            @if(!$category->childrenRecursive->isEmpty())
 
                             <div class="col-12" style="margin-bottom: 20px;">
-                                <div class="fancy-title title-border">
+                                {{-- <div class="fancy-title title-border">
                                     <h3>{{$category->name}}</h3>
+                                </div> --}}
+                                <div class="common-heading-style">
+                                    <h2 class="common-heading-text"><span class="read-more-left"><a href="{{route('categories',$category->slug)}}"> {{$category->name}} </a></span><span class="read-more-right"><a href="{{route('categories',$category->slug)}}">আরও</a></span></h2>
                                 </div>
 
                                 @php
@@ -310,38 +271,39 @@
                                         $latest_news = $subcat->posts->first();
                                     }
                                 }
-
                                 @endphp
+
                                 {{-- @if (!$subcat->posts->isEmpty()) --}}
+
                                 <div class="posts-md">
                                     <div class="entry row mb-5">
-                                        <div class="col-md-5">
-                                            <div class="entry-image">
+                                        <div class="col-md-4">
+                                            <div class="entry-image-body">
                                                 <a href="{{route('news.details',$latest_news->slug)}}"><img src="{{asset('uploads/postphoto/'.$latest_news->image)}}" alt="Image"></a>
                                             </div>
                                         </div>
-                                        <div class="col-md-7 mt-3 mt-md-0">
-                                            <div class="entry-title title-sm nott">
-                                                <h3><a href="{{route('news.details',$latest_news->slug)}}">{{$latest_news->title}}</a></h3>
+
+                                        <div class="col-md-8 mt-3 mt-md-0">
+                                            <div class="row">
+                                            @foreach($category->childrenRecursive as $key => $subcat)
+                                            @foreach ($subcat->posts->take(2) as $post)
+                                            @if ($post->id != $latest_news->id)
+                                            @if ($post->status == 1)
+                                            <div class="col-md-6 mb-3">
+                                            @include('frontend_theme.news_portal.partials.news_box_2',['post'=>$post])
                                             </div>
-                                            <div class="entry-meta">
-                                                <ul>
-                                                    <li><i class="icon-calendar3"></i> {{ $latest_news->created_at->format('j-F-Y') }}</li>
-                                                    <li></i>@foreach ($latest_news->categories as $category)
-                                                        <a href="{{route('categories.all',$category->parent->slug)}}">
-                                                        {{$category->parent->name}} </a>
-                                                    @endforeach
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="entry-content">
-                                                <p class="mb-0">{!!Str::limit($latest_news->body, 100)!!}</p>
+                                            @endif
+                                            @endif
+                                            @endforeach
+                                            @endforeach
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+
                                 {{-- @endif --}}
-                                <div class="posts-sm row col-mb-30">
+                                {{-- <div class="posts-sm row col-mb-30">
                                     @foreach($category->childrenRecursive as $key => $subcat)
                                     @foreach ($subcat->posts as $post)
                                     @if ($post->id != $latest_news->id)
@@ -374,8 +336,62 @@
                                     @endif
                                     @endforeach
                                     @endforeach
+                                </div> --}}
+                            </div>
+
+                            @else
+
+                            <div class="col-12" style="margin-bottom: 20px;">
+                                {{-- <div class="fancy-title title-border">
+                                    <h3>{{$category->name}}</h3>
+                                </div> --}}
+                                <div class="common-heading-style">
+                                    <h2 class="common-heading-text"><span class="read-more-left"><a href="{{route('categories',$category->parent->slug)}}"> {{$category->name}} </a></span><span class="read-more-right"><a href="{{route('categories',$category->parent->slug)}}">আরও</a></span></h2>
+                                </div>
+
+                                @php
+                                if($category->childrenRecursive->isEmpty())
+                                {
+                                    $latest_news = $category->posts->first();
+                                }
+                                else {
+                                    foreach($category->childrenRecursive as $key => $subcat)
+                                    {
+                                        $latest_news = $subcat->posts->first();
+                                    }
+                                }
+                                @endphp
+
+                                {{-- @if (!$subcat->posts->isEmpty()) --}}
+
+                                <div class="posts-md">
+                                    <div class="entry row mb-5">
+                                        <div class="col-md-4">
+                                            <div class="entry-image-body">
+                                                <a href="{{route('news.details',$latest_news->slug)}}"><img src="{{asset('uploads/postphoto/'.$latest_news->image)}}" alt="Image"></a>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-8 mt-3 mt-md-0">
+                                            <div class="row">
+                                            {{-- @foreach($category->childrenRecursive as $key => $subcat) --}}
+                                            @foreach ($category->posts->take(4) as $post)
+                                            @if ($post->id != $latest_news->id)
+                                            @if ($post->status == 1)
+                                            <div class="col-md-6 mb-3">
+                                            @include('frontend_theme.news_portal.partials.news_box_2',['post'=>$post])
+                                            </div>
+                                            @endif
+                                            @endif
+                                            @endforeach
+                                            {{-- @endforeach --}}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
+                            @endif
 
                             @endforeach
 
@@ -389,7 +405,7 @@
                                 $to_datee=date("Y-m-d",strtotime($advertisement->end_date));
                             @endphp
                             @if ($to_day >= $from_datee && $to_day <= $to_datee)
-                            <div class="col-12" style="margin-top: 10px; margin-left: 50px;">
+                            <div class="col-12" style="margin-top: 10px;">
                                 <a href="{{$advertisement->url}}"> <img height="90" width="720" src="{{asset('uploads/advertisement/'.$advertisement->banner)}}" alt="Ad"> </a>
                             </div>
                             @else
@@ -436,74 +452,62 @@
 
                         <div class="body-position-2" style="margin-top: 20px;">
                             @foreach (\App\Models\blog\category::where([['position','=','Body-Position-2'],['status','=',1]])->get() as $category)
+                            @if ($category->childrenRecursive->isEmpty())
                             <div class="col-12" style="margin-bottom: 20px;">
 
-                                <div class="fancy-title title-border">
-                                    <h3>{{$category->name}}</h3>
+                                <div class="common-heading-style">
+                                    <h2 class="common-heading-text"><span class="read-more-left"><a href="{{route('categories',$category->parent->slug)}}"> {{$category->name}} </a></span><span class="read-more-right"><a href="{{route('categories',$category->parent->slug)}}">আরও</a></span></h2>
                                 </div>
 
                                 <div class="row posts-md col-mb-30">
-                                    @if ($category->childrenRecursive->isEmpty())
-                                    @foreach ($category->posts as $post)
+
+                                    @foreach ($category->posts()->orderBy('id','desc')->take(4)->get() as $post)
                                     @if ($post->status == 1)
-                                    <div class="entry col-sm-6 col-xl-4">
-                                        <div class="grid-inner">
-                                            <div class="entry-image">
-                                                <a href="{{route('news.details',$post->slug)}}"><img src="{{asset('uploads/postphoto/'.$post->image)}}" alt="Image"></a>
-                                            </div>
-                                            <div class="entry-title title-xs nott">
-                                                <h3><a href="{{route('news.details',$post->slug)}}">{{$post->title}}</a></h3>
-                                            </div>
-                                            <div class="entry-meta">
-                                                <ul>
-                                                    <li><i class="icon-calendar3"></i> {{ $post->created_at->format('j-F-Y') }}</li>
-                                                    <li></i>@foreach ($post->categories as $category)
-                                                        <a href="{{route('categories.all',$category->parent->slug)}}">
-                                                        {{$category->parent->name}} </a>
-                                                    @endforeach
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="entry-content">
-                                                <p>{!!Str::limit($post->body, 100)!!}</p>
-                                            </div>
-                                        </div>
+                                    <div class="entry col-sm-6 col-xl-3">
+                                        @include('frontend_theme.news_portal.partials.news_box_3',['post'=>$post])
                                     </div>
                                     @endif
                                     @endforeach
-
-                                    @else
-
-                                    @foreach($category->childrenRecursive as $key => $subcat)
-                                    @foreach ($subcat->posts as $post)
-                                    @if ($post->status == 1)
-                                    <div class="entry col-sm-6 col-xl-4">
-                                        <div class="grid-inner">
-                                            <div class="entry-image">
-                                                <a href="{{route('news.details',$post->slug)}}"><img src="{{asset('uploads/postphoto/'.$post->image)}}" alt="Image"></a>
-                                            </div>
-                                            <div class="entry-title title-xs nott">
-                                                <h3><a href="{{route('news.details',$post->slug)}}">{{$post->title}}</a></h3>
-                                            </div>
-                                            <div class="entry-meta">
-                                                <ul>
-                                                    <li><i class="icon-calendar3"></i> {{ $post->created_at->format('j-F-Y') }}</li>
-                                                    <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 23</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="entry-content">
-                                                <p>{!!Str::limit($post->body, 100)!!}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @endif
-                                    @endforeach
-                                    @endforeach
-
-                                    @endif
 
                                 </div>
                             </div>
+
+                            @else
+
+                            <div class="col-12" style="margin-bottom: 20px;">
+
+                                <div class="common-heading-style">
+                                    <h2 class="common-heading-text"><span class="read-more-left"><a href="{{route('categories',$category->slug)}}"> {{$category->name}} </a></span><span class="read-more-right"><a href="{{route('categories',$category->slug)}}">আরও</a></span></h2>
+                                </div>
+
+                                <div class="row posts-md col-mb-30">
+                                    @php
+                                    $data = [];
+                                    @endphp
+                                    @foreach($category->childrenRecursive as $key => $subcat)
+                                    @foreach ($subcat->posts()->orderBy('id','desc')->get() as $post)
+                                    @if ($post->status == 1)
+                                    @php
+                                    $data[] = $post;
+                                    @endphp
+
+                                    @endif
+                                    @endforeach
+                                    @endforeach
+
+                                    @php
+                                        $postdata = array_slice($data, 0,4);
+                                    @endphp
+                                    @foreach ($postdata as $post)
+                                    <div class="entry col-sm-6 col-xl-3">
+                                        @include('frontend_theme.news_portal.partials.news_box_3',['post'=>$post])
+                                    </div>
+                                    @endforeach
+
+                                </div>
+                            </div>
+
+                            @endif
                             @endforeach
 
                             @php
@@ -516,7 +520,7 @@
                                 $to_datee=date("Y-m-d",strtotime($advertisement->end_date));
                             @endphp
                             @if ($to_day >= $from_datee && $to_day <= $to_datee)
-                            <div class="col-12" style="margin-top: 10px; margin-left: 50px;">
+                            <div class="col-12" style="margin-top: 10px;">
                                <a href="{{$advertisement->url}}"> <img  src="{{asset('uploads/advertisement/'.$advertisement->banner)}}" alt="Ad"> </a>
                             </div>
                             @else

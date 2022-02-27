@@ -78,7 +78,7 @@
                                 $to_datee=date("Y-m-d",strtotime($advertisement->end_date));
                             @endphp
                             @if ($to_day >= $from_datee && $to_day <= $to_datee)
-                            <div class="col-12" style="margin-top: 10px; margin-left: 50px;">
+                            <div class="col-12" style="margin-top: 10px;">
                                <a href="{{$advertisement->url}}"> <img height="90" width="720" src="{{asset('uploads/advertisement/'.$advertisement->banner)}}" alt="Ad"></a>
                             </div>
                             @else

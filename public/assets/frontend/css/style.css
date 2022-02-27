@@ -181,6 +181,7 @@ body {
 a {
 	text-decoration: none !important;
 	color: #1ABC9C;
+    color: #fff;
 }
 
 a:hover { color: #222; }
@@ -6755,7 +6756,8 @@ body:not(.device-touch) .grid-container {
 	font-weight: bold;
 }
 
-@media (max-width: 576px) {
+/* @media (max-width: 576px) { */
+    @media (max-width: 767px) {
 	#left-hotnews
     {
         display: none;
@@ -6769,19 +6771,12 @@ body:not(.device-touch) .grid-container {
         display: none;
     }
     .top-search-form input {
-        box-shadow: none !important;
-        border-radius: 0;
-        border: 0;
-        outline: 0 !important;
+
         font-size: 14px;
-        padding: 10px 80px 10px 0;
-        height: 100%;
-        background-color: transparent !important;
-        color: #333;
-        font-weight: 700;
-        margin-top: 0 !important;
-        font-family: 'Poppins', sans-serif;
-        letter-spacing: 2px;
+    }
+    .load-more-btn{
+        display: block !important;
+        margin-left: 100px;
     }
 }
 
@@ -6992,7 +6987,8 @@ body:not(.device-touch) .portfolio {
 .portfolio-desc h3 {
 	margin: 0;
 	padding: 0;
-	font-size: 1.25rem;
+	/* font-size: 1.25rem; */
+    font-size: 17px;
 }
 
 .portfolio-desc h3 a {
@@ -7606,6 +7602,7 @@ body:not(.device-touch) .portfolio {
 
 .entry-image { margin-bottom: 30px; }
 
+
 .posts-md .entry-image,
 .posts-sm .entry-image {
 	margin-bottom: 0;
@@ -7619,6 +7616,20 @@ body:not(.device-touch) .portfolio {
 	position: relative;
 	width: 100%;
 	height: auto;
+}
+
+.entry-image-body img{
+    display: block;
+	position: relative;
+	width: 100%;
+	height: 180px;
+}
+
+.entry-image-2 img {
+	display: block;
+	position: relative;
+	width: 100%;
+	height: 60px !important;
 }
 
 .posts-sm .entry-image {
@@ -11384,7 +11395,7 @@ body:not(.device-touch) .social-icon i {
 
 .tab-nav.tab-nav2 li.ui-state-active a {
 	top: 0;
-	background-color: #1ABC9C;
+	background-color: #d72924;
 	color: #FFF;
 }
 

@@ -71,6 +71,24 @@ class ProgramController extends Controller
         {
             $file_name = null;
         }
+
+        if(isset($file))
+        {
+            $local_video = $file_name;
+        }
+        else
+        {
+            $local_video = null;
+        }
+
+        if(isset($request->embed_code))
+        {
+            $embed_code = $request->embed_code;
+        }
+        else
+        {
+            $embed_code = null;
+        }
         // $ffmpeg = FFMpeg::create();
         // $video = $ffmpeg->open('asd.mpg');
 
@@ -111,8 +129,8 @@ class ProgramController extends Controller
                 'slug' => $slug,
                 'body' => $request->body,
                 'poster' => $imagename,
-                'video' => $file_name,
-                'embed_code' => $request->embed_code,
+                'video' => $local_video,
+                'embed_code' => $embed_code,
                 'start_date' => $request->start_date,
                 'start_datetime' => $request->start_date.' '.$start,
                 'start_time' => $request->start_time,
@@ -206,6 +224,24 @@ class ProgramController extends Controller
             $file_name = $program->video;
         }
 
+        if(isset($file))
+        {
+            $local_video = $file_name;
+        }
+        else
+        {
+            $local_video = $program->video;
+        }
+
+        if(isset($request->embed_code))
+        {
+            $embed_code = $request->embed_code;
+        }
+        else
+        {
+            $embed_code = $program->embed_code;
+        }
+
         $image = $request->file('poster');
         if(isset($image))
         {
@@ -239,8 +275,8 @@ class ProgramController extends Controller
                 'slug' => $slug,
                 'body' => $request->body,
                 'poster' =>$imagename,
-                'video' => $file_name,
-                'embed_code' => $request->embed_code,
+                'video' => $local_video,
+                'embed_code' => $embed_code,
                 'start_date' => $request->start_date,
                 'start_datetime' => $request->start_date.' '.$start,
                 'start_time' => $request->start_time,

@@ -26,8 +26,11 @@
                         <div class="entry-meta">
                             <ul>
                                 <li><i class="icon-calendar3"></i> {{ $news->created_at->format('j-F-Y') }}</li>
-                                <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 21</a></li>
-                                <li><a href="#"><i class="icon-camera-retro"></i></a></li>
+                                <li></i>@foreach ($news->categories as $category)
+                                    <a href="{{route('categories.all',$category->parent->slug)}}">
+                                    {{$category->name}} </a>
+                                    @endforeach
+                                </li>
                             </ul>
                         </div>
                         <div class="entry-content">

@@ -319,7 +319,7 @@
 
 					<div class="form-group video">
                         <label class="form-label">Video</label>
-                        <input type="file"  data-default-file="{{ isset($program) ? asset('uploads/video/'.$program->video) : '' }}" class="dropify form-control"  name="">
+                        <input type="file"  data-default-file="{{ isset($program) ? asset('uploads/video/'.$program->video) : '' }}" class="dropify form-control"  name="video">
 					</div>
 
                     <div class="form-group">
