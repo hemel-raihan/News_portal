@@ -201,7 +201,7 @@
                                     @endif
 
                                 </div>
-                                <a href="#hem" style="margin-left: 40%;" class="button button-small button-circle button-green"><i class="icon-repeat"></i>More News</a>
+                                <a href="#hem" style="margin-left: 30%;" class="button button-small button-circle button-green"><i class="icon-repeat"></i>More News</a>
                     </div>
                 </div>
             </div>

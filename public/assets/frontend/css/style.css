@@ -6776,7 +6776,11 @@ body:not(.device-touch) .grid-container {
     }
     .load-more-btn{
         display: block !important;
-        margin-left: 100px;
+        margin-left: 70px;
+    }
+    .top_date
+    {
+        display: block !important;
     }
 }
 

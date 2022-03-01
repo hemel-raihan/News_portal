@@ -11,6 +11,79 @@
     <div class="line d-block d-lg-none"></div>
 
     <div class="sidebar-widgets-wrap clearfix">
+
+        <div class="widget clearfix">
+
+            <div class="tabs mb-0 clearfix" id="sidebar-tabs">
+
+                <ul class="tab-nav clearfix">
+                    <li><a href="#tabs-2">সর্বশেষ</a></li>
+                    <li><a href="#tabs-1">জনপ্রিয়</a></li>
+                </ul>
+
+                <div class="tab-container">
+
+                    <div class="tab-content clearfix" id="tabs-1">
+                        <div class="posts-sm row col-mb-30" id="popular-post-list-sidebar">
+                            @foreach (App\Models\blog\Post::orderBy('view_count','desc')->take(4)->get() as $post)
+                            @if ($post->status == 1)
+                            <div class="entry col-12">
+                                <div class="grid-inner row g-0">
+                                    <div class="col-auto">
+                                        <div class="entry-image">
+                                            <a href="{{route('news.details',$post->slug)}}"><img class="rounded-circle" src="{{asset('uploads/postphoto/'.$post->image)}}" alt="Image"></a>
+                                        </div>
+                                    </div>
+                                    <div class="col ps-3">
+                                        <div class="entry-title">
+                                            <h4><a href="{{route('news.details',$post->slug)}}">{{$post->title}}</a></h4>
+                                        </div>
+                                        <div class="entry-meta">
+                                            <ul>
+                                                <li><i class="icon-line-eye"></i>{{$post->view_count}}</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="tab-content clearfix" id="tabs-2">
+                        <div class="posts-sm row col-mb-30" id="recent-post-list-sidebar">
+                            @foreach (App\Models\blog\Post::orderBy('id','desc')->take(4)->get() as $post)
+                            @if ($post->status == 1)
+                            <div class="entry col-12">
+                                <div class="grid-inner row g-0">
+                                    <div class="col-auto">
+                                        <div class="entry-image">
+                                            <a href="{{route('news.details',$post->slug)}}"><img class="rounded-circle" src="{{asset('uploads/postphoto/'.$post->image)}}" alt="Image"></a>
+                                        </div>
+                                    </div>
+                                    <div class="col ps-3">
+                                        <div class="entry-title">
+                                            <h4><a href="{{route('news.details',$post->slug)}}">{{$post->title}}</a></h4>
+                                        </div>
+                                        <div class="entry-meta">
+                                            <ul>
+                                                <li>{{ $post->created_at->format('j-F-Y') }}</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
+                            @endforeach
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
         @foreach ($widgets as $widget)
 
         <div class="widget clearfix">
@@ -37,12 +110,12 @@
                                 <div class="grid-inner row g-0">
                                     <div class="col-auto">
                                         <div class="entry-image">
-                                            <a href="#"><img class="rounded-circle" src="{{asset('uploads/postphoto/'.$post->image)}}" alt="Image"></a>
+                                            <a href="{{route('news.details',$post->slug)}}"><img class="rounded-circle" src="{{asset('uploads/postphoto/'.$post->image)}}" alt="Image"></a>
                                         </div>
                                     </div>
                                     <div class="col ps-3">
                                         <div class="entry-title">
-                                            <h4><a href="#">{{$post->title}}</a></h4>
+                                            <h4><a href="{{route('news.details',$post->slug)}}">{{$post->title}}</a></h4>
                                         </div>
                                         <div class="entry-meta">
                                             <ul>
@@ -81,12 +154,12 @@
                                 <div class="grid-inner row g-0">
                                     <div class="col-auto">
                                         <div class="entry-image">
-                                            <a href="#"><img class="rounded-circle" src="{{asset('uploads/postphoto/'.$post->image)}}" alt="Image"></a>
+                                            <a href="{{route('news.details',$post->slug)}}"><img class="rounded-circle" src="{{asset('uploads/postphoto/'.$post->image)}}" alt="Image"></a>
                                         </div>
                                     </div>
                                     <div class="col ps-3">
                                         <div class="entry-title">
-                                            <h4><a href="#">{{$post->title}}</a></h4>
+                                            <h4><a href="{{route('news.details',$post->slug)}}">{{$post->title}}</a></h4>
                                         </div>
                                         <div class="entry-meta">
                                             <ul>
@@ -127,12 +200,12 @@
                                 <div class="grid-inner row g-0">
                                     <div class="col-auto">
                                         <div class="entry-image">
-                                            <a href="#"><img class="rounded-circle" src="{{asset('uploads/postphoto/'.$post->image)}}" alt="Image"></a>
+                                            <a href="{{route('news.details',$post->slug)}}"><img class="rounded-circle" src="{{asset('uploads/postphoto/'.$post->image)}}" alt="Image"></a>
                                         </div>
                                     </div>
                                     <div class="col ps-3">
                                         <div class="entry-title">
-                                            <h4><a href="#">{{$post->title}}</a></h4>
+                                            <h4><a href="{{route('news.details',$post->slug)}}">{{$post->title}}</a></h4>
                                         </div>
                                         <div class="entry-meta">
                                             <ul>
@@ -152,12 +225,12 @@
                                 <div class="grid-inner row g-0">
                                     <div class="col-auto">
                                         <div class="entry-image">
-                                            <a href="#"><img class="rounded-circle" src="{{asset('uploads/postphoto/'.$post->image)}}" alt="Image"></a>
+                                            <a href="{{route('news.details',$post->slug)}}"><img class="rounded-circle" src="{{asset('uploads/postphoto/'.$post->image)}}" alt="Image"></a>
                                         </div>
                                     </div>
                                     <div class="col ps-3">
                                         <div class="entry-title">
-                                            <h4><a href="#">{{$post->title}}</a></h4>
+                                            <h4><a href="{{route('news.details',$post->slug)}}">{{$post->title}}</a></h4>
                                         </div>
                                         <div class="entry-meta">
                                             <ul>

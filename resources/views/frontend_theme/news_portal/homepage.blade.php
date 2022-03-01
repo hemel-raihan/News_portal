@@ -126,7 +126,7 @@
                     </div>
 
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-3" id="mobile_tv">
                     <div class="col-12">
                         <div class="fslider flex-thumb-grid grid-6" data-animation="fade" data-arrows="true" data-thumbs="true">
                             <div class="flexslider">
@@ -210,22 +210,65 @@
                     <div class="row col-mb-50">
 
 
-
-                        <div class="body-position-4" style="margin-top: 20px;">
+                        <div class="body-position-1" style="margin-top: 20px;">
+                            @foreach (\App\Models\blog\category::where([['position','=','Body-Position-1'],['status','=',1]])->get() as $category)
+                            @if ($category->childrenRecursive->isEmpty())
                             <div class="col-12" style="margin-bottom: 20px;">
 
-                                <div class="fancy-title title-border">
-                                    <h3>সর্বশেষ সময়</h3>
+                                <div class="common-heading-style">
+                                    <h2 class="common-heading-text"><span class="read-more-left"><a href="{{route('categories',$category->parent->slug)}}"> {{$category->name}} </a></span><span class="read-more-right"><a href="{{route('categories',$category->parent->slug)}}">আরও</a></span></h2>
                                 </div>
 
                                 <div class="row posts-md col-mb-30">
-                                    @foreach (\App\Models\blog\Post::orderBy('id', 'desc')->take(6)->get() as $post)
+
+                                    @foreach ($category->posts()->orderBy('id','desc')->take(4)->get() as $post)
                                     @if ($post->status == 1)
-                                    @include('frontend_theme.news_portal.partials.news_box_1',['post'=>$post])
+                                    <div class="entry col-sm-6 col-xl-3">
+                                        @include('frontend_theme.news_portal.partials.news_box_3',['post'=>$post])
+                                    </div>
                                     @endif
                                     @endforeach
+
                                 </div>
                             </div>
+
+                            @else
+
+                            <div class="col-12" style="margin-bottom: 20px;">
+
+                                <div class="common-heading-style">
+                                    <h2 class="common-heading-text"><span class="read-more-left"><a href="{{route('categories',$category->slug)}}"> {{$category->name}} </a></span><span class="read-more-right"><a href="{{route('categories',$category->slug)}}">আরও</a></span></h2>
+                                </div>
+
+                                <div class="row posts-md col-mb-30">
+                                    @php
+                                    $data = [];
+                                    @endphp
+                                    @foreach($category->childrenRecursive as $key => $subcat)
+                                    @foreach ($subcat->posts()->orderBy('id','desc')->get() as $post)
+                                    @if ($post->status == 1)
+                                    @php
+                                    $data[] = $post;
+                                    @endphp
+
+                                    @endif
+                                    @endforeach
+                                    @endforeach
+
+                                    @php
+                                        $postdata = array_slice($data, 0,4);
+                                    @endphp
+                                    @foreach ($postdata as $post)
+                                    <div class="entry col-sm-6 col-xl-3">
+                                        @include('frontend_theme.news_portal.partials.news_box_3',['post'=>$post])
+                                    </div>
+                                    @endforeach
+
+                                </div>
+                            </div>
+
+                            @endif
+                            @endforeach
 
                             @php
                             $today = date("Y/m/d");
@@ -238,17 +281,18 @@
                             @endphp
                             @if ($to_day >= $from_datee && $to_day <= $to_datee)
                             <div class="col-12" style="margin-top: 10px;">
-                               <a href="{{$advertisement->url}}"> <img height="90" width="720" src="{{asset('uploads/advertisement/'.$advertisement->banner)}}" alt="Ad"></a>
+                               <a href="{{$advertisement->url}}"> <img  src="{{asset('uploads/advertisement/'.$advertisement->banner)}}" alt="Ad"> </a>
                             </div>
                             @else
                             @endif
                             @endforeach
-
-
                         </div>
 
-                        <div class="body-position-1" style="margin-top: 20px;">
-                            @foreach (\App\Models\blog\category::where([['position','=','Body-Position-1'],['status','=',1]])->get() as $category)
+
+
+
+                        <div class="body-position-2" style="margin-top: 20px;">
+                            @foreach (\App\Models\blog\category::where([['position','=','Body-Position-2'],['status','=',1]])->get() as $category)
 
                             @if(!$category->childrenRecursive->isEmpty())
 
@@ -268,7 +312,11 @@
                                 else {
                                     foreach($category->childrenRecursive as $key => $subcat)
                                     {
-                                        $latest_news = $subcat->posts->first();
+                                        //$latest_news = $subcat->posts()->latest('id')->first();
+                                        foreach ($subcat->posts as $post)
+                                        {
+                                            $latest_news = $post;
+                                        }
                                     }
                                 }
                                 @endphp
@@ -277,66 +325,43 @@
 
                                 <div class="posts-md">
                                     <div class="entry row mb-5">
-                                        <div class="col-md-4">
+                                        <div class="col-md-4" id="single_news">
                                             <div class="entry-image-body">
                                                 <a href="{{route('news.details',$latest_news->slug)}}"><img src="{{asset('uploads/postphoto/'.$latest_news->image)}}" alt="Image"></a>
+                                                <div class="centered"><a href="{{route('news.details',$latest_news->slug)}}" style="text-shadow: 1px 1px 1px #000;">{{$latest_news->title}}</a></div>
                                             </div>
                                         </div>
 
                                         <div class="col-md-8 mt-3 mt-md-0">
+                                            @php
+                                            $second_data = [];
+                                            @endphp
                                             <div class="row">
                                             @foreach($category->childrenRecursive as $key => $subcat)
-                                            @foreach ($subcat->posts->take(2) as $post)
+                                            @foreach ($subcat->posts()->orderBy('id','desc')->get() as $post)
                                             @if ($post->id != $latest_news->id)
                                             @if ($post->status == 1)
+                                            @php
+                                            $second_data[] = $post;
+                                            @endphp
+                                            @endif
+                                            @endif
+                                            @endforeach
+                                            @endforeach
+
+                                            @php
+                                                $postdata_2 = array_slice($second_data, 0,4);
+                                            @endphp
+                                            @foreach ($postdata_2 as $post)
                                             <div class="col-md-6 mb-3">
-                                            @include('frontend_theme.news_portal.partials.news_box_2',['post'=>$post])
+                                                @include('frontend_theme.news_portal.partials.news_box_2',['post'=>$post])
                                             </div>
-                                            @endif
-                                            @endif
                                             @endforeach
-                                            @endforeach
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-
-                                {{-- @endif --}}
-                                {{-- <div class="posts-sm row col-mb-30">
-                                    @foreach($category->childrenRecursive as $key => $subcat)
-                                    @foreach ($subcat->posts as $post)
-                                    @if ($post->id != $latest_news->id)
-                                    @if ($post->status == 1)
-                                    <div class="entry col-md-6">
-                                        <div class="grid-inner row g-0">
-                                            <div class="col-auto">
-                                                <div class="entry-image">
-                                                    <a href="{{route('news.details',$post->slug)}}"><img src="{{asset('uploads/postphoto/'.$post->image)}}" alt="Image"></a>
-                                                </div>
-                                            </div>
-                                            <div class="col ps-3">
-                                                <div class="entry-title">
-                                                    <h4><a href="{{route('news.details',$post->slug)}}">{{$post->title}}</a></h4>
-                                                </div>
-                                                <div class="entry-meta">
-                                                    <ul>
-                                                        <li><i class="icon-calendar3"></i> {{ $post->created_at->format('j-F-Y') }}</li>
-                                                        <li></i>@foreach ($post->categories as $category)
-                                                            <a href="{{route('categories.all',$category->parent->slug)}}">
-                                                            {{$category->parent->name}} </a>
-                                                        @endforeach
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @endif
-                                    @endif
-                                    @endforeach
-                                    @endforeach
-                                </div> --}}
                             </div>
 
                             @else
@@ -366,16 +391,17 @@
 
                                 <div class="posts-md">
                                     <div class="entry row mb-5">
-                                        <div class="col-md-4">
+                                        <div class="col-md-4" id="single_news">
                                             <div class="entry-image-body">
                                                 <a href="{{route('news.details',$latest_news->slug)}}"><img src="{{asset('uploads/postphoto/'.$latest_news->image)}}" alt="Image"></a>
+                                                <div class="centered"><a href="{{route('news.details',$latest_news->slug)}}" style="text-shadow: 1px 1px 1px #000;">{{$latest_news->title}}</a></div>
                                             </div>
                                         </div>
 
                                         <div class="col-md-8 mt-3 mt-md-0">
                                             <div class="row">
                                             {{-- @foreach($category->childrenRecursive as $key => $subcat) --}}
-                                            @foreach ($category->posts->take(4) as $post)
+                                            @foreach ($category->posts->take(5) as $post)
                                             @if ($post->id != $latest_news->id)
                                             @if ($post->status == 1)
                                             <div class="col-md-6 mb-3">
@@ -415,6 +441,9 @@
                         </div>
 
 
+
+
+
                         {{-- <div class="body-position-2">
                             @foreach (\App\Models\blog\category::where('position','=','Body-Position-2')->get() as $category)
                             <div class="col-12">
@@ -450,8 +479,8 @@
 
                         </div> --}}
 
-                        <div class="body-position-2" style="margin-top: 20px;">
-                            @foreach (\App\Models\blog\category::where([['position','=','Body-Position-2'],['status','=',1]])->get() as $category)
+                        <div class="body-position-3" style="margin-top: 20px;">
+                            @foreach (\App\Models\blog\category::where([['position','=','Body-Position-3'],['status','=',1]])->get() as $category)
                             @if ($category->childrenRecursive->isEmpty())
                             <div class="col-12" style="margin-bottom: 20px;">
 
@@ -526,8 +555,46 @@
                             @else
                             @endif
                             @endforeach
-
                         </div>
+
+
+
+
+                        {{-- <div class="body-position-4" style="margin-top: 20px;">
+                                <div class="col-12" style="margin-bottom: 20px;">
+
+                                    <div class="fancy-title title-border">
+                                        <h3>সর্বশেষ সময়</h3>
+                                    </div>
+
+                                    <div class="row posts-md col-mb-30">
+                                        @foreach (\App\Models\blog\Post::orderBy('id', 'desc')->take(6)->get() as $post)
+                                        @if ($post->status == 1)
+                                        @include('frontend_theme.news_portal.partials.news_box_1',['post'=>$post])
+                                        @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+
+                                @php
+                                $today = date("Y/m/d");
+                                $to_day=date("Y-m-d",strtotime($today));
+                                @endphp
+                                @foreach (\App\Models\Advertisement\Advertisement::where([['position','=','Body-Position-1'],['status','=',1]])->get() as $advertisement)
+                                @php
+                                    $from_datee=date("Y-m-d",strtotime($advertisement->start_date));
+                                    $to_datee=date("Y-m-d",strtotime($advertisement->end_date));
+                                @endphp
+                                @if ($to_day >= $from_datee && $to_day <= $to_datee)
+                                <div class="col-12" style="margin-top: 10px;">
+                                   <a href="{{$advertisement->url}}"> <img height="90" width="720" src="{{asset('uploads/advertisement/'.$advertisement->banner)}}" alt="Ad"></a>
+                                </div>
+                                @endif
+                                @endforeach
+
+
+                            </div> --}}
+
                     </div>
 
                 </div>
@@ -537,6 +604,8 @@
 
 
             </div>
+
+
 
         </div>
     </div>

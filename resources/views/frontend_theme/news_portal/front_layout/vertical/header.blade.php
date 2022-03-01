@@ -2,14 +2,32 @@
     <div class="container">
         <div class="header-row flex-column flex-lg-row justify-content-center justify-content-lg-start">
 
+            <div class="top_date" style="display: none;">
+                @php
+                    use Carbon\Carbon;
+                    $date = Carbon::now();
+                @endphp
+              <i class="icon-stopwatch1"></i> {{$date->format('l, F d')}}
+            </div>
+            <style>
+                .top_date {
+                    text-align: center;
+                    margin-top: 5px;
+                    color: #000;
+                    font-weight: 700;
+                }
+            </style>
+            
             <!-- Logo
             ============================================= -->
+
             <div id="logo" class="me-0 me-lg-auto">
                 @php
                 $logo  = \App\Models\Admin\Setting::where([['id',1]])->orderBy('id','desc')->first();
                 @endphp
                 @isset($logo)
                     <a href="{{route('home')}}" class="standard-logo" data-dark-logo="{{asset('uploads/settings/'.$logo->logo)}}"><img src="{{asset('uploads/settings/'.$logo->logo)}}" alt="Canvas Logo"></a>
+                    <a href="{{route('home')}}" class="retina-logo" data-dark-logo="{{asset('uploads/settings/'.$logo->logo)}}"><img src="{{asset('uploads/settings/'.$logo->logo)}}" alt="Canvas Logo"></a>
                 @endisset
                 {{-- <a href="{{route('home')}}" class="standard-logo" data-dark-logo="images/logo-dark.png"><img src="{{asset('assets/frontend/images/logo_big.png')}}" alt="Canvas Logo"></a> --}}
                 {{-- <a href="index.html" class="retina-logo" data-dark-logo="images/logo-dark@2x.png"><img src="images/logo@2x.png" alt="Canvas Logo"></a> --}}

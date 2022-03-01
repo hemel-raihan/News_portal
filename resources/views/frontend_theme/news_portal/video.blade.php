@@ -32,9 +32,9 @@
                     <a href="portfolio-single.html">
                         <img src="{{asset('uploads/video/'.$program->poster)}}" alt="Open Imagination">
                     </a>
-                    <div class="bg-overlay">
-                        <div class="bg-overlay-content dark" data-hover-animate="fadeIn" data-hover-speed="350">
-                            <a href="{{route('video.details',$program->slug)}}" class="overlay-trigger-icon bg-light text-dark" data-hover-animate="fadeInDownSmall" data-hover-animate-out="fadeInUpSmall" data-hover-speed="350" ><i style="color: red;" class="icon-play-circle"></i></a>
+                    <div class="bg-overlay" >
+                        <div  class="bg-overlay-content dark" data-hover-animate="fadeIn" data-hover-speed="350">
+                            <a href="{{route('video.details',$program->slug)}}" class="overlay-trigger-icon bg-light text-dark" data-hover-animate="fadeInDownSmall" data-hover-animate-out="fadeInUpSmall" data-hover-speed="350" ><i style="color: red; " class="icon-play-circle"></i></a>
                         </div>
                         <div class="bg-overlay-bg dark" data-hover-animate="fadeIn" data-hover-speed="350"></div>
                     </div>
@@ -76,9 +76,9 @@
                     <a href="portfolio-single.html">
                         <img src="{{asset('uploads/video/'.$program->poster)}}" alt="Open Imagination">
                     </a>
-                    <div class="bg-overlay">
-                        <div class="bg-overlay-content dark" data-hover-animate="fadeIn" data-hover-speed="350">
-                            <a href="{{route('video.details',$program->slug)}}" class="overlay-trigger-icon bg-light text-dark" data-hover-animate="fadeInDownSmall" data-hover-animate-out="fadeInUpSmall" data-hover-speed="350" ><i style="color: red;" class="icon-play-circle"></i></a>
+                    <div class="bg-overlay" >
+                        <div  class="bg-overlay-content dark" data-hover-animate="fadeIn" data-hover-speed="350">
+                            <a href="{{route('video.details',$program->slug)}}" class="overlay-trigger-icon bg-light text-dark" data-hover-animate="fadeInDownSmall" data-hover-animate-out="fadeInUpSmall" data-hover-speed="350" ><i style="color: red; " class="icon-play-circle"></i></a>
                         </div>
                         <div class="bg-overlay-bg dark" data-hover-animate="fadeIn" data-hover-speed="350"></div>
                     </div>

@@ -10,6 +10,7 @@ use App\Models\Program\Program;
 use App\Http\Controllers\Controller;
 use App\Models\Frontmenu\Frontmenuitem;
 use App\Models\Program\Programcategory;
+use Session;
 
 class HomepageController extends Controller
 {
@@ -89,6 +90,12 @@ class HomepageController extends Controller
         foreach ($news->categories as $category)
         {
             $category_id = $category->parent;
+        }
+        $newsKey = 'news_' . $news->id;
+        if(!Session::has($newsKey))
+        {
+            $news->increment('view_count');
+            Session::put($newsKey,1);
         }
         return view('frontend_theme.news_portal.news_details',compact('news','category_id'));
     }

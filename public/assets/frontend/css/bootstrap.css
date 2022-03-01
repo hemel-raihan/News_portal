@@ -674,7 +674,7 @@ progress {
     background-color: #ffffff;
     border: 1px solid black;
     opacity: 0.6;
-    
+
   }
 
 .row {
@@ -688,11 +688,23 @@ progress {
 }
 .row > * {
   flex-shrink: 0;
-  width: 100%;
+  /* width: 100%; */
   max-width: 100%;
   padding-right: calc(var(--bs-gutter-x) * 0.5);
   padding-left: calc(var(--bs-gutter-x) * 0.5);
   margin-top: var(--bs-gutter-y);
+}
+
+@media (max-width: 767px) {
+    #single_news
+    {
+        width: 100%;
+    }
+    #mobile_tv
+    {
+        width: 100%;
+        padding-bottom: 50px;
+    }
 }
 
 .col {

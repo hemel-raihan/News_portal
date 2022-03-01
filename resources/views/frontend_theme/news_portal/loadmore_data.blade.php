@@ -2,7 +2,7 @@
             $data = [];
             @endphp
             @foreach($single_category->childrenRecursive as $key => $subcat)
-            @foreach ($subcat->posts()->paginate(1) as $news)
+            @foreach ($subcat->posts()->orderBy('id','desc')->paginate(1) as $news)
             @if ($news->status == 1)
             @php
             $data[] = $news;
